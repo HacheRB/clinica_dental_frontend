@@ -1,23 +1,27 @@
 <template>
-  <v-card>
-    <v-card-title>
-      Patients
-      <v-spacer></v-spacer>
-      <v-text-field
-        v-model="search"
-        append-icon="mdi-magnify"
-        label="Search"
-        single-line
-        hide-details
-      ></v-text-field>
-    </v-card-title>
-    <v-data-table
-      :headers="headers"
-      :items="patients"
-      :search="search"
-      @click:row="showPatient"
-    ></v-data-table>
-  </v-card>
+  <v-row>
+    <v-col>
+      <v-card>
+        <v-card-title>
+          Patients
+          <v-spacer></v-spacer>
+          <v-text-field
+            v-model="search"
+            append-icon="mdi-magnify"
+            label="Search"
+            single-line
+            hide-details
+          ></v-text-field>
+        </v-card-title>
+        <v-data-table
+          :headers="headers"
+          :items="patients"
+          :search="search"
+          @click:row="showPatient"
+        ></v-data-table>
+      </v-card>
+    </v-col>
+  </v-row>
 </template>
 
 <script>
