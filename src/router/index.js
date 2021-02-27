@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Landing from '../views/Landing'
 import PatientCreate from '../views/PatientCreate'
 import PatientProfile from '../views/PatientProfile'
 import PatientList from '../views/PatientList'
@@ -8,11 +7,6 @@ import PatientList from '../views/PatientList'
 Vue.use(VueRouter)
 
 const routes = [
-  {
-    path: '/',
-    name: 'Landing',
-    component: Landing
-  },
   {
     path: '/patients/create',
     name: 'PatientCreate',

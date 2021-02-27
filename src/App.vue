@@ -2,10 +2,8 @@
   <v-app>
     <v-main>
       <v-container fluid>
-        <v-row>
-          <v-col md="12" lg="6" xl="6">
-            <v-btn to="/"> Landing</v-btn>
-          </v-col>
+        <v-row class="buttons">
+          <Login />
           <v-col md="12" lg="6" xl="6">
             <v-btn to="/patients/create"> Create Patients</v-btn>
           </v-col>
@@ -22,13 +20,22 @@
 </template>
 
 <script>
+import Login from '@/components/Login'
 export default {
   name: 'App',
 
-  components: {},
+  components: { Login },
 
   data: () => ({
     //
   })
 }
 </script>
+
+<style lang="scss" scoped>
+.buttons {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+</style>
