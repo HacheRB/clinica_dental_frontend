@@ -4,10 +4,13 @@
       <v-container fluid>
         <v-row>
           <v-col md="12" lg="6" xl="6">
-            <v-btn to="/patientsForm"> Create Patients</v-btn>
+            <v-btn to="/"> Landing</v-btn>
           </v-col>
           <v-col md="12" lg="6" xl="6">
-            <v-btn to="/patientsList"> See Patients</v-btn>
+            <v-btn to="/patients/create"> Create Patients</v-btn>
+          </v-col>
+          <v-col md="12" lg="6" xl="6">
+            <v-btn to="/patients/list"> See Patients</v-btn>
           </v-col>
           <v-col md="12" lg="6" xl="6">
             <v-btn to="/patients/:idPatient"> See Patients Profile</v-btn>
