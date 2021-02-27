@@ -7,9 +7,10 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/patients/:idPatient',
+    path: '/patients/:patientId',
     name: 'PatientProfile',
-    component: PatientProfile
+    component: PatientProfile,
+    props: true
   },
   {
     path: '/patientsList',

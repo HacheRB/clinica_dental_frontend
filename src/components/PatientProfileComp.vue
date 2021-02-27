@@ -6,19 +6,13 @@
         <v-col cols="12" md="6">
           <v-row>
             <v-col cols="12" md="4">
-              <v-text-field
-                v-model="firstName"
-                :rules="nameRules"
-                label="First name"
-                required
-              >
+              <v-text-field v-model="firstName" label="First name" required>
               </v-text-field>
             </v-col>
 
             <v-col cols="12" md="4">
               <v-text-field
                 v-model="lastName"
-                :rules="nameRules"
                 label="Last name"
                 required
               ></v-text-field>
@@ -29,12 +23,7 @@
             <v-divider></v-divider>
 
             <v-col cols="12" md="4">
-              <v-text-field
-                v-model="email"
-                :rules="emailRules"
-                label="E-mail"
-                required
-              >
+              <v-text-field v-model="email" label="E-mail" required>
               </v-text-field>
             </v-col>
 
@@ -77,6 +66,10 @@
               <v-card color="#B2DFDB">
                 <v-card-title class="headline">
                   Citas
+                  <v-spacer></v-spacer>
+                  <v-btn color="teal lighten-2" grow
+                    ><v-icon>mdi-calendar-plus</v-icon>
+                  </v-btn>
                 </v-card-title>
                 <v-card-text>
                   <v-row>
@@ -133,6 +126,9 @@ export default {
   components: {
     Historical
   },
+  props: {
+    patient: Object
+  },
   data: () => ({
     dialog: false,
     firstName: '',
@@ -143,15 +139,7 @@ export default {
     bloodType: '',
     bloodTypes: ['0-', '0+', 'A-', 'A+', 'B-', 'B+', 'AB-', 'AB+'],
     observations: 'hola',
-    nameRules: [
-      v => !!v || 'Name is required',
-      v => v.length <= 50 || 'Name must be less than 10 characters'
-    ],
     email: '',
-    emailRules: [
-      v => !!v || 'E-mail is required',
-      v => /.+@.+/.test(v) || 'E-mail must be valid'
-    ],
     proxDate: {
       title: 'Próxima Cita',
       message: `Empaste`,
@@ -184,6 +172,16 @@ export default {
     isXsBreakpoint: function() {
       return this.$vuetify.breakpoint.name === 'xs'
     }
+  },
+  mounted() {
+    this.firstName = this.patient.firstName
+    this.lastName = this.patient.lastName
+    this.dni = this.patient.dni
+    this.email = this.patient.contact.email
+    this.mobilephone = this.patient.contact.mobilephone
+    this.telephone = this.patient.contact.telephone
+    this.bloodType = this.patient.bloodType
+    this.observations = this.patient.observations
   }
 }
 </script>

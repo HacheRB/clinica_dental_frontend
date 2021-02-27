@@ -11,5 +11,8 @@ export default {
   },
   async getPatients() {
     return await api.get('/patients')
+  },
+  async getPatientById(id) {
+    return await api.get(`/patients/${id}`)
   }
 }
