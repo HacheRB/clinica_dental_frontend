@@ -2,29 +2,24 @@
   <v-app>
     <v-main>
       <v-container fluid>
-        <v-row class="buttons">
-          <Login />
-          <v-col md="12" lg="6" xl="6">
-            <v-btn to="/patients/create"> Create Patients</v-btn>
-          </v-col>
-          <v-col md="12" lg="6" xl="6">
-            <v-btn to="/patients/list"> See Patients</v-btn>
-          </v-col>
-          <v-col md="12" lg="6" xl="6">
-            <v-btn to="/patients/:idPatient"> See Patients Profile</v-btn>
-          </v-col>
-        </v-row>
+        <SideBar />
+        <BottomBar v-if="this.$vuetify.breakpoint.smAndDown" />
         <router-view />
       </v-container> </v-main
   ></v-app>
 </template>
 
 <script>
-import Login from '@/components/Login'
+import SideBar from './components/SideBar'
+import BottomBar from './components/BottomBar'
+
 export default {
   name: 'App',
 
-  components: { Login },
+  components: {
+    SideBar,
+    BottomBar
+  },
 
   data: () => ({
     //
