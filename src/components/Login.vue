@@ -19,8 +19,10 @@
                 <v-card-text>
                   <v-form>
                     <v-text-field
-                      label="Username"
+                      label="Email"
                       prepend-icon="mdi-account-circle"
+                      v-model="email"
+                      :rules="emailRules"
                     />
                     <v-text-field
                       label="Password"
@@ -28,6 +30,7 @@
                       prepend-icon="mdi-lock"
                       :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
                       @click:append="showPassword = !showPassword"
+                      v-model="password"
                     />
                   </v-form>
                 </v-card-text>
@@ -39,7 +42,7 @@
                     :value="rememberMe"
                   ></v-checkbox>
                   <v-spacer></v-spacer>
-                  <v-btn color="success">Login</v-btn>
+                  <v-btn color="success" @click="logIn">Login</v-btn>
                 </v-card-actions>
               </v-card>
             </v-tab-item>
@@ -80,6 +83,8 @@
 </template>
 
 <script>
+import authService from '../services/authService'
+
 export default {
   name: 'Login',
   data() {
@@ -87,12 +92,37 @@ export default {
       rememberMe: false,
       showPassword: false,
       tabs: [null],
-      text:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
+      email: '',
+      password: '',
+      emailRules: [
+        v => !!v || 'E-mail is required',
+        v =>
+          /(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1, 3}\.[0-9]{1, 3}\.[0-9]{1, 3}\.[0-9]{1, 3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))/.test(
+            v
+          ) || 'E-mail must be valid'
+      ]
+      // passwordRules: [
+      //   v => !!v || 'Password is required',
+      //   v =>
+      //     /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/i.test(
+      //       v
+      //     ) || 'Password mustbe valid'
+      // ]
     }
   },
   methods: {
-    logIn() {}
+    logIn() {
+      authService
+        .login(this.email, this.password)
+        .then(response => {
+          if (response.data && response.data.token) {
+            console.log(response.data)
+            localStorage.setItem('token', response.data.token)
+            this.$router.push({ path: 'patients/list' })
+          }
+        })
+        .catch(err => console.log(err))
+    }
   }
 }
 </script>
