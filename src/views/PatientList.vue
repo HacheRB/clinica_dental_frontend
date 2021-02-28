@@ -55,6 +55,7 @@ export default {
   methods: {
     showPatient: function(item) {
       console.log(item)
+      this.$router.push(`${item._id}`)
     }
   }
 }
