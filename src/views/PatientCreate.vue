@@ -1,9 +1,5 @@
 <template>
-  <v-row class="d-flex justify-center">
-    <v-col cols="12" sm="12" md="12" lg="8" xl="6">
-      <PatientForm></PatientForm>
-    </v-col>
-  </v-row>
+  <PatientForm class="ma-0 ma-md-5"></PatientForm>
 </template>
 
 <script>

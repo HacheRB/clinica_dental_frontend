@@ -15,12 +15,12 @@ export default {
       {
         title: 'Crear Pacientes',
         icon: 'mdi-account-plus',
-        path: '/patientsForm'
+        path: '/patients/create'
       },
       {
         title: 'Buscar Pacientes',
         icon: 'mdi-account-search',
-        path: '/patientsList'
+        path: '/patients/list'
       },
       { title: 'Añadir Citas', icon: 'mdi-calendar-plus' },
       { title: 'Empleados', icon: 'mdi-account-group' }

@@ -1,88 +1,93 @@
 <template>
-  <v-form ref="form">
-    <v-container>
-      <v-row>
-        <v-col cols="12" sm="6" md="6" lg="6">
-          <v-text-field
-            v-model="firstName"
-            :rules="firstNameRules"
-            label="First name"
-            required
-          ></v-text-field>
-        </v-col>
+  <v-row class="d-flex justify-center">
+    <v-col cols="12" sm="12" md="12" lg="8" xl="6">
+      <v-form ref="form">
+        <v-container>
+          <v-row>
+            <v-col cols="12" sm="6" md="6" lg="6">
+              <v-text-field
+                v-model="firstName"
+                :rules="firstNameRules"
+                label="First name"
+                required
+              ></v-text-field>
+            </v-col>
 
-        <v-col cols="12" sm="6" md="6" lg="6">
-          <v-text-field
-            v-model="lastName"
-            :rules="lastNameRules"
-            label="Last name"
-            required
-          ></v-text-field>
-        </v-col>
-        <v-col cols="12" sm="6" md="6" lg="6">
-          <v-text-field
-            v-model="dni"
-            :rules="dniRules"
-            label="dni"
-            required
-          ></v-text-field>
-        </v-col>
-        <v-col cols="12" sm="6" md="6" lg="6">
-          <v-text-field
-            v-model="email"
-            :rules="emailRules"
-            label="Email"
-            required
-          ></v-text-field>
-        </v-col>
-        <v-col cols="12" sm="6" md="6" lg="6">
-          <v-text-field
-            v-model="mobilephone"
-            :rules="mobilephoneRules"
-            label="Mobilephone"
-            required
-          ></v-text-field>
-        </v-col>
-        <v-col cols="12" sm="6" md="6" lg="6">
-          <v-text-field
-            ref="telephone"
-            v-model="telephone"
-            :rules="telephoneRules"
-            label="Telephone"
-          ></v-text-field>
-        </v-col>
+            <v-col cols="12" sm="6" md="6" lg="6">
+              <v-text-field
+                v-model="lastName"
+                :rules="lastNameRules"
+                label="Last name"
+                required
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" sm="6" md="6" lg="6">
+              <v-text-field
+                v-model="dni"
+                :rules="dniRules"
+                label="dni"
+                required
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" sm="6" md="6" lg="6">
+              <v-text-field
+                v-model="email"
+                :rules="emailRules"
+                label="Email"
+                required
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" sm="6" md="6" lg="6">
+              <v-text-field
+                v-model="mobilephone"
+                :rules="mobilephoneRules"
+                label="Mobilephone"
+                required
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" sm="6" md="6" lg="6">
+              <v-text-field
+                ref="telephone"
+                v-model="telephone"
+                :rules="telephoneRules"
+                label="Telephone"
+              ></v-text-field>
+            </v-col>
 
-        <v-col cols="12" sm="6" md="6" lg="6">
-          <h4>Select patient's blood type</h4>
-          <v-select
-            :items="bloodTypes"
-            label="Patient's blood type"
-            v-model="bloodType"
-            solo
-          ></v-select>
-        </v-col>
-      </v-row>
+            <v-col cols="12" sm="6" md="6" lg="6">
+              <h4>Select patient's blood type</h4>
+              <v-select
+                :items="bloodTypes"
+                label="Patient's blood type"
+                :rules="bloodTypeRules"
+                v-model="bloodType"
+                solo
+              ></v-select>
+            </v-col>
+          </v-row>
 
-      <v-row class="observations">
-        <v-col cols="12">
-          <h4>Observations</h4>
-        </v-col>
-        <v-textarea
-          name="observations-text"
-          filled
-          auto-grow
-          value="observations"
-        ></v-textarea>
-      </v-row>
+          <v-row class="observations">
+            <v-col cols="12">
+              <h4>Observations</h4>
+            </v-col>
+            <v-textarea
+              name="observations-text"
+              filled
+              auto-grow
+              v-model="observations"
+            ></v-textarea>
+          </v-row>
 
-      <v-row>
-        <v-spacer></v-spacer>
-        <v-btn type="button" color="primary" @click="createPatient">
-          Create Patient
-        </v-btn>
-      </v-row>
-    </v-container>
-  </v-form>
+          <v-row>
+            <v-spacer></v-spacer>
+            <v-btn type="button" color="primary" @click="createPatient">
+              Create Patient
+            </v-btn>
+          </v-row>
+        </v-container>
+      </v-form>
+    </v-col>
+  </v-row>
 </template>
 
 <script>
@@ -124,10 +129,25 @@ export default {
       v => !!v || 'Mobilephone is required',
       v => /^[67][0-9]{8}$/.test(v) || 'Mobilephone must be valid'
     ],
-    telephoneRules: [v => /^[9][0-9]{8}$/.test(v) || 'Telephone must be valid']
+    telephoneRules: [
+      v => !v || /^[9][0-9]{8}$/.test(v) || 'Telephone must be valid'
+    ],
+    bloodTypeRules: [v => !!v || 'Select a blood type']
   }),
+  watch: {
+    observations: function() {
+      this.resetValidation()
+    }
+  },
   methods: {
+    resetValidation() {
+      this.$refs.form.resetValidation()
+    },
     async createPatient() {
+      if (!this.$refs.form.validate()) {
+        console.log('no pasa las validaciones')
+        return
+      }
       await patientService
         .createUser({
           firstName: this.firstName,
