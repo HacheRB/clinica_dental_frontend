@@ -40,7 +40,11 @@ export default {
   name: 'SideBard',
   data: () => ({
     items: [
-      { title: 'Inicio', icon: 'mdi-home-city' },
+      {
+        title: 'Inicio',
+        icon: 'mdi-home-city',
+        path: '/home'
+      },
       {
         title: 'Crear Pacientes',
         icon: 'mdi-account-plus',

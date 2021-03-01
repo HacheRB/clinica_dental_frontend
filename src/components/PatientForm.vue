@@ -94,7 +94,7 @@
 import patientService from '../services/patientService'
 
 export default {
-  name: 'patientForm',
+  name: 'PatientForm',
 
   data: () => ({
     firstName: '',
