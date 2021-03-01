@@ -10,5 +10,8 @@ export default {
   },
   async getPatientById(id) {
     return await api.get(`/patients/${id}`)
+  },
+  async updatePatient(patient, patientId) {
+    return await api.put(`/patients/${patientId}`, patient)
   }
 }
