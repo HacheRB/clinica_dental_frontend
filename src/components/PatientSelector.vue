@@ -62,24 +62,25 @@ export default {
   name: 'AppointmentForm',
   data() {
     return {
-      patientId: '',
+      id: '',
       patients: [],
       isLoading: false,
       model: null,
       search: null
     }
   },
+  methods: {
+    emitId: function() {
+      this.$emit('getpatientid', this.id)
+    }
+  },
   watch: {
     model(patient) {
       if (patient != null) {
         this.tab = 0
-        this.patientId = patient
+        this.id = patient
+        this.emitId()
       } else this.tab = null
-    },
-    methods: {
-      sendSelectedPatientId() {
-        this.$emit('')
-      }
     },
     search() {
       //patient entre parentesis

@@ -17,6 +17,11 @@ export default {
   components: {
     AppointmentForm,
     Calendar
+  },
+  data() {
+    return {
+      patientId: ''
+    }
   }
 }
 </script>

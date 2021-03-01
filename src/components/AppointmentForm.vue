@@ -1,5 +1,5 @@
 <template>
-  <PatientSelector />
+  <PatientSelector @getpatientid="updatePatient" />
 </template>
 
 <script>
@@ -8,6 +8,11 @@ export default {
   name: 'createPatient',
   components: {
     PatientSelector
+  },
+  methods: {
+    updatePatient(id) {
+      this.patientId = id
+    }
   }
 }
 </script>
