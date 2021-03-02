@@ -13,5 +13,10 @@ export default {
   },
   async updatePatient(patient, patientId) {
     return await api.put(`/patients/${patientId}`, patient)
+  },
+  async getPatientsByQuery(limit, page, input) {
+    return await api.get(
+      `/patients/search?input=${input}&limit=${limit}&page=${page}`
+    )
   }
 }
