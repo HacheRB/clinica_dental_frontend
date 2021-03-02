@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-main>
-      <v-container fluid fill-height>
+      <v-container fluid>
         <SideBar />
         <BottomBar v-if="this.$vuetify.breakpoint.smAndDown" />
         <router-view />

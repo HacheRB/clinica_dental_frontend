@@ -183,9 +183,9 @@ export default {
             firstName: this.firstName,
             lastName: this.lastName,
             dni: this.dni,
-            email: this.email,
-            mobilephone: this.mobilephone,
-            telephone: this.telephone,
+            'contact.email': this.email,
+            'contact.mobilephone': this.mobilephone,
+            'contact.telephone': this.telephone,
             firstname: this.firstName,
             bloodType: this.bloodType,
             observations: this.observations
