@@ -80,7 +80,7 @@
 
           <v-row>
             <v-spacer></v-spacer>
-            <v-btn type="button" color="primary" @click="createPatient">
+            <v-btn type="button" color="primary" @click.prevent="createPatient">
               Create Patient
             </v-btn>
           </v-row>
@@ -92,10 +92,11 @@
 
 <script>
 import patientService from '../services/patientService'
+// import PrimaryButton from '../components/PrimaryButton'
 
 export default {
   name: 'PatientForm',
-
+  // components: {PrimaryButton},
   data: () => ({
     firstName: '',
     lastName: '',
@@ -159,7 +160,10 @@ export default {
           bloodType: this.bloodType,
           observations: this.observations
         })
-        .then(res => console.log(res))
+        .then(res => {
+          console.log(res)
+          this.$router.push(`${res.data._id}`)
+        })
         .catch(err => console.log(err))
     }
   }

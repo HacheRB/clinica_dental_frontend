@@ -1,39 +1,50 @@
 <template>
-  <v-row>
-    <v-col>
-      <v-card>
-        <v-card-title>
-          Patients
-          <v-spacer></v-spacer>
-          <v-text-field
-            v-model="search"
-            append-icon="mdi-magnify"
-            label="Search"
-            single-line
-            hide-details
-            @keyup.enter="doSearch"
-          ></v-text-field>
-        </v-card-title>
-        <v-data-table
-          :headers="headers"
-          :items="patients"
-          :page="page"
-          :items-per-page="itemsPerPage"
-          :options.sync="options"
-          :server-items-length="totalPatients"
-          :search="search"
-          @click:row="showPatient"
-        ></v-data-table>
-      </v-card>
-    </v-col>
-  </v-row>
+  <v-container>
+    <v-row>
+      <v-col cols="6" class="d-flex justify-start align-center">
+        <v-text-field
+          v-model="search"
+          append-icon="mdi-magnify"
+          label="Search"
+          single-line
+          hide-details
+          @keyup="doSearch"
+        ></v-text-field>
+      </v-col>
+      <v-col cols="6" class="d-flex justify-end align-center">
+        <PrimaryButton name="Create Patient" route="/patients/create" />
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col>
+        <v-card>
+          <v-card-title>
+            Patients
+            <v-spacer></v-spacer>
+          </v-card-title>
+          <v-data-table
+            :headers="headers"
+            :items="patients"
+            :page="page"
+            :items-per-page="itemsPerPage"
+            :options.sync="options"
+            :server-items-length="totalPatients"
+            :search="search"
+            @click:row="showPatient"
+          ></v-data-table>
+        </v-card>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
 import PatientService from '../services/patientService'
+import PrimaryButton from '../components/PrimaryButton'
 
 export default {
   name: 'Patients',
+  components: { PrimaryButton },
   data: () => ({
     patients: [],
     search: '',
