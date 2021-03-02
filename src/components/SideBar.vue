@@ -46,16 +46,11 @@ export default {
         path: '/home'
       },
       {
-        title: 'Crear Pacientes',
-        icon: 'mdi-account-plus',
-        path: '/patients/create'
-      },
-      {
-        title: 'Buscar Pacientes',
+        title: 'Pacientes',
         icon: 'mdi-account-search',
         path: '/patients/list'
       },
-      { title: 'Añadir Citas', icon: 'mdi-calendar-plus' },
+      { title: 'Citas', icon: 'mdi-calendar' },
       { title: 'Empleados', icon: 'mdi-account-group' }
     ],
     mini: true

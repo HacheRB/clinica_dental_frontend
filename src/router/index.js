@@ -3,7 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home'
 import PatientCreate from '../views/PatientCreate'
 import PatientProfile from '../views/PatientProfile'
-import PatientList from '../views/PatientList'
+import Patients from '../views/Patients'
 import LandingPage from '../views/LandingPage'
 
 Vue.use(VueRouter)
@@ -26,8 +26,8 @@ const routes = [
   },
   {
     path: '/patients/list',
-    name: 'PatientList',
-    component: PatientList
+    name: 'Patients',
+    component: Patients
   },
   {
     path: '/patients/:patientId',

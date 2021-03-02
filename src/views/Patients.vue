@@ -33,7 +33,7 @@
 import PatientService from '../services/patientService'
 
 export default {
-  name: 'ShowPatientList',
+  name: 'Patients',
   data: () => ({
     patients: [],
     search: '',
