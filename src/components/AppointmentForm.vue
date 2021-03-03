@@ -30,7 +30,7 @@
 
     <v-stepper-items>
       <v-stepper-content step="1">
-        <v-card class=" mb-12" color="teal lighten-5" height="200px">
+        <v-card class=" mb-12" height="200px">
           <PatientSelector @getpatient="updatePatient" />
         </v-card>
 
@@ -44,8 +44,8 @@
       </v-stepper-content>
 
       <v-stepper-content step="2">
-        <v-card class="mb-12" color="grey lighten-1" height="200px">
-          <Step2 :patientId="patient._id" />
+        <v-card class="mb-12" height="200px">
+          <Step2 v-if="patient" :patientId="patient._id" />
         </v-card>
 
         <v-btn color="teal lighten-2 white--text" @click="e1 = 3">
@@ -58,7 +58,7 @@
       </v-stepper-content>
 
       <v-stepper-content step="3">
-        <v-card class="mb-12" color="grey lighten-1" height="200px"></v-card>
+        <v-card class="mb-12" height="200px"></v-card>
 
         <v-btn color="teal lighten-2 white--text">
           Continue
