@@ -31,7 +31,7 @@
     <v-stepper-items>
       <v-stepper-content step="1">
         <v-card class=" mb-12" color="teal lighten-5" height="200px">
-          <PatientSelector @getpatientid="updatePatient" />
+          <PatientSelector @getpatient="updatePatient" />
         </v-card>
 
         <v-btn color="teal lighten-2 white--text" @click="e1 = 2">
@@ -44,7 +44,9 @@
       </v-stepper-content>
 
       <v-stepper-content step="2">
-        <v-card class="mb-12" color="grey lighten-1" height="200px"></v-card>
+        <v-card class="mb-12" color="grey lighten-1" height="200px">
+          <Step2 :patientId="patient._id" />
+        </v-card>
 
         <v-btn color="teal lighten-2 white--text" @click="e1 = 3">
           Continue
@@ -72,19 +74,23 @@
 
 <script>
 import PatientSelector from '@/components/PatientSelector'
+import Step2 from '../components/Step2'
+
 export default {
   name: 'createPatient',
   components: {
-    PatientSelector
+    PatientSelector,
+    Step2
   },
   data() {
     return {
-      e1: 1
+      e1: 1,
+      patient: null
     }
   },
   methods: {
-    updatePatient(id) {
-      this.patientId = id
+    updatePatient(patient) {
+      this.patient = patient
     }
   }
 }

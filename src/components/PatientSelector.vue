@@ -12,6 +12,7 @@
       item-value="_id"
       label="Search for a patient"
       solo
+      return-object
     >
       <!-- item-text es el cambo de busqueda -->
       <template v-slot:no-data>
@@ -62,7 +63,6 @@ export default {
   name: 'AppointmentForm',
   data() {
     return {
-      id: '',
       patients: [],
       isLoading: false,
       model: null,
@@ -70,16 +70,15 @@ export default {
     }
   },
   methods: {
-    emitId: function() {
-      this.$emit('getpatientid', this.id)
+    emitPatient: function(patient) {
+      this.$emit('getpatient', patient)
     }
   },
   watch: {
     model(patient) {
       if (patient != null) {
         this.tab = 0
-        this.id = patient
-        this.emitId()
+        this.emitPatient(patient)
       } else this.tab = null
     },
     search() {
@@ -91,6 +90,7 @@ export default {
       PatientService.getPatients()
         .then(patients => {
           this.patients = patients.data
+          console.log(this.patients)
         })
         .catch(err => console.log(err))
         // Lazily load input items
