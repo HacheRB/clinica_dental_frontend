@@ -1,5 +1,5 @@
 <template>
-  <v-row>
+  <v-row class="mt-5">
     <v-autocomplete
       v-model="model"
       :items="patients"
