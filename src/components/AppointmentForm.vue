@@ -30,7 +30,7 @@
 
     <v-stepper-items>
       <v-stepper-content step="1">
-        <v-card class=" mb-12" height="200px">
+        <v-card class=" mb-12" min-height="200px">
           <PatientSelector @getpatient="updatePatient" />
         </v-card>
 
@@ -44,7 +44,7 @@
       </v-stepper-content>
 
       <v-stepper-content step="2">
-        <v-card class="mb-12" height="200px">
+        <v-card class="mb-12" min-height="200px">
           <Step2 v-if="patient" :patientId="patient._id" />
         </v-card>
 
@@ -58,7 +58,9 @@
       </v-stepper-content>
 
       <v-stepper-content step="3">
-        <v-card class="mb-12" height="200px"></v-card>
+        <v-card class="mb-12" min-height="200px">
+          <Step3 v-if="e1 === 3" />
+        </v-card>
 
         <v-btn color="teal lighten-2 white--text">
           Continue
@@ -75,12 +77,14 @@
 <script>
 import PatientSelector from '@/components/PatientSelector'
 import Step2 from '../components/Step2'
+import Step3 from '../components/Step3'
 
 export default {
   name: 'createPatient',
   components: {
     PatientSelector,
-    Step2
+    Step2,
+    Step3
   },
   data() {
     return {
