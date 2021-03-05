@@ -56,7 +56,10 @@
         <v-card class=" mb-12" min-height="200px">
           <PatientSelector @getpatient="updatePatient" />
         </v-card>
-        <v-btn color="teal lighten-2 white--text" @click="NextStep">
+        <v-btn
+          color="teal lighten-2 white--text"
+          @click="firstStepValidation()"
+        >
           Continue
         </v-btn>
         <v-btn text color="teal darken-4">
@@ -152,7 +155,17 @@ export default {
       console.log(hour)
     },
     updateTreatment(treatment) {
+      console.log('treatment appointmentform', treatment)
       this.treatment = treatment
+    },
+    firstStepValidation() {
+      console.log(this.patient)
+      if (this.patient === null || this.patient.length < 1) {
+        this.checkPatient = false
+      } else {
+        this.checkPatient = true
+        this.e1 = 2
+      }
     }
   },
   watch: {

@@ -52,7 +52,7 @@ export default {
   },
   watch: {
     treatment(treatment) {
-      this.$emit('gettreatment', treatment._id)
+      this.$emit('gettreatment', treatment)
     }
   },
   async created() {
