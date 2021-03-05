@@ -90,7 +90,6 @@ export default {
       PatientService.getPatients()
         .then(patients => {
           this.patients = patients.data
-          console.log(this.patients)
         })
         .catch(err => console.log(err))
         // Lazily load input items

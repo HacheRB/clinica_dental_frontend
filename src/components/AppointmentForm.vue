@@ -45,7 +45,11 @@
 
       <v-stepper-content step="2">
         <v-card class="mb-12" min-height="200px">
-          <Step2 v-if="patient" :patientId="patient._id" />
+          <Step2
+            v-if="patient"
+            :patientId="patient._id"
+            @gettreatment="updateTreatment"
+          />
         </v-card>
 
         <v-btn color="teal lighten-2 white--text" @click="e1 = 3">
@@ -59,7 +63,7 @@
 
       <v-stepper-content step="3">
         <v-card class="mb-12" min-height="200px">
-          <Step3 v-if="e1 === 3" />
+          <Step3 v-if="e1 === 3" :employees="employees" />
         </v-card>
 
         <v-btn color="teal lighten-2 white--text">
@@ -78,6 +82,7 @@
 import PatientSelector from '@/components/PatientSelector'
 import Step2 from '../components/Step2'
 import Step3 from '../components/Step3'
+import employeeService from '../services/employeeService'
 
 export default {
   name: 'createPatient',
@@ -89,13 +94,27 @@ export default {
   data() {
     return {
       e1: 1,
-      patient: null
+      patient: null,
+      treatment: null,
+      employees: null
     }
   },
   methods: {
     updatePatient(patient) {
       this.patient = patient
+    },
+    updateTreatment(treatment) {
+      this.treatment = treatment
     }
+  },
+  watch: {
+    treatment() {
+      console.log('padre ', this.treatment)
+    }
+  },
+  async created() {
+    let response = await employeeService.getWorkers()
+    this.employees = response.data.employees
   }
 }
 </script>

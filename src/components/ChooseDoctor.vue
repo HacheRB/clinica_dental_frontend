@@ -6,7 +6,7 @@
       :items="employees"
       filled
       chips
-      color="blue-grey lighten-2"
+      color="teal lighten-2"
       label="Choose the workers"
       item-text="firstName"
       item-value="item"
@@ -41,37 +41,32 @@
 </template>
 
 <script>
-import employeeService from '../services/employeeService'
+// import employeeService from '../services/employeeService'
 
 export default {
   name: 'ChooseDoctor',
   data: () => ({
-    employees: null,
     selected: [],
     isUpdating: false,
     autoUpdate: true
   }),
+  props: ['employees'],
   watch: {
     isUpdating(val) {
       if (val) {
         setTimeout(() => (this.isUpdating = false), 3000)
       }
+    },
+    selected(employeesId) {
+      console.log(this.selected, this.employeesId)
+      this.$emit('getemployees', employeesId)
     }
   },
-
   methods: {
     remove(item) {
       const index = this.selected.indexOf(item)
       if (index >= 0) this.selected.splice(index, 1)
     }
-  },
-  created: function() {
-    employeeService
-      .getWorkers()
-      .then(response => {
-        this.employees = response.data.employees
-      })
-      .catch(err => console.log(err))
   }
 }
 </script>

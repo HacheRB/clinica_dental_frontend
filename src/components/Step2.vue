@@ -19,6 +19,10 @@
     <v-row>
       <v-select
         :items="newTreatment ? allTreatments : activeTreatments"
+        v-model="treatment"
+        item-text="intervention"
+        return-object
+        color="teal lighten-2"
       ></v-select>
     </v-row>
   </v-container>
@@ -33,7 +37,8 @@ export default {
   data: () => ({
     newTreatment: null,
     allTreatments: ['Ortodoncia', 'Empaste', 'Endodoncia'],
-    activeTreatments: []
+    activeTreatments: [],
+    treatment: null
   }),
   methods: {
     getTreatments: function() {
@@ -44,6 +49,17 @@ export default {
         })
         .catch(err => console.log(err))
     }
+  },
+  watch: {
+    treatment(treatment) {
+      this.$emit('gettreatment', treatment._id)
+    }
+  },
+  async created() {
+    let patient = await PatientService.getPatientTreatments(this.patientId)
+    console.log('patient', patient)
+    this.activeTreatments = patient.data.treatments
+    console.log(this.activeTreatments)
   }
 }
 </script>

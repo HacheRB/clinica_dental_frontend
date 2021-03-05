@@ -6,7 +6,7 @@
       :items="pieces"
       filled
       chips
-      color="blue-grey lighten-2"
+      color="teal lighten-2"
       label="Choose the pieces"
       item-text="name"
       item-value="name"
@@ -84,6 +84,9 @@ export default {
       if (val) {
         setTimeout(() => (this.isUpdating = false), 3000)
       }
+    },
+    selected(pieces) {
+      this.$emit('getpieces', pieces)
     }
   },
 
