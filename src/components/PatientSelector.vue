@@ -10,6 +10,7 @@
       hide-selected
       item-text="dni"
       item-value="_id"
+      color="teal lighten-1"
       label="Search for a patient"
       solo
       return-object
@@ -28,7 +29,7 @@
         <v-chip
           v-bind="attr"
           :input-value="selected"
-          color="blue"
+          color="teal lighten-1"
           class="white--text"
           v-on="on"
         >
@@ -40,7 +41,7 @@
       <!-- Resultados -->
       <template v-slot:item="{ item }">
         <v-list-item-avatar
-          color="indigo"
+          color="teal lighten-1"
           class="headline font-weight-light white--text"
         >
           {{ item.firstName.charAt(0) }}
@@ -90,7 +91,6 @@ export default {
       PatientService.getPatients()
         .then(patients => {
           this.patients = patients.data
-          console.log(this.patients)
         })
         .catch(err => console.log(err))
         // Lazily load input items

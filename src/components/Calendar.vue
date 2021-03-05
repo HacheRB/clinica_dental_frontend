@@ -172,7 +172,6 @@ export default {
     },
     updateRange({ start, end }) {
       const events = []
-
       const min = new Date(`${start.date}T00:00:00`)
       const max = new Date(`${end.date}T23:59:59`)
       const days = (max.getTime() - min.getTime()) / 86400000
@@ -189,8 +188,8 @@ export default {
           name: this.names[this.rnd(0, this.names.length - 1)],
           start: first,
           end: second,
-          color: this.colors[this.rnd(0, this.colors.length - 1)],
-          timed: !allDay
+          color: this.colors[this.rnd(0, this.colors.length - 1)]
+          //timed: !allDay
         })
       }
 
