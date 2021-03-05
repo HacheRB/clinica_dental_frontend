@@ -85,22 +85,26 @@ export default {
     ]
   }),
   watch: {
-    date: function(val) {
-      this.appointment = val
-      this.$emit('senddateappointmentstep', this.appointment)
-    },
     selectStart: function(val) {
       if (val.toString().includes('.5'))
         this.appointmentHourStart = val.toString().replace('.5', ':30')
       else this.appointmentHourStart = val.toString() + ':00'
-      this.$emit('sendhourstartappointmentstep', this.appointmentHourStart)
+      this.$emit(
+        'sendhourstartappointmentstep',
+        this.date + ' ' + this.appointmentHourStart
+      )
     },
     selectEnd: function(val) {
       if (this.selectEnd !== null) {
         if (val.toString().includes('.5'))
           this.appointmentHourEnd = val.toString().replace('.5', ':30')
         else this.appointmentHourEnd = val.toString() + ':00'
-        this.$emit('sendhourendappointmentstep', this.appointmentHourEnd)
+        this.$emit(
+          'sendhourendappointmentstep',
+          this.date + ' ' + this.appointmentHourEnd
+        )
+      } else {
+        this.$emit('sendhourendappointmentstep', null)
       }
     }
   },
@@ -116,9 +120,6 @@ export default {
 
       return this.timeAppointmentEnd
     }
-  },
-  created() {
-    this.$emit('senddateappointmentstep', this.date)
   },
   methods: {
     allowedDates: val => {

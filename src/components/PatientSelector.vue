@@ -80,7 +80,10 @@ export default {
       if (patient != null) {
         this.tab = 0
         this.emitPatient(patient)
-      } else this.tab = null
+      } else {
+        this.tab = null
+        this.emitPatient(null)
+      }
     },
     search() {
       //patient entre parentesis

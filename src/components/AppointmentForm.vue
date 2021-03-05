@@ -6,7 +6,6 @@
         :complete="e1 > 1"
         step="1"
         :rules="[() => checkPatient]"
-        editable
       >
         Paciente
         <small v-if="!checkPatient">Seleccione Paciente</small>
@@ -18,11 +17,10 @@
         color="teal lighten-2"
         :complete="e1 > 2"
         step="2"
-        :rules="[() => false]"
-        editable
+        :rules="[() => checkIntervention]"
       >
         Tratamiento
-        <small>Seleccione Tratamiento</small>
+        <small v-if="!checkIntervention">Seleccione Tratamiento</small>
       </v-stepper-step>
       <v-divider></v-divider>
 
@@ -30,12 +28,11 @@
         color="teal lighten-2"
         :complete="e1 > 3"
         step="3"
-        :rules="[() => false]"
-        editable
+        :rules="[() => checkDoctor]"
       >
         Medico
 
-        <small>Seleccione Medico</small>
+        <small v-if="!checkDoctor">Seleccione Medico</small>
       </v-stepper-step>
 
       <v-divider></v-divider>
@@ -43,11 +40,10 @@
       <v-stepper-step
         color="teal lighten-2"
         step="4"
-        editable
-        :rules="[() => false]"
+        :rules="[() => checkDate]"
       >
         Cita
-        <small>Seleccione Cita</small>
+        <small v-if="!checkDate">Seleccione Cita</small>
       </v-stepper-step>
     </v-stepper-header>
 
@@ -75,7 +71,10 @@
           />
         </v-card>
 
-        <v-btn color="teal lighten-2 white--text" @click="e1 = 3">
+        <v-btn
+          color="teal lighten-2 white--text"
+          @click="secondStepValidation()"
+        >
           Continue
         </v-btn>
 
@@ -85,10 +84,17 @@
       </v-stepper-content>
       <v-stepper-content step="3">
         <v-card class="mb-12" min-height="200px">
-          <Step3 v-if="e1 === 3" :employees="employees" />
+          <Step3
+            v-if="e1 === 3"
+            :employees="employees"
+            @getstep3="updateStep3"
+          />
         </v-card>
 
-        <v-btn color="teal lighten-2 white--text" @click="e1 = 4">
+        <v-btn
+          color="teal lighten-2 white--text"
+          @click="thirdStepValidation()"
+        >
           Continue
         </v-btn>
 
@@ -99,12 +105,11 @@
       <v-stepper-content step="4">
         <v-card class="mb-12">
           <Step4
-            @senddateappointmentstep="getDateAppointment"
             @sendhourstartappointmentstep="getHourStartAppointment"
             @sendhourendappointmentstep="getHourEndAppointment"
         /></v-card>
 
-        <v-btn color="teal lighten-2 white--text">
+        <v-btn color="teal lighten-2 white--text" @click="createAppointment()">
           Create appointment
         </v-btn>
 
@@ -117,11 +122,12 @@
 </template>
 
 <script>
+//import AppointmentService from '@/services/appointmentService'
 import PatientSelector from '@/components/PatientSelector'
-import Step2 from '../components/Step2'
-import Step3 from '../components/Step3'
-import Step4 from '../components/Step4'
-import employeeService from '../services/employeeService'
+import Step2 from '@/components/Step2'
+import Step3 from '@/components/Step3'
+import Step4 from '@/components/Step4'
+import employeeService from '@/services/employeeService'
 
 export default {
   name: 'createPatient',
@@ -136,41 +142,83 @@ export default {
       e1: 1,
       patient: null,
       checkPatient: true,
-      treatment: null,
-      employees: null
+      checkIntervention: true,
+      checkDoctor: true,
+      checkDate: true,
+      intervention: null,
+      employees: null,
+      dateStart: null,
+      dateEnd: null,
+      details: {},
+      assignedEmployeesId: []
     }
   },
   methods: {
     updatePatient(patient) {
       this.patient = patient
-      console.log(patient)
     },
-    getDateAppointment(appointment) {
-      console.log(appointment)
+    getHourStartAppointment(dateStart) {
+      this.dateStart = dateStart
     },
-    getHourStartAppointment(hour) {
-      console.log(hour)
-    },
-    getHourEndAppointment(hour) {
-      console.log(hour)
+    getHourEndAppointment(dateEnd) {
+      this.dateEnd = dateEnd
     },
     updateTreatment(treatment) {
-      console.log('treatment appointmentform', treatment)
-      this.treatment = treatment
+      this.intervention = treatment
+    },
+    updateStep3(details) {
+      this.assignedEmployeesId = details.selectedEmployees.map(
+        employee => employee._id
+      )
+      this.details = details
     },
     firstStepValidation() {
-      console.log(this.patient)
       if (this.patient === null || this.patient.length < 1) {
         this.checkPatient = false
       } else {
         this.checkPatient = true
         this.e1 = 2
       }
-    }
-  },
-  watch: {
-    treatment() {
-      console.log('padre ', this.treatment)
+    },
+    secondStepValidation() {
+      if (this.intervention === null || this.intervention.length < 1) {
+        this.checkIntervention = false
+      } else {
+        this.checkIntervention = true
+        this.e1 = 3
+      }
+    },
+    thirdStepValidation() {
+      if (
+        (this.employees === null || this.employees.length < 1) &&
+        this.details !== null
+      ) {
+        this.checkDoctor = false
+      } else {
+        this.checkDoctor = true
+        this.e1 = 4
+      }
+    },
+    createAppointment() {
+      if (
+        this.checkDoctor &&
+        this.checkPatient &&
+        this.checkIntervention &&
+        this.dateStart !== null &&
+        this.dateEnd !== null
+      ) {
+        // AppointmentService.createAppointmentsDate({
+        //   patient: this.patient,
+        //   employees: this.assignedEmployeesId,
+        //   start: this.dateStart,
+        //   end: this.dateEnd,
+        //   piece: this.details.pieces,
+        //   observations: this.details.observations,
+        //   intervention: this.intervention
+        // })
+      } else {
+        this.checkDate = false
+      }
     }
   },
   async created() {
