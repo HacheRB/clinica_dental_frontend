@@ -5,11 +5,11 @@
         color="teal lighten-2"
         :complete="e1 > 1"
         step="1"
-        :rules="[() => true]"
+        :rules="[() => checkPatient]"
         editable
       >
         Paciente
-        <small>Seleccione Paciente</small>
+        <small v-if="!checkPatient">Seleccione Paciente</small>
       </v-stepper-step>
 
       <v-divider></v-divider>
@@ -122,6 +122,7 @@ export default {
   data() {
     return {
       e1: 1,
+      checkPatient: true,
       patient: null
     }
   },
