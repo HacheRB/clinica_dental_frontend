@@ -1,7 +1,7 @@
-import { api } from './apiurl'
+import { api } from '../services/apiurl'
 
 export default {
-  async getAppointmentsDate() {
+  async getAppointments() {
     return await api.get('/appointments')
   }
 }
