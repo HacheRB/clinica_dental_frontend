@@ -52,15 +52,21 @@
         <v-card class=" mb-12" min-height="200px">
           <PatientSelector @getpatient="updatePatient" />
         </v-card>
-        <v-btn
-          color="teal lighten-2 white--text"
-          @click="firstStepValidation()"
-        >
-          Continue
-        </v-btn>
-        <v-btn text color="teal darken-4">
-          Cancel
-        </v-btn>
+        <v-row>
+          <v-col>
+            <v-btn text color="teal darken-4">
+              Back
+            </v-btn>
+          </v-col>
+          <v-col class="d-flex justify-end">
+            <v-btn
+              color="teal lighten-2 white--text"
+              @click="firstStepValidation()"
+            >
+              Continue
+            </v-btn>
+          </v-col>
+        </v-row>
       </v-stepper-content>
       <v-stepper-content step="2">
         <v-card class="mb-12" min-height="200px">
@@ -77,15 +83,14 @@
         >
           Continue
         </v-btn>
-
         <v-btn text color="teal darken-4" @click="e1 = 1">
-          Cancel
+          Back
         </v-btn>
       </v-stepper-content>
       <v-stepper-content step="3">
         <v-card class="mb-12" min-height="200px">
           <Step3
-            v-if="e1 === 3"
+            v-if="intervention"
             :employees="employees"
             @getstep3="updateStep3"
           />
@@ -97,9 +102,8 @@
         >
           Continue
         </v-btn>
-
         <v-btn color="teal darken-4" text @click="e1 = 2">
-          Cancel
+          Back
         </v-btn>
       </v-stepper-content>
       <v-stepper-content step="4">
@@ -112,9 +116,8 @@
         <v-btn color="teal lighten-2 white--text" @click="createAppointment()">
           Create appointment
         </v-btn>
-
         <v-btn color="teal darken-4" text @click="e1 = 3">
-          Cancel
+          Back
         </v-btn>
       </v-stepper-content>
     </v-stepper-items>
@@ -122,7 +125,8 @@
 </template>
 
 <script>
-//import AppointmentService from '@/services/appointmentService'
+import TreatmentService from '@/services/treatmentService'
+import AppointmentService from '@/services/appointmentService'
 import PatientSelector from '@/components/PatientSelector'
 import Step2 from '@/components/Step2'
 import Step3 from '@/components/Step3'
@@ -150,6 +154,7 @@ export default {
       dateStart: null,
       dateEnd: null,
       details: {},
+      newTreatment: false,
       assignedEmployeesId: []
     }
   },
@@ -163,8 +168,11 @@ export default {
     getHourEndAppointment(dateEnd) {
       this.dateEnd = dateEnd
     },
-    updateTreatment(treatment) {
+    updateTreatment(treatment, newTreatment) {
+      console.log('treatment', treatment)
+      console.log('newTreatment', newTreatment)
       this.intervention = treatment
+      this.newTreatment = newTreatment
     },
     updateStep3(details) {
       this.assignedEmployeesId = details.selectedEmployees.map(
@@ -199,6 +207,27 @@ export default {
         this.e1 = 4
       }
     },
+    createAppointmentMethod(treatmentId, intervention) {
+      console.log('treatmentAppointment', treatmentId)
+      console.log('interventionAppointment', intervention)
+      AppointmentService.createAppointmentsDate({
+        patient: this.patient._id,
+        employees: this.assignedEmployeesId,
+        start: this.dateStart,
+        end: this.dateEnd,
+        pieces: this.details.pieces,
+        observations: this.details.observations,
+        intervention: intervention,
+        treatmentId: treatmentId
+      })
+        .then(appointment => {
+          //cerrar stepper, mensaje y actualizar calendario
+          console.log(appointment)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
     createAppointment() {
       if (
         this.checkDoctor &&
@@ -207,15 +236,28 @@ export default {
         this.dateStart !== null &&
         this.dateEnd !== null
       ) {
-        // AppointmentService.createAppointmentsDate({
-        //   patient: this.patient,
-        //   employees: this.assignedEmployeesId,
-        //   start: this.dateStart,
-        //   end: this.dateEnd,
-        //   piece: this.details.pieces,
-        //   observations: this.details.observations,
-        //   intervention: this.intervention
-        // })
+        if (this.newTreatment) {
+          TreatmentService.createTreatment({
+            patient: this.patient._id,
+            intervention: this.intervention
+          })
+            .then(treatment => {
+              console.log('********', treatment)
+              this.createAppointmentMethod(
+                treatment.data._id,
+                this.intervention
+              )
+            })
+            .catch(err => {
+              console.log(err)
+            })
+          console.log('newTreatment')
+        } else {
+          this.createAppointmentMethod(
+            this.intervention._id,
+            this.intervention.intervention
+          )
+        }
       } else {
         this.checkDate = false
       }
