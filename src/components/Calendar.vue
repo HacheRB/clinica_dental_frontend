@@ -69,7 +69,14 @@
           <v-toolbar :color="selectedEvent.color" dark>
             <v-toolbar-title v-html="selectedEvent.name"></v-toolbar-title>
             <v-spacer></v-spacer>
+            <v-spacer></v-spacer>
+            <v-spacer></v-spacer>
+            <v-spacer></v-spacer>
             <v-toolbar-title v-html="selectedEvent.startTime"></v-toolbar-title>
+            <v-spacer></v-spacer>
+            |
+            <v-spacer></v-spacer>
+            <v-toolbar-title v-html="selectedEvent.endTime"></v-toolbar-title>
           </v-toolbar>
           <v-card-text>
             <h2 class="mt-4 mb-2">
@@ -156,6 +163,7 @@ export default {
         this.getAppointment(event)
         this.selectedEvent = event
         this.selectedElement = nativeEvent.target
+        console.log(this.selectedEvent)
       }
 
       if (this.selectedOpen) {
@@ -170,7 +178,7 @@ export default {
     updateRange() {
       const events = []
 
-      AppointmentService.getAppointments()
+      AppointmentService.getAppointmentsDate()
         .then(appointments => {
           appointments.data.forEach(appointment => {
             let startHour = new Date(appointment.start).getHours()
@@ -183,9 +191,15 @@ export default {
               events.push({
                 name: appointment.intervention,
                 start: new Date(appointment.start),
-                startTime: `${startHour}:${startMinute}`,
+                startTime:
+                  startMinute === 0
+                    ? `${startHour}:${startMinute}0`
+                    : `${startHour}:${startMinute}`,
                 end: new Date(appointment.end),
-                endTime: `${endHour}:${endMinute}`,
+                endTime:
+                  endMinute === 0
+                    ? `${endHour}:${endMinute}0`
+                    : `${endHour}:${endMinute}`,
                 color: employee.color,
                 timed: true,
                 employee: `${employee.firstName} ${employee.lastName}`,
@@ -210,8 +224,9 @@ export default {
     getAppointment(event) {
       AppointmentService.getAppointmentById(event.appointmentId)
         .then(appointment => {
+          console.log(appointment.data)
           event.patient = appointment.data.patient
-          event.pieces = appointment.data.piece.join()
+          event.pieces = appointment.data.pieces.join()
           this.selectedOpen = true
         })
         .catch(err => console.log(err))

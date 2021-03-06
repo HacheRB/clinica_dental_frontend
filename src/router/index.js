@@ -5,6 +5,7 @@ import PatientCreate from '../views/PatientCreate'
 import PatientProfile from '../views/PatientProfile'
 import Patients from '../views/Patients'
 import LandingPage from '../views/LandingPage'
+import Appointments from '../views/Appointments'
 
 Vue.use(VueRouter)
 
@@ -33,6 +34,11 @@ const routes = [
     path: '/patients/:patientId',
     name: 'PatientProfile',
     component: PatientProfile
+  },
+  {
+    path: '/appointments/list',
+    name: 'Appointments',
+    component: Appointments
   }
 ]
 

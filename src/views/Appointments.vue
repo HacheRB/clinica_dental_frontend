@@ -12,25 +12,24 @@
         ></v-text-field>
       </v-col>
       <v-col cols="6" class="d-flex justify-end align-center">
-        <PrimaryButton name="Create Patient" route="/patients/create" />
+        <v-btn to="/home">Create Appointment</v-btn>
       </v-col>
     </v-row>
     <v-row>
       <v-col>
         <v-card>
           <v-card-title>
-            Patients
+            Appointments
             <v-spacer></v-spacer>
           </v-card-title>
           <v-data-table
             :headers="headers"
-            :items="patients"
+            :items="appointments"
             :page="page"
             :items-per-page="itemsPerPage"
             :options.sync="options"
-            :server-items-length="totalPatients"
+            :server-items-length="totalAppointments"
             :search="search"
-            @click:row="showPatient"
           ></v-data-table>
         </v-card>
       </v-col>
@@ -39,36 +38,34 @@
 </template>
 
 <script>
-import PatientService from '../services/patientService'
-import PrimaryButton from '../components/PrimaryButton'
+import AppointmentService from '../services/appointmentService'
 
 export default {
-  name: 'Patients',
-  components: { PrimaryButton },
+  name: 'Appointments',
   data: () => ({
-    patients: [],
+    appointments: [],
     search: '',
-    totalPatients: 0,
+    totalAppointments: 0,
     options: {},
     page: 1,
     itemsPerPage: 10,
     headers: [
       {
-        text: 'Apellidos',
+        text: 'Paciente',
         align: 'start',
         sortable: true,
-        value: 'lastName'
+        value: 'patient.firstName'
       },
-      { text: 'Nombre', value: 'firstName' },
-      { text: 'DNI', value: 'dni' },
-      { text: 'Telefono', value: 'contact.mobilephone' }
+      { text: 'Employee', value: 'employees[0].firstName' },
+      { text: 'Intervention', value: 'intervention' },
+      { text: 'Date', value: 'start' }
     ]
   }),
   created() {
-    PatientService.getPatients()
+    AppointmentService.getAppointments()
       .then(response => {
-        console.log('created', response.data.patients)
-        this.patients = response.data.patients
+        console.log(response.data.appointments)
+        this.appointments = response.data.appointments
       })
       .catch(err => console.log(err))
   },
@@ -81,10 +78,10 @@ export default {
     }
   },
   methods: {
-    showPatient: function(item) {
-      console.log(item)
-      this.$router.push(`${item._id}`)
-    },
+    // showPatient: function(item) {
+    //   console.log(item)
+    //   this.$router.push(`${item._id}`)
+    // },
     doSearch: function() {
       console.log(
         'doSeasrch',
@@ -93,20 +90,20 @@ export default {
         'page',
         this.page
       )
-      PatientService.getPatientsByQuery(
+      AppointmentService.getAppointmentsByQuery(
         this.itemsPerPage,
         this.page,
         this.search
       )
         .then(response => {
-          this.patients = response.data.patients
-          this.totalPatients = response.data.totalPatients
-          console.log(response.data.patients)
-          console.log(response.data.totalPatients)
+          this.appointments = response.data.appointments
+          this.totalAppointments = response.data.totalAppointments
+          console.log(response.data.appointments)
+          console.log(response.data.totalAppointments)
 
           const { sortBy, sortDesc } = this.options
           if (sortBy.length === 1 && sortDesc.length === 1) {
-            this.patients = this.patients.sort((a, b) => {
+            this.appointments = this.appointments.sort((a, b) => {
               const sortA = a[sortBy[0]]
               const sortB = b[sortBy[0]]
 

@@ -50,7 +50,7 @@ export default {
         icon: 'mdi-account-search',
         path: '/patients/list'
       },
-      { title: 'Citas', icon: 'mdi-calendar' },
+      { title: 'Citas', icon: 'mdi-calendar', path: '/appointments/list' },
       { title: 'Empleados', icon: 'mdi-account-group' }
     ],
     mini: true
