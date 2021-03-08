@@ -80,7 +80,10 @@ export default {
       if (patient != null) {
         this.tab = 0
         this.emitPatient(patient)
-      } else this.tab = null
+      } else {
+        this.tab = null
+        this.emitPatient(null)
+      }
     },
     search() {
       //patient entre parentesis
@@ -88,9 +91,9 @@ export default {
       if (this.patients.length > 0) return
       this.isLoading = true
 
-      PatientService.getPatients()
-        .then(patients => {
-          this.patients = patients.data
+      PatientService.getPatientsByQuery(10, 1, this.search)
+        .then(response => {
+          this.patients = response.data.patients
         })
         .catch(err => console.log(err))
         // Lazily load input items

@@ -44,7 +44,6 @@ export default {
     getTreatments: function() {
       PatientService.getPatientTreatments()
         .then(treatments => {
-          console.log(treatments)
           this.activeTreatments = treatments.data
         })
         .catch(err => console.log(err))
@@ -52,7 +51,8 @@ export default {
   },
   watch: {
     treatment(treatment) {
-      this.$emit('gettreatment', treatment)
+      console.log('treatmentStep2', treatment)
+      this.$emit('gettreatment', treatment, this.newTreatment)
     }
   },
   async created() {
