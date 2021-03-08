@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-app-bar color="teal lighten-2" dark absolute>
+    <v-app-bar color="teal" dark absolute fixed>
       <v-app-bar-nav-icon
         class="d-flex d-md-none"
         @click.stop="drawer = !drawer"
@@ -30,18 +30,9 @@
       <Login class="d-none d-sm-flex" />
     </v-app-bar>
 
-    <v-navigation-drawer
-      v-model="drawer"
-      color="teal lighten-2"
-      dark
-      absolute
-      temporary
-    >
+    <v-navigation-drawer v-model="drawer" color="teal" dark absolute temporary>
       <v-list nav dense>
-        <v-list-item-group
-          v-model="group"
-          active-class="white--text teal lighten-2"
-        >
+        <v-list-item-group v-model="group" active-class="white--text teal">
           <v-list-item>
             <v-list-item-title>Equipo</v-list-item-title>
           </v-list-item>
