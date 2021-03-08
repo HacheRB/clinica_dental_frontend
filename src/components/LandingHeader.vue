@@ -1,6 +1,6 @@
 <template>
-  <v-container>
-    <v-app-bar color="teal" dark absolute fixed>
+  <v-container fill-height>
+    <v-app-bar color="teal" dark app>
       <v-app-bar-nav-icon
         class="d-flex d-md-none"
         @click.stop="drawer = !drawer"

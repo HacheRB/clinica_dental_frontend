@@ -1,19 +1,14 @@
 <template>
   <v-container class="landing-container" fluid>
-    <LandingHeader />
-    <!-- <LandingHero /> -->
-
-    <LandingFooter />
+    <LandingHero />
   </v-container>
 </template>
 
 <script>
-import LandingHeader from '../components/LandingHeader'
-// import LandingHero from '../components/LandingHero'
-import LandingFooter from '../components/LandingFooter'
+import LandingHero from '../components/LandingHero'
 export default {
   name: 'LandingPage',
-  components: { LandingHeader, LandingFooter }
+  components: { LandingHero }
 }
 </script>
 

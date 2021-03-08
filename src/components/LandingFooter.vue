@@ -1,5 +1,5 @@
 <template>
-  <v-footer color="teal text-left white--text" padless absolute>
+  <v-footer color="teal text-left white--text" padless app absolute>
     <v-container fluid>
       <!-- <h2 class="text-uppercase mb-5">Información de contacto</h2> -->
 
