@@ -14,12 +14,12 @@
           v-for="(appointment, idx) in appointments"
           :key="idx"
         >
-          <v-col cols="4" class="d-flex justify-start">
-            <strong>{{ appointment.employees }}</strong>
+          <v-col cols="4" class="d-flex justify-start font-weight-medium">
+            {{ appointment.employees }}
           </v-col>
-          <v-col cols="4" class="d-flex justify-center">{{
-            appointment.intervention
-          }}</v-col>
+          <v-col cols="4" class="d-flex justify-center"
+            ><strong>{{ appointment.intervention }}</strong></v-col
+          >
           <v-col cols="3" class="d-flex justify-end">{{
             appointment.start
           }}</v-col>

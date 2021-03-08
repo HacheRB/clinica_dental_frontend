@@ -7,22 +7,24 @@
 
       <v-card-text>
         <div class="font-weight-bold ml-8 mb-2">
-          Today
+          Hoy
         </div>
 
         <v-timeline align-top dense>
           <v-timeline-item
-            v-for="message in messages"
-            :key="message.time"
-            :color="message.color"
+            v-for="treatment in finishedTreatments"
+            :key="treatment.time"
+            :color="treatment.color"
             small
           >
             <div>
-              <div class="font-weight-normal">
-                <strong>{{ message.from }}</strong>
+              <div class="font-weight-medium">
+                {{ treatment.from }}
               </div>
-              <div>Date{{ message.time }}</div>
-              <div>{{ message.message }}</div>
+              <div>Date {{ treatment.time }}</div>
+              <div>
+                <strong>{{ treatment.message }}</strong>
+              </div>
             </div>
           </v-timeline-item>
         </v-timeline>
@@ -38,31 +40,41 @@
 </template>
 
 <script>
+import TreatmentService from '@/services/treatmentService'
 export default {
   name: 'Historical',
   data() {
     return {
-      messages: [
-        {
-          from: 'Dr Who',
-          message: `Empaste`,
-          time: '18/01/2021 10:42am',
-          color: 'deep-purple lighten-1'
-        },
-        {
-          from: 'Dr Who2',
-          message: 'Empaste',
-          time: '16/09/2020 10:37am',
-          color: 'green'
-        },
-        {
-          from: 'Dr who3',
-          message: 'Extracción',
-          time: '20/5/2019 9:47am',
-          color: 'deep-purple lighten-1'
-        }
-      ]
+      finishedTreatments: []
     }
+  },
+  created() {
+    TreatmentService.getFinishedTreatmentByPatient(
+      this.$route.params.patientId
+    ).then(treatments => {
+      treatments.data.forEach(treatment => {
+        let employees = ''
+        if (treatment.appointments[0].employees.length > 1) {
+          treatment.appointments[0].employees.forEach(employee => {
+            employees += `${employee.firstName} ${employee.lastName.slice(
+              0,
+              3
+            )}. - `
+          })
+          employees = employees.slice(0, employees.length - 2)
+        } else {
+          employees = `${
+            treatment.appointments[0].employees[0].firstName
+          } ${treatment.appointments[0].employees[0].lastName.slice(0, 3)}.`
+        }
+        this.finishedTreatments.push({
+          message: treatment.intervention,
+          time: treatment.appointments[0].start,
+          from: employees,
+          color: 'teal'
+        })
+      })
+    })
   }
 }
 </script>
