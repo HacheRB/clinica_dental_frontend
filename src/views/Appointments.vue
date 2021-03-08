@@ -96,6 +96,7 @@ export default {
         this.search
       )
         .then(response => {
+          console.log(response)
           this.appointments = response.data.appointments
           this.totalAppointments = response.data.totalAppointments
           console.log(response.data.appointments)

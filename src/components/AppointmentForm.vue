@@ -171,6 +171,9 @@ export default {
   watch: {
     treatment() {
       console.log('padre ', this.treatment)
+    },
+    e1() {
+      console.log(this.e1)
     }
   },
   async created() {

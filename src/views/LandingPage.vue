@@ -1,18 +1,23 @@
 <template>
-  <v-row>
-    <v-col>
-      <Login />
-    </v-col>
-  </v-row>
+  <v-container class="landing-container" fluid>
+    <LandingHeader />
+
+    <LandingFooter />
+  </v-container>
 </template>
 
 <script>
-import Login from '../components/Login'
-
+import LandingHeader from '../components/LandingHeader'
+import LandingFooter from '../components/LandingFooter'
 export default {
   name: 'LandingPage',
-  components: { Login }
+  components: { LandingHeader, LandingFooter }
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.landing-container {
+  margin: 0;
+  padding: 0;
+}
+</style>

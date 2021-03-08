@@ -55,6 +55,9 @@ export default {
       this.$emit('gettreatment', treatment)
     }
   },
+  mounted() {
+    console.log('hola, cargo el mounted')
+  },
   async created() {
     let patient = await PatientService.getPatientTreatments(this.patientId)
     console.log('patient', patient)

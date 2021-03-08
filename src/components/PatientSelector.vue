@@ -12,6 +12,7 @@
       item-value="_id"
       color="teal lighten-1"
       label="Search for a patient"
+      :menu-props="{ closeOnContentClick: true }"
       solo
       return-object
     >
@@ -77,10 +78,14 @@ export default {
   },
   watch: {
     model(patient) {
+      console.log('X', patient)
       if (patient != null) {
         this.tab = 0
         this.emitPatient(patient)
-      } else this.tab = null
+      } else {
+        this.tab = null
+        this.emitPatient(null)
+      }
     },
     search() {
       //patient entre parentesis
