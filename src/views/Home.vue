@@ -20,7 +20,8 @@ export default {
   },
   data() {
     return {
-      patientId: ''
+      patientId: '',
+      createAppointment: false
     }
   }
 }

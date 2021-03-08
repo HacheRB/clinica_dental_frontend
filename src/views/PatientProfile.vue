@@ -108,7 +108,7 @@
 import PatientService from '../services/patientService'
 import Historical from '@/components/PatientHistorical'
 import Images from '@/components/PatientImage'
-import Dates from '@/components/PatientDates'
+import Dates from '@/components/PatientNextAppointments'
 import patientService from '../services/patientService'
 export default {
   name: 'PatientProfile',
