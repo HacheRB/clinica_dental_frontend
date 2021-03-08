@@ -168,6 +168,7 @@ export default {
       checkDoctor: true,
       checkDate: true,
       intervention: null,
+      subIntervention: null,
       employees: null,
       dateStart: null,
       dateEnd: null,
@@ -186,10 +187,11 @@ export default {
     getHourEndAppointment(dateEnd) {
       this.dateEnd = dateEnd
     },
-    updateTreatment(treatment, newTreatment) {
-      console.log('treatment', treatment)
+    updateTreatment(intervention, subIntervention, newTreatment) {
+      console.log('treatment', intervention)
       console.log('newTreatment', newTreatment)
-      this.intervention = treatment
+      this.intervention = intervention
+      this.subIntervention = subIntervention
       this.newTreatment = newTreatment
     },
     updateStep3(details) {
@@ -236,6 +238,7 @@ export default {
         pieces: this.details.pieces,
         observations: this.details.observations,
         intervention: intervention,
+        subIntervention: this.subIntervention,
         treatmentId: treatmentId
       })
         .then(appointment => {
@@ -257,7 +260,8 @@ export default {
         if (this.newTreatment) {
           TreatmentService.createTreatment({
             patient: this.patient._id,
-            intervention: this.intervention
+            intervention: this.intervention,
+            interventionSubtype: this.subIntervention
           })
             .then(treatment => {
               console.log('********', treatment)

@@ -1,5 +1,5 @@
 <template>
-  <v-col>
+  <v-col :cols="cols">
     <v-sheet height="64">
       <v-toolbar flat>
         <v-btn outlined class="mr-4" color="grey darken-2" @click="setToday">
@@ -138,6 +138,7 @@ export default {
       'Party'
     ]
   }),
+  props: ['cols'],
   mounted() {
     this.$refs.calendar.checkChange()
   },

@@ -1,6 +1,6 @@
 <template>
   <v-row justify="center">
-    <v-col cols="6">
+    <v-col>
       <v-date-picker
         v-model="date"
         color="teal lighten-1"
@@ -9,7 +9,7 @@
         locale="es-ES"
       ></v-date-picker>
     </v-col>
-    <v-col cols="6">
+    <v-col>
       <v-select
         color="teal lighten-1"
         :items="timeAppointmentStart"
