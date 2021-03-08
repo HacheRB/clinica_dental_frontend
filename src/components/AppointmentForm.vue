@@ -55,7 +55,7 @@
         <v-row>
           <v-col>
             <v-btn text color="teal darken-4">
-              Back
+              Atrás
             </v-btn>
           </v-col>
           <v-col class="d-flex justify-end">
@@ -63,7 +63,7 @@
               color="teal lighten-2 white--text"
               @click="firstStepValidation()"
             >
-              Continue
+              Continuar
             </v-btn>
           </v-col>
         </v-row>
@@ -76,16 +76,21 @@
             @gettreatment="updateTreatment"
           />
         </v-card>
-
-        <v-btn
-          color="teal lighten-2 white--text"
-          @click="secondStepValidation()"
-        >
-          Continue
-        </v-btn>
-        <v-btn text color="teal darken-4" @click="e1 = 1">
-          Back
-        </v-btn>
+        <v-row>
+          <v-col>
+            <v-btn text color="teal darken-4" @click="e1 = 1">
+              Atrás
+            </v-btn>
+          </v-col>
+          <v-col class="d-flex justify-end">
+            <v-btn
+              color="teal lighten-2 white--text"
+              @click="secondStepValidation()"
+            >
+              Continuar
+            </v-btn>
+          </v-col>
+        </v-row>
       </v-stepper-content>
       <v-stepper-content step="3">
         <v-card class="mb-12" min-height="200px">
@@ -95,16 +100,21 @@
             @getstep3="updateStep3"
           />
         </v-card>
-
-        <v-btn
-          color="teal lighten-2 white--text"
-          @click="thirdStepValidation()"
-        >
-          Continue
-        </v-btn>
-        <v-btn color="teal darken-4" text @click="e1 = 2">
-          Back
-        </v-btn>
+        <v-row>
+          <v-col>
+            <v-btn text color="teal darken-4" @click="e1 = 2">
+              Atrás
+            </v-btn>
+          </v-col>
+          <v-col class="d-flex justify-end">
+            <v-btn
+              color="teal lighten-2 white--text"
+              @click="thirdStepValidation()"
+            >
+              Continuar
+            </v-btn>
+          </v-col>
+        </v-row>
       </v-stepper-content>
       <v-stepper-content step="4">
         <v-card class="mb-12">
@@ -112,13 +122,21 @@
             @sendhourstartappointmentstep="getHourStartAppointment"
             @sendhourendappointmentstep="getHourEndAppointment"
         /></v-card>
-
-        <v-btn color="teal lighten-2 white--text" @click="createAppointment()">
-          Create appointment
-        </v-btn>
-        <v-btn color="teal darken-4" text @click="e1 = 3">
-          Back
-        </v-btn>
+        <v-row>
+          <v-col>
+            <v-btn text color="teal darken-4" @click="e1 = 3">
+              Atrás
+            </v-btn>
+          </v-col>
+          <v-col class="d-flex justify-end">
+            <v-btn
+              color="teal lighten-2 white--text"
+              @click="createAppointment()"
+            >
+              Continuar
+            </v-btn>
+          </v-col>
+        </v-row>
       </v-stepper-content>
     </v-stepper-items>
   </v-stepper>
