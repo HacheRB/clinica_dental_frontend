@@ -149,7 +149,6 @@ import PatientSelector from '@/components/PatientSelector'
 import Step2 from '@/components/Step2'
 import Step3 from '@/components/Step3'
 import Step4 from '@/components/Step4'
-import employeeService from '@/services/employeeService'
 
 export default {
   name: 'createPatient',
@@ -169,7 +168,6 @@ export default {
       checkDate: true,
       intervention: null,
       subIntervention: null,
-      employees: null,
       dateStart: null,
       dateEnd: null,
       details: {},
@@ -177,6 +175,7 @@ export default {
       assignedEmployeesId: []
     }
   },
+  props: ['employees'],
   methods: {
     updatePatient(patient) {
       this.patient = patient
@@ -284,10 +283,6 @@ export default {
         this.checkDate = false
       }
     }
-  },
-  async created() {
-    let response = await employeeService.getWorkers()
-    this.employees = response.data.employees
   }
 }
 </script>
