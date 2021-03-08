@@ -1,5 +1,5 @@
 <template>
-  <v-col>
+  <v-col :cols="cols">
     <v-sheet height="64">
       <v-toolbar flat>
         <v-btn outlined class="mr-4" color="grey darken-2" @click="setToday">
@@ -51,7 +51,7 @@
         ref="calendar"
         v-model="focus"
         color="primary"
-        :events="events"
+        :events="all ? events : filteredEvents"
         :event-color="getEventColor"
         :type="type"
         @click:event="showEvent"
@@ -118,6 +118,7 @@ export default {
     selectedElement: null,
     selectedOpen: false,
     events: [],
+    filteredEvents: [],
     colors: [
       'blue',
       'indigo',
@@ -138,6 +139,15 @@ export default {
       'Party'
     ]
   }),
+  props: ['cols', 'showThis', 'all', 'cleaning'],
+  watch: {
+    showThis() {
+      this.filteredEvents = this.filterPerSelectedEmployees()
+    },
+    cleaning() {
+      if (this.cleaning) this.filteredEvents = this.filterCleaningEvents()
+    }
+  },
   mounted() {
     this.$refs.calendar.checkChange()
   },
@@ -200,9 +210,13 @@ export default {
                   endMinute === 0
                     ? `${endHour}:${endMinute}0`
                     : `${endHour}:${endMinute}`,
-                color: employee.color,
+                color:
+                  appointment.intervention === 'Limpiezas'
+                    ? 'teal'
+                    : employee.color,
                 timed: true,
                 employee: `${employee.firstName} ${employee.lastName}`,
+                employeeId: employee._id,
                 otherEmployees: this.getOtherEmployees(appointment, employee),
                 appointmentId: appointment._id
               })
@@ -212,6 +226,7 @@ export default {
         .catch(err => console.log(err))
 
       this.events = events
+      this.filteredEvents = events
     },
     getOtherEmployees(appointment, employee) {
       return appointment.employees
@@ -231,8 +246,13 @@ export default {
         })
         .catch(err => console.log(err))
     },
-    rnd(a, b) {
-      return Math.floor((b - a + 1) * Math.random()) + a
+    filterPerSelectedEmployees() {
+      return this.events.filter(event =>
+        this.showThis.includes(event.employeeId)
+      )
+    },
+    filterCleaningEvents() {
+      return this.events.filter(event => event.name === 'Limpiezas')
     }
   }
 }

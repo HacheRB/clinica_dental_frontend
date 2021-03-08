@@ -17,5 +17,8 @@ export default {
   },
   async getAppointmentsByPatient(patientId) {
     return await api.get(`/appointments/patients/${patientId}`)
+  },
+  async createAppointmentsDate(appointment) {
+    return await api.post('/appointments', appointment)
   }
 }
