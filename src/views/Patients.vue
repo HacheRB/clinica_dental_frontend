@@ -12,7 +12,8 @@
         ></v-text-field>
       </v-col>
       <v-col cols="6" class="d-flex justify-end align-center">
-        <PrimaryButton name="Create Patient" route="/patients/create" />
+        <!-- <PrimaryButton name="Create Patient" route="/patients/create" /> -->
+        <CreatePatient></CreatePatient>
       </v-col>
     </v-row>
     <v-row>
@@ -40,16 +41,17 @@
 
 <script>
 import PatientService from '../services/patientService'
-import PrimaryButton from '../components/PrimaryButton'
-
+//import PrimaryButton from '../components/PrimaryButton'
+import CreatePatient from '../components/CreatePatient'
 export default {
   name: 'Patients',
-  components: { PrimaryButton },
+  components: { CreatePatient },
   data: () => ({
     patients: [],
     search: '',
     totalPatients: 0,
     options: {},
+    dialog: false,
     page: 1,
     itemsPerPage: 10,
     headers: [
