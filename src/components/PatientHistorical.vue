@@ -21,7 +21,7 @@
               <div class="font-weight-medium">
                 {{ treatment.from }}
               </div>
-              <div>Date {{ treatment.time }}</div>
+              <div>{{ treatment.time }}</div>
               <div>
                 <strong>{{ treatment.message }}</strong>
               </div>
@@ -52,28 +52,40 @@ export default {
     TreatmentService.getFinishedTreatmentByPatient(
       this.$route.params.patientId
     ).then(treatments => {
-      treatments.data.forEach(treatment => {
-        let employees = ''
-        if (treatment.appointments[0].employees.length > 1) {
-          treatment.appointments[0].employees.forEach(employee => {
-            employees += `${employee.firstName} ${employee.lastName.slice(
-              0,
-              3
-            )}. - `
-          })
-          employees = employees.slice(0, employees.length - 2)
-        } else {
-          employees = `${
-            treatment.appointments[0].employees[0].firstName
-          } ${treatment.appointments[0].employees[0].lastName.slice(0, 3)}.`
-        }
+      this.finishedTreatments = []
+      if (treatments.data.length < 1) {
+        let today = new Date(Date.now())
         this.finishedTreatments.push({
-          message: treatment.intervention,
-          time: treatment.appointments[0].start,
-          from: employees,
+          message: 'No hay tratamientos anteriores',
+          time: `Fecha: ${today.getFullYear()}-${today.getMonth() +
+            1}-${today.getDate()} ${today.getHours()}:${today.getMinutes()}`,
+          from: '',
           color: 'teal'
         })
-      })
+      } else {
+        treatments.data.forEach(treatment => {
+          let employees = ''
+          if (treatment.appointments[0].employees.length > 1) {
+            treatment.appointments[0].employees.forEach(employee => {
+              employees += `${employee.firstName} ${employee.lastName.slice(
+                0,
+                3
+              )}. - `
+            })
+            employees = employees.slice(0, employees.length - 2)
+          } else {
+            employees = `${
+              treatment.appointments[0].employees[0].firstName
+            } ${treatment.appointments[0].employees[0].lastName.slice(0, 3)}.`
+          }
+          this.finishedTreatments.push({
+            message: treatment.intervention,
+            time: 'Citas:' + treatment.appointments[0].start + '...',
+            from: employees,
+            color: 'teal'
+          })
+        })
+      }
     })
   }
 }
