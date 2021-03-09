@@ -1,7 +1,7 @@
 <template>
   <v-dialog v-model="dialog" persistent max-width="600px">
     <template v-slot:activator="{ on, attrs }">
-      <v-btn color="teal lighten-2 white--text" v-bind="attrs" v-on="on"
+      <v-btn color="teal darken-2 white--text" v-bind="attrs" v-on="on"
         >Crear Paciente</v-btn
       >
     </template>
@@ -99,7 +99,7 @@
       </v-card-text>
       <v-card-actions>
         <v-btn
-          color="teal lighten-2 white--text mb-2"
+          color="teal darken-2 white--text mb-2"
           text
           @click="dialog = false"
         >
@@ -107,7 +107,7 @@
         </v-btn>
         <v-spacer></v-spacer>
         <v-btn
-          color="teal lighten-2 white--text mb-2"
+          color="teal darken-2 white--text mb-2"
           @click.prevent="createPatient"
         >
           Guardar

@@ -71,7 +71,7 @@ export default {
       calendarCols: 12,
       createAppointment: false,
       createAppointmentBtnText: 'Crear Cita',
-      createAppointmentBtnColor: 'teal lighten-2 white--text',
+      createAppointmentBtnColor: 'teal darken-2 white--text',
       employees: null,
       all: true,
       cleaning: false,
@@ -87,7 +87,7 @@ export default {
       this.calendarCols = this.createAppointment ? 7 : 12
       this.createAppointmentBtnColor = this.createAppointment
         ? 'red'
-        : 'teal lighten-2 white--text'
+        : 'teal darken-2 white--text'
     }
   },
   created() {

@@ -13,7 +13,7 @@
         ></v-text-field>
       </v-col>
       <v-col cols="6" class="d-flex justify-end align-center">
-        <v-btn to="/home" color="teal lighten-2 white--text mb-2"
+        <v-btn to="/home" color="teal darken-2 white--text mb-2"
           >Crear Cita</v-btn
         >
       </v-col>
@@ -58,19 +58,19 @@ export default {
         align: 'start',
         sortable: true,
         value: 'patient.firstName',
-        class: 'teal lighten-2 white--text'
+        class: 'teal darken-2 white--text'
       },
       {
         text: 'Employee',
         value: 'employees[0].firstName',
-        class: 'teal lighten-2 white--text'
+        class: 'teal darken-2 white--text'
       },
       {
         text: 'Intervention',
         value: 'intervention',
-        class: 'teal lighten-2 white--text'
+        class: 'teal darken-2 white--text'
       },
-      { text: 'Date', value: 'start', class: 'teal lighten-2 white--text' }
+      { text: 'Date', value: 'start', class: 'teal darken-2 white--text' }
     ]
   }),
   created() {

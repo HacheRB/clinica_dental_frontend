@@ -4,7 +4,7 @@
       <v-card-title class="headline teal--text">
         <strong>Citas</strong>
         <v-spacer></v-spacer>
-        <v-btn color="teal lighten-2 white--text" grow @click="addAppointment()"
+        <v-btn color="teal darken-2 white--text" grow @click="addAppointment()"
           >Crear Cita
         </v-btn>
       </v-card-title>

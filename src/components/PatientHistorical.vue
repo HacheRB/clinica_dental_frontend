@@ -31,7 +31,7 @@
       </v-card-text>
 
       <v-card-actions>
-        <v-btn color="teal lighten-2 white--text mb-2">
+        <v-btn color="teal darken-2 white--text mb-2">
           Ver mas
         </v-btn>
       </v-card-actions>

@@ -61,18 +61,18 @@ export default {
         align: 'start',
         sortable: true,
         value: 'lastName',
-        class: 'teal white--text'
+        class: 'teal darken-2 white--text'
       },
       {
         text: 'Nombre',
         value: 'firstName',
-        class: 'teal white--text'
+        class: 'teal darken-2 white--text'
       },
-      { text: 'DNI', value: 'dni', class: 'teal lighten-2 white--text' },
+      { text: 'DNI', value: 'dni', class: 'teal darken-2 white--text' },
       {
         text: 'Telefono',
         value: 'contact.mobilephone',
-        class: 'teal white--text'
+        class: 'teal darken-2 white--text'
       }
     ]
   }),
