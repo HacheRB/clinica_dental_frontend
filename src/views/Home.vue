@@ -47,8 +47,18 @@
         :all="all"
         :cleaning="cleaning"
       />
-      <v-col v-if="this.$vuetify.breakpoint.lgAndUp">
-        <AppointmentForm v-if="createAppointment" :employees="employees" />
+      <v-col fill-height v-if="this.$vuetify.breakpoint.lgAndUp">
+        <transition
+          name="custom-classes-transition"
+          enter-active-class="animated fadeInRight"
+          leave-active-class="animated fadeOutRight"
+        >
+          <AppointmentForm
+            class="animate__animated animate__fadeInRight"
+            v-if="createAppointment"
+            :employees="employees"
+          />
+        </transition>
       </v-col>
     </v-row>
   </v-container>
