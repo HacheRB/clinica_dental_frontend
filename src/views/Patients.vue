@@ -3,23 +3,25 @@
     <v-row>
       <v-col cols="6" class="d-flex justify-start align-center">
         <v-text-field
+          color="teal lighten-2"
           v-model="search"
           append-icon="mdi-magnify"
-          label="Search"
+          label="Buscar"
           single-line
           hide-details
           @keyup="doSearch"
         ></v-text-field>
       </v-col>
       <v-col cols="6" class="d-flex justify-end align-center">
-        <PrimaryButton name="Create Patient" route="/patients/create" />
+        <!-- <PrimaryButton name="Create Patient" route="/patients/create" /> -->
+        <CreatePatient></CreatePatient>
       </v-col>
     </v-row>
     <v-row>
       <v-col>
         <v-card>
-          <v-card-title>
-            Patients
+          <v-card-title class="teal--text">
+            <strong>Pacientes</strong>
             <v-spacer></v-spacer>
           </v-card-title>
           <v-data-table
@@ -40,16 +42,17 @@
 
 <script>
 import PatientService from '../services/patientService'
-import PrimaryButton from '../components/PrimaryButton'
-
+//import PrimaryButton from '../components/PrimaryButton'
+import CreatePatient from '../components/CreatePatient'
 export default {
   name: 'Patients',
-  components: { PrimaryButton },
+  components: { CreatePatient },
   data: () => ({
     patients: [],
     search: '',
     totalPatients: 0,
     options: {},
+    dialog: false,
     page: 1,
     itemsPerPage: 10,
     headers: [
@@ -57,11 +60,20 @@ export default {
         text: 'Apellidos',
         align: 'start',
         sortable: true,
-        value: 'lastName'
+        value: 'lastName',
+        class: 'teal darken-2 white--text'
       },
-      { text: 'Nombre', value: 'firstName' },
-      { text: 'DNI', value: 'dni' },
-      { text: 'Telefono', value: 'contact.mobilephone' }
+      {
+        text: 'Nombre',
+        value: 'firstName',
+        class: 'teal darken-2 white--text'
+      },
+      { text: 'DNI', value: 'dni', class: 'teal darken-2 white--text' },
+      {
+        text: 'Telefono',
+        value: 'contact.mobilephone',
+        class: 'teal darken-2 white--text'
+      }
     ]
   }),
   created() {

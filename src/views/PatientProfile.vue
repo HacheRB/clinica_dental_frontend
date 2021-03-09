@@ -7,8 +7,9 @@
           <v-row>
             <v-col cols="12" md="4">
               <v-text-field
+                color="teal lighten-1"
                 v-model="firstName"
-                label="First name"
+                label="Nombre"
                 required
                 @change="change"
                 :rules="firstNameRules"
@@ -18,8 +19,9 @@
 
             <v-col cols="12" md="4">
               <v-text-field
+                color="teal lighten-1"
                 v-model="lastName"
-                label="Last name"
+                label="Apellidos"
                 required
                 @change="change"
                 :rules="lastNameRules"
@@ -27,6 +29,7 @@
             </v-col>
             <v-col cols="12" md="4">
               <v-text-field
+                color="teal lighten-1"
                 v-model="dni"
                 label="Dni"
                 required
@@ -38,8 +41,9 @@
 
             <v-col cols="12" md="4">
               <v-text-field
+                color="teal lighten-1"
                 v-model="email"
-                label="E-mail"
+                label="Email"
                 required
                 @change="change"
                 :rules="emailRules"
@@ -49,8 +53,9 @@
 
             <v-col cols="12" md="4">
               <v-text-field
+                color="teal lighten-1"
                 v-model="mobilephone"
-                label="Mobile Phone"
+                label="Móvil"
                 required
                 @change="change"
                 :rules="mobilephoneRules"
@@ -58,17 +63,20 @@
             </v-col>
             <v-col cols="12" md="4">
               <v-text-field
+                color="teal lighten-1"
                 v-model="telephone"
-                label="Telephone"
+                label="Teléfono"
                 @change="change"
                 :rules="telephoneRules"
               ></v-text-field>
             </v-col>
             <v-col cols="12" md="4">
               <v-select
+                color="teal lighten-1"
                 v-model="bloodType"
                 :items="bloodTypes"
-                label="Blood Types"
+                label="Grupo sanguíneo"
+                item-color="teal lighten-1"
                 required
                 @change="change"
                 :rules="bloodTypeRules"
@@ -77,8 +85,11 @@
             </v-col>
             <v-col cols="12">
               <v-textarea
+                color="teal lighten-1"
+                name="Observaciones"
+                label="Observaciones"
+                outlined
                 filled
-                label="Observations"
                 auto-grow
                 :value="observations"
                 @change="change"
@@ -86,7 +97,9 @@
             </v-col>
           </v-row>
           <v-row v-if="somethingChanged" class="d-flex justify-center">
-            <v-btn @click="updatePatient">Submit Changes</v-btn>
+            <v-btn color="teal lighten-2 white--text" @click="updatePatient"
+              >Actualizar</v-btn
+            >
           </v-row>
         </v-col>
         <!-- Columna de la izquierda con las cards de citas, historial y pruebas -->
@@ -108,7 +121,7 @@
 import PatientService from '../services/patientService'
 import Historical from '@/components/PatientHistorical'
 import Images from '@/components/PatientImage'
-import Dates from '@/components/PatientDates'
+import Dates from '@/components/PatientNextAppointments'
 import patientService from '../services/patientService'
 export default {
   name: 'PatientProfile',

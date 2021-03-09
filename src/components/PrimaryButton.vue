@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-btn :to="route">
+    <v-btn color="teal lighten-2 white--text" :to="route">
       {{ name }}
     </v-btn>
   </div>

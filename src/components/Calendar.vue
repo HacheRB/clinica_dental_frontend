@@ -1,12 +1,12 @@
 <template>
-  <v-col>
+  <v-col :cols="cols">
     <v-sheet height="64">
       <v-toolbar flat>
-        <v-btn outlined class="mr-4" color="grey darken-2" @click="setToday">
-          Today
+        <v-btn outlined class="mr-4" color="teal lighten-2" @click="setToday">
+          Hoy
         </v-btn>
         <v-spacer></v-spacer>
-        <v-btn fab text small color="grey darken-2" @click="prev">
+        <v-btn fab text small color="teal lighten-2" @click="prev">
           <v-icon small>
             mdi-chevron-left
           </v-icon>
@@ -14,7 +14,7 @@
         <v-toolbar-title v-if="$refs.calendar">
           {{ $refs.calendar.title }}
         </v-toolbar-title>
-        <v-btn fab text small color="grey darken-2" @click="next">
+        <v-btn fab text small color="teal lighten-2" @click="next">
           <v-icon small>
             mdi-chevron-right
           </v-icon>
@@ -22,7 +22,7 @@
         <v-spacer></v-spacer>
         <v-menu bottom right>
           <template v-slot:activator="{ on, attrs }">
-            <v-btn outlined color="grey darken-2" v-bind="attrs" v-on="on">
+            <v-btn outlined color="teal lighten-2" v-bind="attrs" v-on="on">
               <span>{{ typeToLabel[type] }}</span>
               <v-icon right>
                 mdi-menu-down
@@ -31,16 +31,16 @@
           </template>
           <v-list>
             <v-list-item @click="type = 'day'">
-              <v-list-item-title>Day</v-list-item-title>
+              <v-list-item-title>Dia</v-list-item-title>
             </v-list-item>
             <v-list-item @click="type = 'week'">
-              <v-list-item-title>Week</v-list-item-title>
+              <v-list-item-title>Semana</v-list-item-title>
             </v-list-item>
             <v-list-item @click="type = 'month'">
-              <v-list-item-title>Month</v-list-item-title>
+              <v-list-item-title>Mes</v-list-item-title>
             </v-list-item>
             <v-list-item @click="type = '4day'">
-              <v-list-item-title>4 days</v-list-item-title>
+              <v-list-item-title>4 dias</v-list-item-title>
             </v-list-item>
           </v-list>
         </v-menu>
@@ -49,9 +49,10 @@
     <v-sheet height="600">
       <v-calendar
         ref="calendar"
+        locale="es"
         v-model="focus"
-        color="primary"
-        :events="events"
+        color="teal lighten-2"
+        :events="all ? events : filteredEvents"
         :event-color="getEventColor"
         :type="type"
         @click:event="showEvent"
@@ -109,15 +110,16 @@ export default {
     focus: '',
     type: 'month',
     typeToLabel: {
-      month: 'Month',
-      week: 'Week',
-      day: 'Day',
-      '4day': '4 Days'
+      month: 'Mes',
+      week: 'Semana',
+      day: 'Dia',
+      '4day': '4 Dias'
     },
     selectedEvent: {},
     selectedElement: null,
     selectedOpen: false,
     events: [],
+    filteredEvents: [],
     colors: [
       'blue',
       'indigo',
@@ -138,6 +140,15 @@ export default {
       'Party'
     ]
   }),
+  props: ['cols', 'showThis', 'all', 'cleaning'],
+  watch: {
+    showThis() {
+      this.filteredEvents = this.filterPerSelectedEmployees()
+    },
+    cleaning() {
+      if (this.cleaning) this.filteredEvents = this.filterCleaningEvents()
+    }
+  },
   mounted() {
     this.$refs.calendar.checkChange()
   },
@@ -200,9 +211,13 @@ export default {
                   endMinute === 0
                     ? `${endHour}:${endMinute}0`
                     : `${endHour}:${endMinute}`,
-                color: employee.color,
+                color:
+                  appointment.intervention === 'Limpiezas'
+                    ? 'teal'
+                    : employee.color,
                 timed: true,
                 employee: `${employee.firstName} ${employee.lastName}`,
+                employeeId: employee._id,
                 otherEmployees: this.getOtherEmployees(appointment, employee),
                 appointmentId: appointment._id
               })
@@ -212,6 +227,7 @@ export default {
         .catch(err => console.log(err))
 
       this.events = events
+      this.filteredEvents = events
     },
     getOtherEmployees(appointment, employee) {
       return appointment.employees
@@ -231,8 +247,13 @@ export default {
         })
         .catch(err => console.log(err))
     },
-    rnd(a, b) {
-      return Math.floor((b - a + 1) * Math.random()) + a
+    filterPerSelectedEmployees() {
+      return this.events.filter(event =>
+        this.showThis.includes(event.employeeId)
+      )
+    },
+    filterCleaningEvents() {
+      return this.events.filter(event => event.name === 'Limpiezas')
     }
   }
 }

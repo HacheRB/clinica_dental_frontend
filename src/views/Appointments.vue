@@ -3,23 +3,26 @@
     <v-row>
       <v-col cols="6" class="d-flex justify-start align-center">
         <v-text-field
+          color="teal lighten-2"
           v-model="search"
           append-icon="mdi-magnify"
-          label="Search"
+          label="Buscar"
           single-line
           hide-details
           @keyup="doSearch"
         ></v-text-field>
       </v-col>
       <v-col cols="6" class="d-flex justify-end align-center">
-        <v-btn to="/home">Create Appointment</v-btn>
+        <v-btn to="/home" color="teal darken-2 white--text mb-2"
+          >Crear Cita</v-btn
+        >
       </v-col>
     </v-row>
     <v-row>
       <v-col>
         <v-card>
-          <v-card-title>
-            Appointments
+          <v-card-title class="teal--text">
+            <strong> Citas </strong>
             <v-spacer></v-spacer>
           </v-card-title>
           <v-data-table
@@ -54,11 +57,20 @@ export default {
         text: 'Paciente',
         align: 'start',
         sortable: true,
-        value: 'patient.firstName'
+        value: 'patient.firstName',
+        class: 'teal darken-2 white--text'
       },
-      { text: 'Employee', value: 'employees[0].firstName' },
-      { text: 'Intervention', value: 'intervention' },
-      { text: 'Date', value: 'start' }
+      {
+        text: 'Employee',
+        value: 'employees[0].firstName',
+        class: 'teal darken-2 white--text'
+      },
+      {
+        text: 'Intervention',
+        value: 'intervention',
+        class: 'teal darken-2 white--text'
+      },
+      { text: 'Date', value: 'start', class: 'teal darken-2 white--text' }
     ]
   }),
   created() {

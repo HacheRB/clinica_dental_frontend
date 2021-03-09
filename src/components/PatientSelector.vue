@@ -93,9 +93,9 @@ export default {
       if (this.patients.length > 0) return
       this.isLoading = true
 
-      PatientService.getPatients()
-        .then(patients => {
-          this.patients = patients.data
+      PatientService.getPatientsByQuery(10, 1, this.search)
+        .then(response => {
+          this.patients = response.data.patients
         })
         .catch(err => console.log(err))
         // Lazily load input items
