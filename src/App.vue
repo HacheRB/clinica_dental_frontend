@@ -1,9 +1,9 @@
 <template>
-  <v-app>
+  <v-app class="app">
     <LandingHeader v-if="this.$route.path === '/'" />
     <v-main class="pt-8 pt-md-10">
       <SideBar v-if="!(this.$route.path === '/')" />
-      <v-container fluid class="px-0">
+      <v-container fluid class=" app-container px-0">
         <router-view />
       </v-container>
       <BottomBar
@@ -23,7 +23,6 @@ import LandingFooter from './components/LandingFooter'
 
 export default {
   name: 'App',
-
   components: {
     SideBar,
     BottomBar,

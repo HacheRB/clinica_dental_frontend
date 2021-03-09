@@ -1,5 +1,5 @@
 <template>
-  <v-footer color="teal text-left white--text" padless app absolute>
+  <v-footer color="teal darken-2 text-left white--text" padless app absolute>
     <v-container fluid>
       <!-- <h2 class="text-uppercase mb-5">Información de contacto</h2> -->
 
@@ -12,7 +12,7 @@
           sm="4"
           md="4"
         >
-          <v-card flat tile class="teal white--text text-center">
+          <v-card flat tile class="transparent white--text text-center">
             <p
               cols="12"
               class="d-block text-left font-weight-bold text-body-2 text-sm-body-2 text-md-body-1 text-lg-body-1 text-xl-body-1"
@@ -42,7 +42,7 @@
           sm="4"
           md="4"
         >
-          <v-card flat tile class="teal white--text text-center ">
+          <v-card flat tile class="transparent white--text text-center ">
             <p
               class="text-left text-body-2 text-sm-body-2 text-md-body-1 text-lg-body-1 text-xl-body-1 mb-2"
             >
@@ -60,7 +60,7 @@
           sm="4"
           md="4"
         >
-          <v-card flat tile class="teal white--text text-center">
+          <v-card flat tile class="transparent white--text text-center">
             <p
               class="text-left font-weight-bold text-body-2 text-sm-body-2 text-md-body-1 text-lg-body-1 text-xl-body-1 mb-2"
             >
@@ -91,7 +91,7 @@
           sm="4"
           md="4"
         >
-          <v-card flat tile class="teal white--text text-center ">
+          <v-card flat tile class="transparent white--text text-center ">
             <p
               class="text-left font-weight-bold text-body-2 text-sm-body-2 text-md-body-1 text-lg-body-1 text-xl-body-1 mb-2"
             >
@@ -119,7 +119,7 @@
 
       <v-row class="d-flex d-sm-none flex-col">
         <v-col class="d-flex flex-col justify-center" cols="12" sm="4" md="4">
-          <v-card flat tile class="teal white--text text-center ">
+          <v-card flat tile class="transparent white--text text-center ">
             <p
               class="text-left text-body-2 text-sm-body-2 text-md-body-1 text-lg-body-1 text-xl-body-1 mb-2"
             >

@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container fluid pa-5>
     <v-row>
       <v-col cols="6" class="d-flex justify-start align-center">
         <v-text-field

@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container fluid pa-5>
     <v-row>
       <v-col :cols="createAppointment ? 7 : 10">
         <v-row class="d-flex justify-center">
