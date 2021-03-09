@@ -3,9 +3,10 @@
     <v-row>
       <v-col cols="6" class="d-flex justify-start align-center">
         <v-text-field
+          color="teal lighten-2"
           v-model="search"
           append-icon="mdi-magnify"
-          label="Search"
+          label="Buscar"
           single-line
           hide-details
           @keyup="doSearch"
@@ -19,8 +20,8 @@
     <v-row>
       <v-col>
         <v-card>
-          <v-card-title>
-            Patients
+          <v-card-title class="teal--text">
+            <strong>Pacientes</strong>
             <v-spacer></v-spacer>
           </v-card-title>
           <v-data-table
@@ -59,11 +60,20 @@ export default {
         text: 'Apellidos',
         align: 'start',
         sortable: true,
-        value: 'lastName'
+        value: 'lastName',
+        class: 'teal white--text'
       },
-      { text: 'Nombre', value: 'firstName' },
-      { text: 'DNI', value: 'dni' },
-      { text: 'Telefono', value: 'contact.mobilephone' }
+      {
+        text: 'Nombre',
+        value: 'firstName',
+        class: 'teal white--text'
+      },
+      { text: 'DNI', value: 'dni', class: 'teal lighten-2 white--text' },
+      {
+        text: 'Telefono',
+        value: 'contact.mobilephone',
+        class: 'teal white--text'
+      }
     ]
   }),
   created() {

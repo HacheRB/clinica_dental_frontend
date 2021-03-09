@@ -1,15 +1,21 @@
 <template>
   <v-card>
-    <v-navigation-drawer :mini-variant.sync="mini" fixed app :permanent="!isSm">
+    <v-navigation-drawer
+      :mini-variant.sync="mini"
+      fixed
+      app
+      :permanent="!isSm"
+      class="teal darken-2 white--text"
+    >
       <v-list-item class="px-2">
         <v-list-item-avatar>
           <v-img src="https://randomuser.me/api/portraits/men/85.jpg"></v-img>
         </v-list-item-avatar>
 
-        <v-list-item-title>John Leider</v-list-item-title>
+        <v-list-item-title class="white--text">John Leider</v-list-item-title>
 
         <v-btn icon @click.stop="mini = !mini">
-          <v-icon>mdi-chevron-left</v-icon>
+          <v-icon class="white--text">mdi-chevron-left</v-icon>
         </v-btn>
       </v-list-item>
 
@@ -23,11 +29,13 @@
           :to="item.path"
         >
           <v-list-item-icon>
-            <v-icon>{{ item.icon }}</v-icon>
+            <v-icon class="white--text">{{ item.icon }}</v-icon>
           </v-list-item-icon>
 
           <v-list-item-content>
-            <v-list-item-title>{{ item.title }}</v-list-item-title>
+            <v-list-item-title class="white--text">{{
+              item.title
+            }}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>

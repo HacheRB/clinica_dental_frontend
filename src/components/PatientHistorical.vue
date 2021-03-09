@@ -1,8 +1,8 @@
 <template
   ><v-col>
     <v-card color="#B2DFDB">
-      <v-card-title class="headline">
-        Historial
+      <v-card-title class="headline teal--text">
+        <strong>Historial</strong>
       </v-card-title>
 
       <v-card-text>
@@ -31,7 +31,7 @@
       </v-card-text>
 
       <v-card-actions>
-        <v-btn text>
+        <v-btn color="teal lighten-2 white--text mb-2">
           Ver mas
         </v-btn>
       </v-card-actions>

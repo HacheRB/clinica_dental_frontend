@@ -1,11 +1,11 @@
 <template>
   <v-col>
     <v-card color="#B2DFDB">
-      <v-card-title class="headline">
-        Citas
+      <v-card-title class="headline teal--text">
+        <strong>Citas</strong>
         <v-spacer></v-spacer>
-        <v-btn color="teal lighten-2" grow @click="addAppointment()"
-          ><v-icon>mdi-calendar-plus</v-icon>
+        <v-btn color="teal lighten-2 white--text" grow @click="addAppointment()"
+          >Crear Cita
         </v-btn>
       </v-card-title>
       <v-card-text>

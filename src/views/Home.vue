@@ -5,6 +5,7 @@
         <v-row class="d-flex justify-center">
           <v-col>
             <v-checkbox
+              color="teal lighten-2"
               label="Todos"
               v-model="all"
               @click=";(selectedEmployees = []), (cleaning = false)"
@@ -13,6 +14,7 @@
           </v-col>
           <v-col>
             <v-checkbox
+              color="teal lighten-2"
               label="Limpiezas"
               v-model="cleaning"
               @click=";(selectedEmployees = []), (all = false)"
@@ -20,6 +22,7 @@
           </v-col>
           <v-col v-for="(employee, idx) in employees" :key="idx">
             <v-checkbox
+              color="teal lighten-2"
               :label="`${employee.firstName} ${employee.lastName}`"
               :value="employee._id"
               v-model="selectedEmployees"
@@ -68,7 +71,7 @@ export default {
       calendarCols: 12,
       createAppointment: false,
       createAppointmentBtnText: 'Crear Cita',
-      createAppointmentBtnColor: 'teal',
+      createAppointmentBtnColor: 'teal lighten-2 white--text',
       employees: null,
       all: true,
       cleaning: false,
@@ -82,7 +85,9 @@ export default {
         ? 'Cerrar formulario'
         : 'Crear Cita'
       this.calendarCols = this.createAppointment ? 7 : 12
-      this.createAppointmentBtnColor = this.createAppointment ? 'red' : 'teal'
+      this.createAppointmentBtnColor = this.createAppointment
+        ? 'red'
+        : 'teal lighten-2 white--text'
     }
   },
   created() {
