@@ -3,7 +3,7 @@
     <LandingHeader v-if="this.$route.path === '/'" />
     <v-main class="pt-8 pt-md-10">
       <SideBar v-if="!(this.$route.path === '/')" />
-      <v-container fluid>
+      <v-container fluid class="px-0">
         <router-view />
       </v-container>
       <BottomBar
@@ -38,6 +38,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+* {
+  padding: 0;
+  margin: 0;
+}
+
 .buttons {
   display: flex;
   flex-direction: column;

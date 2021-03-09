@@ -24,14 +24,14 @@
               cols="12"
               class="text-left text-body-2 text-sm-body-2 text-md-body-1 text-lg-body-1 text-xl-body-1"
             >
-              Calle Prof. Francisco Cruz, 10
+              Calle Leon Y castillo, 200
             </p>
 
             <p
               cols="12"
               class="text-left text-body-2 text-sm-body-2 text-md-body-1 text-lg-body-1 text-xl-body-1"
             >
-              35200, Telde.
+              35010, Las Palmas.
             </p>
           </v-card>
         </v-col>
@@ -46,7 +46,7 @@
             <p
               class="text-left text-body-2 text-sm-body-2 text-md-body-1 text-lg-body-1 text-xl-body-1 mb-2"
             >
-              <strong>TELDE</strong> Calle Prof. Francisco Cruz, 10
+              <strong>Las Palmas</strong> Calle Leon Y castillo, 200
             </p>
             <p
               class="text-left text-body-2 text-sm-body-2 text-md-body-1 text-lg-body-1 text-xl-body-1 mb-2"
@@ -100,7 +100,7 @@
             <p
               class="text-left text-body-2 text-sm-body-2 text-md-body-1 text-lg-body-1 text-xl-body-1 mb-2"
             >
-              928692406
+              928111111
             </p>
             <p
               class="text-left font-weight-bold text-body-2 text-sm-body-2 text-md-body-1 text-lg-body-1 text-xl-body-1 mb-2"
@@ -111,7 +111,7 @@
             <p
               class="text-left text-body-2 text-sm-body-2 text-md-body-1 text-lg-body-1 text-xl-body-1 mb-2"
             >
-              info@clinicadentalmarrero.es
+              info@clinicadental.es
             </p>
           </v-card>
         </v-col>
@@ -126,13 +126,13 @@
               <v-icon color="white">
                 mdi-phone
               </v-icon>
-              <strong> 928692406</strong>
+              <strong> 928111111</strong>
             </p>
             <p
               class="text-left text-body-2 text-sm-body-2 text-md-body-1 text-lg-body-1 text-xl-body-1 mb-2"
             >
               <v-icon color="white">mdi-email</v-icon
-              ><strong> info@clinicadentalmarrero.es</strong>
+              ><strong> info@clinicadental.es</strong>
             </p>
           </v-card>
         </v-col>
@@ -140,7 +140,7 @@
       <!--  Row de año y nombre clinica -->
       <v-row>
         <v-col class="py-4 text-center white--text" cols="12">
-          {{ new Date().getFullYear() }} — <strong>Clínica Marrero</strong>
+          {{ new Date().getFullYear() }} — <strong>Clínica Dental</strong>
         </v-col>
       </v-row>
     </v-container>

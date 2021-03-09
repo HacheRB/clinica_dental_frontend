@@ -5,13 +5,16 @@
         class="d-flex d-md-none"
         @click.stop="drawer = !drawer"
       ></v-app-bar-nav-icon>
-      <v-toolbar-title>Clínica Marrero</v-toolbar-title>
+      <a id="title-anchor" href="#hero"
+        ><v-toolbar-title class="title">Clínica Dental</v-toolbar-title></a
+      >
 
       <v-spacer></v-spacer>
-
-      <v-btn plain class="d-none d-md-flex">
-        Equipo
-      </v-btn>
+      <a href="#team">
+        <v-btn plain class="d-none d-md-flex">
+          Equipo
+        </v-btn></a
+      >
       <v-spacer></v-spacer>
 
       <v-btn plain class="d-none d-md-flex">
@@ -24,7 +27,7 @@
       </v-btn>
       <v-spacer></v-spacer>
       <v-btn plain class="d-flex">
-        928615054
+        928111111
       </v-btn>
 
       <Login class="d-none d-sm-flex" />
@@ -72,4 +75,16 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+#title-anchor {
+  color: white;
+  text-decoration: none;
+}
+.title {
+  font-size: 1.25rem;
+  line-height: 1.5;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+</style>
