@@ -105,7 +105,7 @@
         <!-- Columna de la izquierda con las cards de citas, historial y pruebas -->
         <v-col cols="12" md="6">
           <v-row class="mb-16">
-            <Dates></Dates>
+            <Dates @sendPatient="getPatientId"></Dates>
           </v-row>
           <v-row class="mb-16">
             <Historical></Historical>
@@ -132,6 +132,7 @@ export default {
   },
   data: () => ({
     dialog: false,
+    patient: {},
     firstName: '',
     lastName: '',
     dni: '',
@@ -171,8 +172,8 @@ export default {
     bloodTypeRules: [v => !!v || 'Select a blood type']
   }),
   created() {
-    PatientService.getPatientById(this.$route.params.patientId).then(
-      request => {
+    PatientService.getPatientById(this.$route.params.patientId)
+      .then(request => {
         this.firstName = request.data.firstName
         this.lastName = request.data.lastName
         this.dni = request.data.dni
@@ -181,10 +182,16 @@ export default {
         this.telephone = request.data.contact.telephone
         this.bloodType = request.data.bloodType
         this.observations = request.data.observations
-      }
-    )
+        this.patient = request.data
+      })
+      .catch(err => {
+        console.log(err)
+      })
   },
   methods: {
+    getPatientId(patient) {
+      console.log(patient)
+    },
     change() {
       this.somethingChanged = true
       console.log(this.somethingChanged)

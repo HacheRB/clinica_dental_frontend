@@ -16,7 +16,7 @@
       solo
       return-object
     >
-      <!-- item-text es el cambo de busqueda -->
+      <!-- item-text es el campo de busqueda -->
       <template v-slot:no-data>
         <v-list-item>
           <v-list-item-title>
@@ -63,12 +63,19 @@ import PatientService from '../services/patientService'
 
 export default {
   name: 'AppointmentForm',
+  props: { patientNext: Object },
   data() {
     return {
       patients: [],
       isLoading: false,
       model: null,
       search: null
+    }
+  },
+  created() {
+    if (this.patientNext !== undefined) {
+      this.patients = [this.patientNext]
+      this.model = this.patientNext
     }
   },
   methods: {
@@ -78,7 +85,6 @@ export default {
   },
   watch: {
     model(patient) {
-      console.log('X', patient)
       if (patient != null) {
         this.tab = 0
         this.emitPatient(patient)
@@ -92,7 +98,6 @@ export default {
       // Items have already been loaded
       if (this.patients.length > 0) return
       this.isLoading = true
-
       PatientService.getPatientsByQuery(10, 1, this.search)
         .then(response => {
           this.patients = response.data.patients
