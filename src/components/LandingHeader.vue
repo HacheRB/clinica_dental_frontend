@@ -17,14 +17,18 @@
       >
       <v-spacer></v-spacer>
 
-      <v-btn plain class="d-none d-md-flex">
-        Servicios
-      </v-btn>
+      <a href="#services">
+        <v-btn plain class="d-none d-md-flex">
+          Servicios
+        </v-btn></a
+      >
       <v-spacer></v-spacer>
 
-      <v-btn plain class="d-none d-md-flex">
-        Solicitar Cita
-      </v-btn>
+      <a href="#contact">
+        <v-btn plain class="d-none d-md-flex">
+          Solicitar Información
+        </v-btn>
+      </a>
       <v-spacer></v-spacer>
       <v-btn plain class="d-flex">
         928111111
@@ -43,23 +47,26 @@
     >
       <v-list nav dense>
         <v-list-item-group v-model="group" active-class="white--text teal">
-          <v-list-item>
-            <v-list-item-title>Equipo</v-list-item-title>
-          </v-list-item>
+          <a href="#team">
+            <v-list-item>
+              <v-list-item-title>Equipo</v-list-item-title>
+            </v-list-item>
+          </a>
 
-          <v-list-item>
-            <v-list-item-title>Servicios</v-list-item-title>
-          </v-list-item>
+          <a href="#services">
+            <v-list-item>
+              <v-list-item-title>Servicios</v-list-item-title>
+            </v-list-item>
+          </a>
 
-          <v-list-item>
-            <v-list-item-title>Solicitar Cita</v-list-item-title>
-          </v-list-item>
-
-          <v-list-item>
-            <v-list-item-title>Telefono</v-list-item-title>
-          </v-list-item>
+          <a href="#contact">
+            <v-list-item>
+              <v-list-item-title>Solicitar Cita</v-list-item-title>
+            </v-list-item>
+          </a>
         </v-list-item-group>
       </v-list>
+      <Login class="d-flex d-sm-none" />
     </v-navigation-drawer>
   </v-container>
 </template>
