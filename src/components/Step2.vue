@@ -4,15 +4,15 @@
       <v-col class="d-flex justify-end">
         <v-btn
           @click=";(newTreatment = false), getTreatments"
-          :color="!newTreatment ? 'teal lighten2 white--text' : 'white'"
-          >Continue Treatment</v-btn
+          :color="!newTreatment ? 'teal lighten-1 white--text' : 'white'"
+          >Continuar Tratamiento</v-btn
         >
       </v-col>
       <v-col class="d-flex justify-start">
         <v-btn
           @click="newTreatment = true"
-          :color="newTreatment ? 'teal lighten2 white--text' : 'white'"
-          >New Treatment</v-btn
+          :color="newTreatment ? 'teal lighten-1 white--text' : 'white'"
+          >Nuevo Tratamiento</v-btn
         >
       </v-col>
     </v-row>
@@ -30,8 +30,8 @@
       <v-select
         :items="allTreatments[intervention]"
         v-model="subIntervention"
-        color="teal lighten-2"
-        v-if="intervention"
+        color="teal lighten-1"
+        v-if="intervention && newTreatment"
         label="Elige una intervención"
       >
       </v-select>

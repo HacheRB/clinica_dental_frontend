@@ -10,7 +10,7 @@
       <v-textarea
         outlined
         name="input-7-4"
-        label="Observations"
+        label="Motivos y observaciones"
         v-model="object.observations"
         color="teal lighten-2"
       ></v-textarea>

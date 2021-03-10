@@ -189,12 +189,8 @@ export default {
       })
   },
   methods: {
-    getPatientId(patient) {
-      console.log(patient)
-    },
     change() {
       this.somethingChanged = true
-      console.log(this.somethingChanged)
     },
     updatePatient() {
       patientService

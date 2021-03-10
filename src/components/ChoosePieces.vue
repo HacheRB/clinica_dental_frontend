@@ -6,14 +6,15 @@
       :items="pieces"
       filled
       chips
-      color="teal lighten-2"
-      label="Choose the pieces"
+      color="teal lighten-1"
+      label="Seleccione piezas"
       item-text="name"
       item-value="name"
       multiple
     >
       <template v-slot:selection="data">
         <v-chip
+          color="teal lighten-1 white--text"
           v-bind="data.attrs"
           :input-value="data.selected"
           close

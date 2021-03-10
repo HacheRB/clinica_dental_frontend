@@ -1,6 +1,5 @@
 <template>
   <v-col>
-    {{ patient }}
     <v-card color="#B2DFDB">
       <v-card-title class="headline teal--text">
         <strong>Citas</strong>
