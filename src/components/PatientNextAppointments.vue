@@ -1,10 +1,14 @@
 <template>
   <v-col>
+    {{ patient }}
     <v-card color="#B2DFDB">
       <v-card-title class="headline teal--text">
         <strong>Citas</strong>
         <v-spacer></v-spacer>
-        <v-btn color="teal darken-2 white--text" grow @click="addAppointment()"
+        <v-btn
+          color="teal darken-2 white--text"
+          grow
+          :to="{ name: 'Home', params: { patient } }"
           >Crear Cita
         </v-btn>
       </v-card-title>
@@ -31,16 +35,15 @@
 
 <script>
 import AppointmentService from '@/services/appointmentService'
+
+import PatientService from '../services/patientService'
 export default {
   name: 'PatientDates',
+  // props: { patient: Object },
   data() {
     return {
-      appointments: []
-    }
-  },
-  methods: {
-    addAppointment: function() {
-      this.$router.push({ path: '/home' })
+      appointments: [],
+      patient: {}
     }
   },
   created() {
@@ -69,6 +72,13 @@ export default {
         })
       })
     })
+    PatientService.getPatientById(this.$route.params.patientId)
+      .then(request => {
+        this.patient = request.data
+      })
+      .catch(err => {
+        console.log(err)
+      })
   }
 }
 </script>

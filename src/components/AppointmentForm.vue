@@ -50,7 +50,10 @@
     <v-stepper-items>
       <v-stepper-content step="1">
         <v-card class=" mb-12" min-height="200px">
-          <PatientSelector @getpatient="updatePatient" />
+          <PatientSelector
+            @getpatient="updatePatient"
+            :patientNext="patientNext"
+          />
         </v-card>
         <v-row>
           <v-col>
@@ -175,7 +178,7 @@ export default {
       assignedEmployeesId: []
     }
   },
-  props: ['employees'],
+  props: { employees: Array, patientNext: Object },
   methods: {
     updatePatient(patient) {
       this.patient = patient
@@ -200,6 +203,7 @@ export default {
       this.details = details
     },
     firstStepValidation() {
+      console.log('firstStepValidation', this.patient)
       if (this.patient === null || this.patient.length < 1) {
         this.checkPatient = false
       } else {

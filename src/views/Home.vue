@@ -57,6 +57,7 @@
             class="animate__animated animate__fadeInRight"
             v-if="createAppointment"
             :employees="employees"
+            :patientNext="patient"
           />
         </transition>
       </v-col>
@@ -75,9 +76,9 @@ export default {
     AppointmentForm,
     Calendar
   },
+  props: { patient: Object },
   data() {
     return {
-      patientId: '',
       calendarCols: 12,
       createAppointment: false,
       createAppointmentBtnText: 'Crear Cita',
@@ -101,6 +102,9 @@ export default {
     }
   },
   created() {
+    if (this.patient !== undefined) {
+      this.toggleAppointmentForm()
+    }
     EmployeeService.getEmployees()
       .then(response => {
         this.employees = response.data.employees
