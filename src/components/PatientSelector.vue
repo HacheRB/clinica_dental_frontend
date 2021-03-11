@@ -24,7 +24,6 @@
           </v-list-item-title>
         </v-list-item>
       </template>
-
       <!-- Paciente Seleccionado -->
       <template v-slot:selection="{ attr, on, item, selected }">
         <v-chip

@@ -3,7 +3,7 @@
     <v-col>
       <v-date-picker
         v-model="date"
-        color="teal lighten-1"
+        color="teal darken-1"
         :allowed-dates="allowedDates"
         class="mt-4"
         locale="es-ES"
