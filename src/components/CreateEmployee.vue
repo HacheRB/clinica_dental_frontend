@@ -264,7 +264,7 @@ export default {
       })
         .then(res => {
           console.log(res)
-          this.$router.go()
+          //this.$router.go()
         })
         .catch(err => console.log(err))
     },

@@ -14,6 +14,10 @@
       </v-col>
       <v-col cols="6" class="d-flex justify-end align-center">
         <CreateEmployee></CreateEmployee>
+        <EmployeeProfile
+          :employee="employee"
+          @closeDialog="closeDialog"
+        ></EmployeeProfile>
       </v-col>
     </v-row>
     <v-row>
@@ -31,6 +35,7 @@
             :options.sync="options"
             :server-items-length="totalEmployees"
             :search="search"
+            @click:row="showEmployee"
           >
             <template v-slot:item.color="{ item }">
               <v-chip :color="item.color" class="rounded-circle" small dark>
@@ -44,14 +49,16 @@
 </template>
 
 <script>
+import EmployeeProfile from '../components/EmployeeProfile'
 import CreateEmployee from '../components/CreateEmployee'
 import EmployeeService from '../services/employeeService'
 export default {
   name: 'Employees',
-  components: { CreateEmployee },
+  components: { CreateEmployee, EmployeeProfile },
   data: () => ({
     employees: [],
     search: '',
+    employee: {},
     totalEmployees: 0,
     options: {},
     page: 1,
@@ -103,6 +110,12 @@ export default {
     }
   },
   methods: {
+    closeDialog: function() {
+      this.employee = {}
+    },
+    showEmployee: function(value) {
+      this.employee = value
+    },
     doSearch: function() {
       EmployeeService.getEmployeesByQuery(
         this.itemsPerPage,
