@@ -76,7 +76,7 @@ export default {
     AppointmentForm,
     Calendar
   },
-  props: { patient: Object },
+  props: { patient: Object, toggleForm: Boolean },
   data() {
     return {
       calendarCols: 12,
@@ -102,7 +102,7 @@ export default {
     }
   },
   created() {
-    if (this.patient !== undefined) {
+    if (this.patient !== undefined || !this.toggleForm) {
       this.toggleAppointmentForm()
     }
     EmployeeService.getEmployees()

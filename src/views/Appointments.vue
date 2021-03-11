@@ -13,7 +13,9 @@
         ></v-text-field>
       </v-col>
       <v-col cols="6" class="d-flex justify-end align-center">
-        <v-btn to="/home" color="teal darken-2 white--text mb-2"
+        <v-btn
+          :to="{ path: '/home', params: { toggleForm } }"
+          color="teal darken-2 white--text mb-2"
           >Crear Cita</v-btn
         >
       </v-col>
@@ -69,6 +71,7 @@ export default {
     options: {},
     page: 1,
     itemsPerPage: 10,
+    toggleForm: true,
     headers: [
       {
         text: 'Paciente',
