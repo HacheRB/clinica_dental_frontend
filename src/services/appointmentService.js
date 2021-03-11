@@ -20,5 +20,11 @@ export default {
   },
   async createAppointmentsDate(appointment) {
     return await api.post('/appointments', appointment)
+  },
+  async updateAppointment(appointment) {
+    return await api.put(`/appointments/${appointment._id}`, appointment)
+  },
+  async deleteAppointment(appointment) {
+    return await api.delete(`/appointments/${appointment._id}`)
   }
 }
