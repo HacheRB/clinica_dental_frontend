@@ -105,7 +105,7 @@
         <!-- Columna de la izquierda con las cards de citas, historial y pruebas -->
         <v-col cols="12" md="6">
           <v-row class="mb-16">
-            <Dates @sendPatient="getPatientId"></Dates>
+            <Dates></Dates>
           </v-row>
           <v-row class="mb-16">
             <Historical></Historical>

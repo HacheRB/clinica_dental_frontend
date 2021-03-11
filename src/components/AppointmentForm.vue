@@ -231,8 +231,6 @@ export default {
       }
     },
     createAppointmentMethod(treatmentId, intervention) {
-      console.log('treatmentAppointment', treatmentId)
-      console.log('interventionAppointment', intervention)
       AppointmentService.createAppointmentsDate({
         patient: this.patient._id,
         employees: this.assignedEmployeesId,
@@ -245,7 +243,6 @@ export default {
         treatmentId: treatmentId
       })
         .then(appointment => {
-          //cerrar stepper, mensaje y actualizar calendario
           console.log(appointment)
         })
         .catch(err => {
