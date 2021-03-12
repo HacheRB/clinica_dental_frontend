@@ -251,7 +251,6 @@ export default {
       this.somethingChanged = true
     },
     updateProfile() {
-      console.log('this.colorSelected', this.colorSelected)
       EmployeeService.updateEmployee(this.employee._id, {
         firstName: this.firstName,
         dateOfEmployment: this.date,

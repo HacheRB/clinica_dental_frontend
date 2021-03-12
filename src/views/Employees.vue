@@ -88,6 +88,12 @@ export default {
         class: 'teal darken-2 white--text'
       },
       {
+        text: 'Cargo',
+        value: 'occupation',
+        class: 'teal darken-2 white--text'
+      },
+
+      {
         text: 'Color',
         value: 'color',
         class: 'teal darken-2 white--text'
@@ -97,8 +103,18 @@ export default {
   created() {
     EmployeeService.getEmployees()
       .then(response => {
-        console.log('employees', response.data.employees)
-        this.employees = response.data.employees
+        this.employees = response.data.employees.map(employee => {
+          return {
+            _id: employee._id,
+            firstName: employee.firstName,
+            lastName: employee.lastName,
+            color: employee.color,
+            contact: employee.contact,
+            dni: employee.dni,
+            occupation:
+              employee.occupation === 'DOCTOR' ? 'Dentista' : 'Auxiliar'
+          }
+        })
       })
       .catch(err => console.log(err))
   },
@@ -110,6 +126,11 @@ export default {
       this.doSearch()
     }
   },
+  // computed: {
+  //   changeOccupation(occupation) {
+  //     return occupation === 'DOCTOR' ? 'Dentista' : 'Auxiliar'
+  //   }
+  // },
   methods: {
     closeDialog: function() {
       this.employee = {}
@@ -124,7 +145,21 @@ export default {
         this.search
       )
         .then(response => {
-          this.employees = response.data.employees
+          this.employees = response.data.employees.map(employee => {
+            return {
+              _id: employee._id,
+              dateOfEmployment: employee.dateOfEmployment,
+              password: employee.password,
+              employed: employee.employed,
+              firstName: employee.firstName,
+              lastName: employee.lastName,
+              color: employee.color,
+              contact: employee.contact,
+              dni: employee.dni,
+              occupation:
+                employee.occupation === 'DOCTOR' ? 'Dentista' : 'Auxiliar'
+            }
+          })
           this.totalEmployees = response.data.totalEmployees
           const { sortBy, sortDesc } = this.options
           if (sortBy.length === 1 && sortDesc.length === 1) {

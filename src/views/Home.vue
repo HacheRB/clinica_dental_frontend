@@ -102,7 +102,7 @@ export default {
     }
   },
   created() {
-    if (this.patient !== undefined) {
+    if (Object.keys(this.patient).length) {
       this.toggleAppointmentForm()
     }
     EmployeeService.getEmployees()
