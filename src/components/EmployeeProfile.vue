@@ -1,8 +1,8 @@
 <template>
   <div>
-    <v-dialog v-model="dialog" width="500">
+    <v-dialog v-model="dialog" fullscreen width="500">
       <v-card>
-        <v-card-title class="headline teal darken-1">
+        <v-card-title class="headline teal darken-1 white--text">
           {{ firstName + ' ' + lastName }}
         </v-card-title>
 
@@ -148,9 +148,12 @@
         <v-divider></v-divider>
 
         <v-card-actions>
-          <v-spacer></v-spacer>
           <v-btn color="teal darken-1" text @click="closeDialog">
             Cerrar
+          </v-btn>
+          <v-spacer></v-spacer>
+          <v-btn color="teal darken-1 white--text" @click="updateProfile">
+            Actualizar
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -159,6 +162,7 @@
 </template>
 
 <script>
+import EmployeeService from '../services/employeeService'
 export default {
   name: 'EmployeeProfile',
   props: {
@@ -197,7 +201,7 @@ export default {
     employee: function(value) {
       if (Object.keys(value).length) {
         this.dialog = true
-        this.updateProfile()
+        this.changeDataProfile()
       }
     }
   },
@@ -208,13 +212,11 @@ export default {
     }
   },
   methods: {
-    updateProfile() {
+    changeDataProfile() {
       if (Object.keys(this.employee).length) {
-        console.log(this.employee)
         this.firstName = this.employee.firstName
         this.date = this.employee.dateOfEmployment
         this.lastName = this.employee.lastName
-
         this.occupationSelected =
           this.employee.occupation === 'DOCTOR' ? 'Dentista' : 'Auxiliar'
         this.dni = this.employee.dni
@@ -243,9 +245,34 @@ export default {
     closeDialog: function() {
       this.dialog = false
       this.$emit('closeDialog')
+      this.$emit('updateProfile')
     },
     change() {
       this.somethingChanged = true
+    },
+    updateProfile() {
+      console.log('this.colorSelected', this.colorSelected)
+      EmployeeService.updateEmployee(this.employee._id, {
+        firstName: this.firstName,
+        dateOfEmployment: this.date,
+        lastName: this.lastName,
+        occupation:
+          this.occupationSelected === 'Dentista' ? 'DOCTOR' : 'ASSISTANT',
+        dni: this.dni,
+        password: this.password,
+        'contact.email': this.email,
+        'contact.mobilephone': this.mobilephone,
+        'contact.telephone': this.telephone,
+        color: this.colorSelected,
+        employed: this.employed
+      })
+        .then(response => {
+          this.closeDialog()
+          console.log(response)
+        })
+        .catch(err => {
+          console.log(err)
+        })
     }
   }
 }

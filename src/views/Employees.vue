@@ -17,6 +17,7 @@
         <EmployeeProfile
           :employee="employee"
           @closeDialog="closeDialog"
+          @updateProfile="updateProfile"
         ></EmployeeProfile>
       </v-col>
     </v-row>
@@ -143,6 +144,9 @@ export default {
           }
         })
         .catch(err => console.log(err))
+    },
+    updateProfile() {
+      this.doSearch()
     }
   }
 }

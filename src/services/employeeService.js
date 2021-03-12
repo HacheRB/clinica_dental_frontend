@@ -11,5 +11,8 @@ export default {
   },
   async createEmployee(employee) {
     return await api.post(`/employees`, employee)
+  },
+  async updateEmployee(employeeId, employee) {
+    return await api.put(`/employees/${employeeId}`, employee)
   }
 }
