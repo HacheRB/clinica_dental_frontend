@@ -13,7 +13,12 @@
         ></v-text-field>
       </v-col>
       <v-col cols="6" class="d-flex justify-end align-center">
-        <CreateEmployee></CreateEmployee>
+        <CreateEmployee @createProfile="createProfile"></CreateEmployee>
+        <EmployeeProfile
+          :employee="employee"
+          @closeDialog="closeDialog"
+          @updateProfile="updateProfile"
+        ></EmployeeProfile>
       </v-col>
     </v-row>
     <v-row>
@@ -31,6 +36,7 @@
             :options.sync="options"
             :server-items-length="totalEmployees"
             :search="search"
+            @click:row="showEmployee"
           >
             <template v-slot:item.color="{ item }">
               <v-chip :color="item.color" class="rounded-circle" small dark>
@@ -44,14 +50,16 @@
 </template>
 
 <script>
+import EmployeeProfile from '../components/EmployeeProfile'
 import CreateEmployee from '../components/CreateEmployee'
 import EmployeeService from '../services/employeeService'
 export default {
   name: 'Employees',
-  components: { CreateEmployee },
+  components: { CreateEmployee, EmployeeProfile },
   data: () => ({
     employees: [],
     search: '',
+    employee: {},
     totalEmployees: 0,
     options: {},
     page: 1,
@@ -80,6 +88,12 @@ export default {
         class: 'teal darken-2 white--text'
       },
       {
+        text: 'Cargo',
+        value: 'occupation',
+        class: 'teal darken-2 white--text'
+      },
+
+      {
         text: 'Color',
         value: 'color',
         class: 'teal darken-2 white--text'
@@ -89,8 +103,18 @@ export default {
   created() {
     EmployeeService.getEmployees()
       .then(response => {
-        console.log('employees', response.data.employees)
-        this.employees = response.data.employees
+        this.employees = response.data.employees.map(employee => {
+          return {
+            _id: employee._id,
+            firstName: employee.firstName,
+            lastName: employee.lastName,
+            color: employee.color,
+            contact: employee.contact,
+            dni: employee.dni,
+            occupation:
+              employee.occupation === 'DOCTOR' ? 'Dentista' : 'Auxiliar'
+          }
+        })
       })
       .catch(err => console.log(err))
   },
@@ -102,7 +126,18 @@ export default {
       this.doSearch()
     }
   },
+  // computed: {
+  //   changeOccupation(occupation) {
+  //     return occupation === 'DOCTOR' ? 'Dentista' : 'Auxiliar'
+  //   }
+  // },
   methods: {
+    closeDialog: function() {
+      this.employee = {}
+    },
+    showEmployee: function(value) {
+      this.employee = value
+    },
     doSearch: function() {
       EmployeeService.getEmployeesByQuery(
         this.itemsPerPage,
@@ -110,7 +145,21 @@ export default {
         this.search
       )
         .then(response => {
-          this.employees = response.data.employees
+          this.employees = response.data.employees.map(employee => {
+            return {
+              _id: employee._id,
+              dateOfEmployment: employee.dateOfEmployment,
+              password: employee.password,
+              employed: employee.employed,
+              firstName: employee.firstName,
+              lastName: employee.lastName,
+              color: employee.color,
+              contact: employee.contact,
+              dni: employee.dni,
+              occupation:
+                employee.occupation === 'DOCTOR' ? 'Dentista' : 'Auxiliar'
+            }
+          })
           this.totalEmployees = response.data.totalEmployees
           const { sortBy, sortDesc } = this.options
           if (sortBy.length === 1 && sortDesc.length === 1) {
@@ -130,6 +179,12 @@ export default {
           }
         })
         .catch(err => console.log(err))
+    },
+    createProfile() {
+      this.doSearch()
+    },
+    updateProfile() {
+      this.doSearch()
     }
   }
 }

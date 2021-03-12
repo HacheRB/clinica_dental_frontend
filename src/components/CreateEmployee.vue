@@ -264,7 +264,9 @@ export default {
       })
         .then(res => {
           console.log(res)
-          this.$router.go()
+
+          this.dialog = false
+          this.$emit('createProfile')
         })
         .catch(err => console.log(err))
     },

@@ -81,18 +81,18 @@ export default {
         class: 'teal darken-2 white--text'
       },
       {
-        text: 'Employee',
+        text: 'Empleado',
         value: 'employees[0].firstName',
         class: 'teal darken-2 white--text'
       },
       {
-        text: 'Intervention',
+        text: 'Tratamiento',
         value: 'intervention',
         class: 'teal darken-2 white--text'
       },
-      { text: 'Date', value: 'start', class: 'teal darken-2 white--text' },
+      { text: 'Fecha', value: 'start', class: 'teal darken-2 white--text' },
       {
-        text: 'Actions',
+        text: 'Acciones',
         value: 'action',
         sortable: false,
         class: 'teal darken-2 white--text'

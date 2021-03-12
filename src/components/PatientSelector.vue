@@ -72,7 +72,7 @@ export default {
     }
   },
   created() {
-    if (this.patientNext !== undefined) {
+    if (Object.keys(this.patientNext).length) {
       this.patients = [this.patientNext]
       this.model = this.patientNext
     }
