@@ -38,14 +38,13 @@ import AppointmentService from '@/services/appointmentService'
 import PatientService from '../services/patientService'
 export default {
   name: 'PatientDates',
-  // props: { patient: Object },
   data() {
     return {
       appointments: [],
       patient: {}
     }
   },
-  created() {
+  mounted() {
     AppointmentService.getAppointmentsByPatient(
       this.$route.params.patientId
     ).then(appointments => {

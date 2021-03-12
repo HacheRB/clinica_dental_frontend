@@ -13,7 +13,9 @@
         ></v-text-field>
       </v-col>
       <v-col cols="6" class="d-flex justify-end align-center">
-        <v-btn to="/home" color="teal darken-2 white--text mb-2"
+        <v-btn
+          :to="{ path: '/home', params: { toggleForm } }"
+          color="teal darken-2 white--text mb-2"
           >Crear Cita</v-btn
         >
       </v-col>
@@ -33,25 +35,43 @@
             :options.sync="options"
             :server-items-length="totalAppointments"
             :search="search"
-          ></v-data-table>
+            @click:row="sendAppointment"
+          >
+            <template v-slot:item.action="{ item }">
+              <v-btn @click.stop="deleteAppointment(item)" icon>
+                <v-icon>mdi-delete</v-icon>
+              </v-btn>
+            </template>
+          </v-data-table>
         </v-card>
       </v-col>
     </v-row>
+    <AppointmentInfo
+      :appointment="selectedAppointment"
+      @resetSelectedAppointment="selectedAppointment = null"
+    />
   </v-container>
 </template>
 
 <script>
 import AppointmentService from '../services/appointmentService'
+import AppointmentInfo from '../components/AppointmentInfo'
 
 export default {
   name: 'Appointments',
+  components: {
+    AppointmentInfo
+  },
   data: () => ({
     appointments: [],
+    selectedAppointment: null,
+    changedAppointment: {},
     search: '',
     totalAppointments: 0,
     options: {},
     page: 1,
     itemsPerPage: 10,
+    toggleForm: true,
     headers: [
       {
         text: 'Paciente',
@@ -70,13 +90,18 @@ export default {
         value: 'intervention',
         class: 'teal darken-2 white--text'
       },
-      { text: 'Date', value: 'start', class: 'teal darken-2 white--text' }
+      { text: 'Date', value: 'start', class: 'teal darken-2 white--text' },
+      {
+        text: 'Actions',
+        value: 'action',
+        sortable: false,
+        class: 'teal darken-2 white--text'
+      }
     ]
   }),
   created() {
     AppointmentService.getAppointments()
       .then(response => {
-        console.log(response.data.appointments)
         this.appointments = response.data.appointments
       })
       .catch(err => console.log(err))
@@ -90,10 +115,10 @@ export default {
     }
   },
   methods: {
-    // showPatient: function(item) {
-    //   console.log(item)
-    //   this.$router.push(`${item._id}`)
-    // },
+    sendAppointment: function(appointment) {
+      this.selectedAppointment = appointment
+      console.log(this.selectedAppointment)
+    },
     doSearch: function() {
       console.log(
         'doSeasrch',
@@ -108,11 +133,8 @@ export default {
         this.search
       )
         .then(response => {
-          console.log(response)
           this.appointments = response.data.appointments
           this.totalAppointments = response.data.totalAppointments
-          console.log(response.data.appointments)
-          console.log(response.data.totalAppointments)
 
           const { sortBy, sortDesc } = this.options
           if (sortBy.length === 1 && sortDesc.length === 1) {

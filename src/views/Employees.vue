@@ -13,27 +13,30 @@
         ></v-text-field>
       </v-col>
       <v-col cols="6" class="d-flex justify-end align-center">
-        <!-- <PrimaryButton name="Create Patient" route="/patients/create" /> -->
-        <CreatePatient></CreatePatient>
+        <CreateEmployee></CreateEmployee>
       </v-col>
     </v-row>
     <v-row>
       <v-col>
         <v-card>
           <v-card-title class="teal--text">
-            <strong>Pacientes</strong>
+            <strong> Empleados </strong>
             <v-spacer></v-spacer>
           </v-card-title>
           <v-data-table
             :headers="headers"
-            :items="patients"
+            :items="employees"
             :page="page"
             :items-per-page="itemsPerPage"
             :options.sync="options"
-            :server-items-length="totalPatients"
+            :server-items-length="totalEmployees"
             :search="search"
-            @click:row="showPatient"
-          ></v-data-table>
+          >
+            <template v-slot:item.color="{ item }">
+              <v-chip :color="item.color" class="rounded-circle" small dark>
+              </v-chip>
+            </template>
+          </v-data-table>
         </v-card>
       </v-col>
     </v-row>
@@ -41,18 +44,16 @@
 </template>
 
 <script>
-import PatientService from '../services/patientService'
-//import PrimaryButton from '../components/PrimaryButton'
-import CreatePatient from '../components/CreatePatient'
+import CreateEmployee from '../components/CreateEmployee'
+import EmployeeService from '../services/employeeService'
 export default {
-  name: 'Patients',
-  components: { CreatePatient },
+  name: 'Employees',
+  components: { CreateEmployee },
   data: () => ({
-    patients: [],
+    employees: [],
     search: '',
-    totalPatients: 0,
+    totalEmployees: 0,
     options: {},
-    dialog: false,
     page: 1,
     itemsPerPage: 10,
     headers: [
@@ -68,19 +69,28 @@ export default {
         value: 'firstName',
         class: 'teal darken-2 white--text'
       },
-      { text: 'DNI', value: 'dni', class: 'teal darken-2 white--text' },
+      {
+        text: 'Dni',
+        value: 'dni',
+        class: 'teal darken-2 white--text'
+      },
       {
         text: 'Telefono',
         value: 'contact.mobilephone',
+        class: 'teal darken-2 white--text'
+      },
+      {
+        text: 'Color',
+        value: 'color',
         class: 'teal darken-2 white--text'
       }
     ]
   }),
   created() {
-    PatientService.getPatients()
+    EmployeeService.getEmployees()
       .then(response => {
-        console.log('created', response.data.patients)
-        this.patients = response.data.patients
+        console.log('employees', response.data.employees)
+        this.employees = response.data.employees
       })
       .catch(err => console.log(err))
   },
@@ -93,33 +103,20 @@ export default {
     }
   },
   methods: {
-    showPatient: function(item) {
-      console.log(item)
-      this.$router.push(`${item._id}`)
-    },
     doSearch: function() {
-      console.log(
-        'doSeasrch',
-        'itemsperpage',
-        this.itemsPerPage,
-        'page',
-        this.page
-      )
-      PatientService.getPatientsByQuery(
+      EmployeeService.getEmployeesByQuery(
         this.itemsPerPage,
         this.page,
         this.search
       )
         .then(response => {
-          this.patients = response.data.patients
-          this.totalPatients = response.data.totalPatients
-
+          this.employees = response.data.employees
+          this.totalEmployees = response.data.totalEmployees
           const { sortBy, sortDesc } = this.options
           if (sortBy.length === 1 && sortDesc.length === 1) {
-            this.patients = this.patients.sort((a, b) => {
+            this.employees = this.employees.sort((a, b) => {
               const sortA = a[sortBy[0]]
               const sortB = b[sortBy[0]]
-
               if (sortDesc[0]) {
                 if (sortA < sortB) return 1
                 if (sortA > sortB) return -1

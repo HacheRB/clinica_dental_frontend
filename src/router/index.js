@@ -1,12 +1,12 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home'
-import PatientCreate from '../views/PatientCreate'
 import PatientProfile from '../views/PatientProfile'
 import Patients from '../views/Patients'
 import LandingPage from '../views/LandingPage'
 import Appointments from '../views/Appointments'
 import PatientMedicalHistory from '../views/PatientMedicalHistory.vue'
+import Employees from '../views/Employees'
 
 Vue.use(VueRouter)
 
@@ -21,11 +21,6 @@ const routes = [
     path: '/',
     name: 'LandingPage',
     component: LandingPage
-  },
-  {
-    path: '/patients/create',
-    name: 'PatientCreate',
-    component: PatientCreate
   },
   {
     path: '/patients/list',
@@ -47,6 +42,11 @@ const routes = [
     path: '/appointments/list',
     name: 'Appointments',
     component: Appointments
+  },
+  {
+    path: '/employees/list',
+    name: 'Employees',
+    component: Employees
   }
 ]
 
