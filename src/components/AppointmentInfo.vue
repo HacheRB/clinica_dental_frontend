@@ -210,18 +210,6 @@ export default {
       } else {
         this.showUpdateButton = false
       }
-    },
-    deleteAppointment: function(appointment) {
-      console.log(appointment)
-      AppointmentService.deleteAppointment(appointment)
-        .then(response => {
-          console.log(response.data)
-        })
-        .catch(err => console.log(err))
-    },
-    closeAppointment: function() {
-      this.drawer = false
-      this.$emit('resetSelectedAppointment')
     }
   }
 }

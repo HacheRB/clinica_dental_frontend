@@ -95,7 +95,7 @@ export default {
     }
   },
   created() {
-    if (Object.keys(this.patient).length || !this.toggleForm) {
+    if (this.patient !== undefined || this.toggleForm) {
       this.toggleAppointmentForm()
     }
     EmployeeService.getEmployees()

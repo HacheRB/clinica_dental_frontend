@@ -100,11 +100,7 @@ export default {
     ]
   }),
   created() {
-    AppointmentService.getAppointments()
-      .then(response => {
-        this.appointments = response.data.appointments
-      })
-      .catch(err => console.log(err))
+    this.getAppointments()
   },
   watch: {
     options: function() {
@@ -115,9 +111,29 @@ export default {
     }
   },
   methods: {
+    getAppointments: function() {
+      AppointmentService.getAppointments()
+        .then(response => {
+          this.appointments = response.data.appointments
+        })
+        .catch(err => console.log(err))
+    },
     sendAppointment: function(appointment) {
       this.selectedAppointment = appointment
       console.log(this.selectedAppointment)
+    },
+    deleteAppointment: function(appointment) {
+      console.log(appointment)
+      AppointmentService.deleteAppointment(appointment)
+        .then(response => {
+          console.log(response.data)
+          this.getAppointments()
+        })
+        .catch(err => console.log(err))
+    },
+    closeAppointment: function() {
+      this.drawer = false
+      this.$emit('resetSelectedAppointment')
     },
     doSearch: function() {
       console.log(
