@@ -31,9 +31,16 @@
       </v-card-text>
 
       <v-card-actions>
-        <v-btn color="teal darken-2 white--text mb-2">
-          Ver mas
-        </v-btn>
+        <router-link
+          :to="{
+            name: 'MedicalHistory',
+            params: { patientId: this.$route.params.patientId }
+          }"
+        >
+          <v-btn color="teal darken-2 white--text mb-2">
+            Ver mas
+          </v-btn>
+        </router-link>
       </v-card-actions>
     </v-card>
   </v-col>

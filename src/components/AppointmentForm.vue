@@ -241,7 +241,6 @@ export default {
         pieces: this.details.pieces,
         observations: this.details.observations,
         intervention: intervention,
-        subIntervention: this.subIntervention,
         treatmentId: treatmentId
       })
         .then(appointment => {

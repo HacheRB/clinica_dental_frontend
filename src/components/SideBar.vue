@@ -5,7 +5,7 @@
       fixed
       app
       :permanent="!isSm"
-      class="teal darken-2 white--text"
+      class="teal darken-2 white--text rounded-0"
     >
       <v-list-item class="px-2">
         <v-list-item-avatar>

@@ -38,7 +38,6 @@
                       v-model="fullName"
                       label="Nombre y Apellidos *"
                       required
-                      @change="change"
                       :rules="fullNameRules"
                     >
                     </v-text-field>
@@ -67,7 +66,6 @@
                       color="teal lighten-1"
                       :items="opciones"
                       label="Seleccione un motivo"
-                      :rules="bloodTypeRules"
                       v-model="motivo"
                       item-color="teal lighten-1"
                       solo

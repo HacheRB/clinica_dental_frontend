@@ -1,9 +1,9 @@
 <template>
   <v-app class="app">
-    <LandingHeader v-if="this.$route.path === '/'" />
-    <v-main class="pt-8 pt-md-10">
+    <LandingHeader class="pb-8 pb-md-10" v-if="this.$route.path === '/'" />
+    <v-main class="pt-0">
       <SideBar v-if="!(this.$route.path === '/')" />
-      <v-container fluid class=" app-container px-0">
+      <v-container fluid class="app-container px-0">
         <router-view />
       </v-container>
       <BottomBar
