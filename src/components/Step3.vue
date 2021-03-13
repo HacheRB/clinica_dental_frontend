@@ -1,10 +1,12 @@
 <template>
   <v-container>
-    <v-row>
-      <ChooseDoctor @getemployees="updateEmployees" :employees="employees" />
-    </v-row>
-    <v-row>
-      <ChoosePieces @getpieces="updatePieces" />
+    <v-row class="d-flex flex-column">
+      <v-col class="pb-0">
+        <ChooseDoctor @getemployees="updateEmployees" :employees="employees" />
+      </v-col>
+      <v-col class="pt-0">
+        <ChoosePieces @getpieces="updatePieces" />
+      </v-col>
     </v-row>
     <v-row>
       <v-textarea

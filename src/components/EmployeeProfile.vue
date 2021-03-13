@@ -198,7 +198,8 @@ export default {
     }
   },
   created() {
-    if (this.employee) {
+    if (Object.keys(this.employee).length) {
+      console.log('this.dialog')
       this.dialog = true
       this.changeDataProfile()
     }
