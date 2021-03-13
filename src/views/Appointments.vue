@@ -100,6 +100,10 @@ export default {
     ]
   }),
   created() {
+    if (!localStorage.token) {
+      this.$router.push('/')
+    }
+
     this.getAppointments()
   },
   watch: {

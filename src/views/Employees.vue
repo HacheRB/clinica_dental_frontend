@@ -102,6 +102,10 @@ export default {
     ]
   }),
   created() {
+    if (!localStorage.token) {
+      this.$router.push('/')
+    }
+
     if (this.me) {
       this.employee = this.me
     }

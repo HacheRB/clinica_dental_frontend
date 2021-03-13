@@ -172,6 +172,10 @@ export default {
     bloodTypeRules: [v => !!v || 'Select a blood type']
   }),
   created() {
+    if (!localStorage.token) {
+      this.$router.push('/')
+    }
+
     PatientService.getPatientById(this.$route.params.patientId)
       .then(request => {
         this.firstName = request.data.firstName

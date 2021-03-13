@@ -131,6 +131,10 @@ export default {
     }
   },
   async created() {
+    if (!localStorage.token) {
+      this.$router.push('/')
+    }
+
     let patient = await PatientService.getPatientTreatments(this.patientId)
     this.patient = `${patient.data.firstName} ${patient.data.lastName}`
     let treatments = patient.data.treatments

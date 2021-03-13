@@ -77,6 +77,10 @@ export default {
     ]
   }),
   created() {
+    if (!localStorage.token) {
+      this.$router.push('/')
+    }
+
     PatientService.getPatients()
       .then(response => {
         console.log('created', response.data.patients)
