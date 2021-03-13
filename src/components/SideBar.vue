@@ -49,7 +49,7 @@
 import EmployeeService from '../services/employeeService'
 
 export default {
-  name: 'SideBard',
+  name: 'SideBar',
   data: () => ({
     items: [
       {
@@ -66,7 +66,7 @@ export default {
       { title: 'Empleados', icon: 'mdi-account-group', path: '/employees/list' }
     ],
     mini: true,
-    me: null
+    me: {}
   }),
   computed: {
     isSm() {
