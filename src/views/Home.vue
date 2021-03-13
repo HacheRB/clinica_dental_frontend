@@ -40,6 +40,9 @@
         >
       </v-col>
     </v-row>
+    <v-row>
+      <Canvas></Canvas>
+    </v-row>
     <v-row class="d-flex flex-col fill-height">
       <Calendar
         :cols="calendarCols"
@@ -62,12 +65,14 @@
 import AppointmentForm from '@/components/AppointmentForm'
 import EmployeeService from '../services/employeeService'
 import Calendar from '@/components/Calendar'
+import Canvas from '@/components/Draw'
 
 export default {
   name: 'Home',
   components: {
     AppointmentForm,
-    Calendar
+    Calendar,
+    Canvas
   },
   props: { patient: Object, toggleForm: Boolean },
   data() {
