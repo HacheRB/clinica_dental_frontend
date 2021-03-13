@@ -4,8 +4,8 @@
       v-model="selected"
       :disabled="isUpdating"
       :items="employees"
-      filled
       chips
+      dense
       color="teal lighten-1"
       label="Seleccione personal"
       item-text="firstName"
@@ -13,7 +13,7 @@
       multiple
       return-object
     >
-      <template v-slot:selection="data">
+      <template v-slot:selection="data" class="pt-3">
         <v-chip
           color="teal lighten-1 white--text"
           v-bind="data.attrs"
@@ -52,15 +52,17 @@ export default {
     autoUpdate: true
   }),
   props: ['employees'],
+  mounted() {
+    console.log(this.employees)
+  },
   watch: {
     isUpdating(val) {
       if (val) {
         setTimeout(() => (this.isUpdating = false), 3000)
       }
     },
-    selected(employeesId) {
-      console.log(this.selected, this.employeesId)
-      this.$emit('getemployees', employeesId)
+    selected() {
+      this.$emit('getemployees', this.selected)
     }
   },
   methods: {
@@ -72,4 +74,11 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+v-list-item-content:hover {
+  background: teal;
+}
+v-list-item-content:active {
+  background: teal;
+}
+</style>

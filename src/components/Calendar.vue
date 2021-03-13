@@ -143,10 +143,18 @@ export default {
   props: ['cols', 'showThis', 'all', 'cleaning'],
   watch: {
     showThis() {
-      this.filteredEvents = this.filterPerSelectedEmployees()
+      if (this.cleaning)
+        this.filteredEvents = this.filterCleaningEvents().concat(
+          this.filterPerSelectedEmployees()
+        )
+      else this.filteredEvents = this.filterPerSelectedEmployees()
     },
     cleaning() {
-      if (this.cleaning) this.filteredEvents = this.filterCleaningEvents()
+      if (this.cleaning)
+        this.filteredEvents = this.filterCleaningEvents().concat(
+          this.filterPerSelectedEmployees()
+        )
+      else this.filteredEvents = this.filterPerSelectedEmployees()
     }
   },
   mounted() {
@@ -248,12 +256,29 @@ export default {
         .catch(err => console.log(err))
     },
     filterPerSelectedEmployees() {
-      return this.events.filter(event =>
-        this.showThis.includes(event.employeeId)
-      )
+      return this.events.filter(event => {
+        // if (this.cleaning) {
+        //   return (
+        return this.showThis.includes(event.employeeId)
+        //     || event.name === 'Limpiezas'
+        //   )
+        // } else {
+        //   return this.showThis.includes(event.employeeId)
+        // }
+      })
     },
     filterCleaningEvents() {
       return this.events.filter(event => event.name === 'Limpiezas')
+      // return this.events.filter(event => {
+      //   if (this.showThis.length) {
+      //     return (
+      //       this.showThis.includes(event.employeeId) ||
+      //       event.name === 'Limpiezas'
+      //     )
+      //   } else {
+      //     return event.name === 'Limpiezas'
+      //   }
+      // })
     }
   }
 }
