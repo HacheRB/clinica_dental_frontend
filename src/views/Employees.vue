@@ -56,6 +56,7 @@ import EmployeeService from '../services/employeeService'
 export default {
   name: 'Employees',
   components: { CreateEmployee, EmployeeProfile },
+  props: { me: Object },
   data: () => ({
     employees: [],
     search: '',
@@ -101,6 +102,10 @@ export default {
     ]
   }),
   created() {
+    if (this.me) {
+      this.employee = this.me
+    }
+
     EmployeeService.getEmployees()
       .then(response => {
         this.employees = response.data.employees.map(employee => {
@@ -126,11 +131,6 @@ export default {
       this.doSearch()
     }
   },
-  // computed: {
-  //   changeOccupation(occupation) {
-  //     return occupation === 'DOCTOR' ? 'Dentista' : 'Auxiliar'
-  //   }
-  // },
   methods: {
     closeDialog: function() {
       this.employee = {}

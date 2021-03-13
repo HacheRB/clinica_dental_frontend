@@ -210,6 +210,10 @@ export default {
       } else {
         this.showUpdateButton = false
       }
+    },
+    closeAppointment: function() {
+      this.drawer = false
+      this.$emit('resetSelectedAppointment')
     }
   }
 }

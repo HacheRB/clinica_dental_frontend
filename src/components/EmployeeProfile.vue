@@ -197,6 +197,12 @@ export default {
       ]
     }
   },
+  created() {
+    if (this.employee) {
+      this.dialog = true
+      this.changeDataProfile()
+    }
+  },
   watch: {
     employee: function(value) {
       if (Object.keys(value).length) {

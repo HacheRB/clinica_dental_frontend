@@ -7,12 +7,14 @@
       :permanent="!isSm"
       class="teal darken-2 white--text rounded-0"
     >
-      <v-list-item class="px-2">
+      <v-list-item class="px-2" :to="{ name: 'Employees', params: { me } }">
         <v-list-item-avatar>
-          <v-img src="https://randomuser.me/api/portraits/men/85.jpg"></v-img>
+          <v-icon>mdi-account</v-icon>
         </v-list-item-avatar>
 
-        <v-list-item-title class="white--text">John Leider</v-list-item-title>
+        <v-list-item-title class="white--text"
+          >{{ me.firstName }} {{ me.lastName }}</v-list-item-title
+        >
 
         <v-btn icon @click.stop="mini = !mini">
           <v-icon class="white--text">mdi-chevron-left</v-icon>
@@ -44,6 +46,8 @@
 </template>
 
 <script>
+import EmployeeService from '../services/employeeService'
+
 export default {
   name: 'SideBard',
   data: () => ({
@@ -61,12 +65,20 @@ export default {
       { title: 'Citas', icon: 'mdi-calendar', path: '/appointments/list' },
       { title: 'Empleados', icon: 'mdi-account-group', path: '/employees/list' }
     ],
-    mini: true
+    mini: true,
+    me: null
   }),
   computed: {
     isSm() {
       return this.$vuetify.breakpoint.smAndDown
     }
+  },
+  created() {
+    EmployeeService.getMe()
+      .then(me => {
+        this.me = me.data
+      })
+      .catch(err => console.log(err))
   }
 }
 </script>

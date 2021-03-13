@@ -131,10 +131,6 @@ export default {
         })
         .catch(err => console.log(err))
     },
-    closeAppointment: function() {
-      this.drawer = false
-      this.$emit('resetSelectedAppointment')
-    },
     doSearch: function() {
       console.log(
         'doSeasrch',
