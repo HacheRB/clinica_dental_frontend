@@ -1,36 +1,20 @@
 <template>
   <v-container fluid pa-5>
     <v-row>
-      <v-col :cols="createAppointment ? 7 : 10">
-        <v-row class="d-flex justify-center">
-          <v-col>
-            <v-checkbox
-              color="teal lighten-2"
-              label="Todos"
-              v-model="all"
-              @click=";(selectedEmployees = []), (cleaning = false)"
-            >
-            </v-checkbox>
-          </v-col>
-          <v-col>
-            <v-checkbox
-              color="teal lighten-2"
-              label="Limpiezas"
-              v-model="cleaning"
-              @click=";(selectedEmployees = []), (all = false)"
-            ></v-checkbox>
-          </v-col>
-          <v-col v-for="(employee, idx) in employees" :key="idx">
-            <v-checkbox
-              color="teal lighten-2"
-              :label="`${employee.firstName} ${employee.lastName}`"
-              :value="employee._id"
-              v-model="selectedEmployees"
-              @change=";(all = false), (cleaning = false)"
-            ></v-checkbox>
-          </v-col>
-        </v-row>
+      <v-col class="d-flex align-center">
+        <ChooseDoctor
+          @getemployees="getSelectedEmployees"
+          :employees="employees"
+        ></ChooseDoctor>
       </v-col>
+      <v-col>
+        <v-checkbox
+          color="teal lighten-2"
+          label="Limpiezas"
+          v-model="cleaning"
+        ></v-checkbox>
+      </v-col>
+
       <v-col class="d-flex justify-end">
         <v-btn
           @click="toggleAppointmentForm"
@@ -44,7 +28,6 @@
       <Calendar
         :cols="calendarCols"
         :showThis="selectedEmployees"
-        :all="all"
         :cleaning="cleaning"
       />
       <v-col fill-height v-if="this.$vuetify.breakpoint.lgAndUp">
@@ -59,6 +42,7 @@
 </template>
 
 <script>
+import ChooseDoctor from '../components/ChooseDoctor'
 import AppointmentForm from '@/components/AppointmentForm'
 import EmployeeService from '../services/employeeService'
 import Calendar from '@/components/Calendar'
@@ -67,7 +51,8 @@ export default {
   name: 'Home',
   components: {
     AppointmentForm,
-    Calendar
+    Calendar,
+    ChooseDoctor
   },
   props: { patient: Object, toggleForm: Boolean },
   data() {
@@ -76,9 +61,10 @@ export default {
       createAppointment: false,
       createAppointmentBtnText: 'Crear Cita',
       createAppointmentBtnColor: 'teal darken-2 white--text',
-      employees: null,
-      all: true,
+      employees: [],
       cleaning: false,
+      isUpdating: false,
+      autoUpdate: true,
       selectedEmployees: []
     }
   },
@@ -92,6 +78,14 @@ export default {
       this.createAppointmentBtnColor = this.createAppointment
         ? 'red'
         : 'teal darken-2 white--text'
+    },
+    remove(item) {
+      this.chips.splice(this.chips.indexOf(item), 1)
+      this.chips = [...this.chips]
+    },
+    getSelectedEmployees(selectedEmployees) {
+      this.selectedEmployees = selectedEmployees.map(employee => employee._id)
+      console.log('selectedEmployees', this.selectedEmployees)
     }
   },
   created() {
@@ -100,9 +94,10 @@ export default {
     }
     EmployeeService.getEmployees()
       .then(response => {
+        console.log('employees', response.data.employees)
         this.employees = response.data.employees
       })
-      .catch(err => console.log(err))
+      .catch(err => console.log('error', err))
   }
 }
 </script>
