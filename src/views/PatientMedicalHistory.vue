@@ -60,7 +60,7 @@
                     @click="showDetailedView(treatment, appointment)"
                     class="d-flex flex-column pb-5"
                   >
-                    <v-row class="d-flex  align-baseline px-5 mt-2">
+                    <v-row class="d-flex align-baseline px-5 mt-2">
                       <v-col cols="12" sm="6">
                         <p class="title align-end">
                           {{ treatment.interventionSubtype }}
@@ -74,11 +74,9 @@
                         </p>
                       </v-col>
                     </v-row>
-                    <v-row class=" d-flex flex-column justify-center px-5 mt-5">
+                    <v-row class="d-flex flex-column justify-center px-5 mt-5">
                       <v-col>
-                        <span class="subtitle-1">
-                          Pieces :
-                        </span>
+                        <span class="subtitle-1"> Pieces : </span>
                         <span
                           class="subtitle-1"
                           v-for="(piece, idx) in appointment.pieces"
@@ -122,6 +120,7 @@
 import PatientService from '../services/patientService'
 export default {
   name: 'PatientMedicalHistory',
+
   props: { patientId: String },
   data() {
     return {
@@ -131,10 +130,6 @@ export default {
     }
   },
   async created() {
-    if (!localStorage.token) {
-      this.$router.push('/')
-    }
-
     let patient = await PatientService.getPatientTreatments(this.patientId)
     this.patient = `${patient.data.firstName} ${patient.data.lastName}`
     let treatments = patient.data.treatments

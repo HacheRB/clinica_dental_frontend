@@ -110,7 +110,20 @@
           <v-row class="mb-16">
             <Historical></Historical>
           </v-row>
-          <Images></Images>
+          <v-row>
+            <v-col class="mb-16 rounded teal lighten-3">
+              <h1>{{ this.$route.params.patientId }}</h1>
+              <Upload
+                @getfileurl="addFileToPatient"
+                :patientId="this.$route.params.patientId"
+              >
+              </Upload>
+              <Images></Images>
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col class="mb-16 rounded teal lighten-3"> </v-col>
+          </v-row>
         </v-col>
       </v-row>
     </v-container>
@@ -123,12 +136,15 @@ import Historical from '@/components/PatientHistorical'
 import Images from '@/components/PatientImage'
 import Dates from '@/components/PatientNextAppointments'
 import patientService from '../services/patientService'
+import Upload from '@/components/Upload.vue'
+
 export default {
   name: 'PatientProfile',
   components: {
     Historical,
     Images,
-    Dates
+    Dates,
+    Upload
   },
   data: () => ({
     dialog: false,
@@ -195,6 +211,16 @@ export default {
   methods: {
     change() {
       this.somethingChanged = true
+    },
+    addFileToPatient(file) {
+      console.log('entra en addfiletoPatient')
+      console.log(file)
+      patientService
+        .addFiletoPatient(this.$route.params.patientId, file)
+        .then(response => {
+          console.log('response de addFileToPatient', response)
+        })
+        .catch(err => console.log(err))
     },
     updatePatient() {
       patientService
