@@ -1,6 +1,6 @@
 <template>
   <v-col cols="12">
-    <v-autocomplete
+    <!-- <v-autocomplete
       v-model="friends"
       :items="people"
       filled
@@ -19,13 +19,13 @@
           @click="data.select"
           @click:close="remove(data.item)"
         >
-          <!-- <v-avatar left>
+          <v-avatar left>
             <v-img :src="data.item.avatar"></v-img>
-          </v-avatar> -->
-          {{ data.item.name }}
+          </v-avatar> 
+     {{ data.item.name }}
         </v-chip>
-      </template>
-      <!-- <template v-slot:item="data">
+      </template> 
+    <template v-slot:item="data">
         <template v-if="typeof data.item !== 'object'">
           <v-list-item-content v-text="data.item"></v-list-item-content>
         </template>
@@ -40,27 +40,27 @@
             ></v-list-item-subtitle>
           </v-list-item-content>
         </template>
-      </template> -->
-    </v-autocomplete>
+      </template> 
+     </v-autocomplete> -->
   </v-col>
 </template>
 
 <script>
 export default {
-  name: 'EmployeeSelector',
-  props: ['employees'],
-  data() {
-    return {
-      autoUpdate: true,
-      isUpdating: false
-    }
-  },
-  methods: {
-    remove(item) {
-      const index = this.friends.indexOf(item.name)
-      if (index >= 0) this.friends.splice(index, 1)
-    }
-  }
+  name: 'EmployeeSelector'
+  // props: ['employees'],
+  // data() {
+  //   return {
+  //     autoUpdate: true,
+  //     isUpdating: false
+  //   }
+  // },
+  // methods: {
+  //   remove(item) {
+  //     const index = this.friends.indexOf(item.name)
+  //     if (index >= 0) this.friends.splice(index, 1)
+  //   }
+  // }
 }
 </script>
 

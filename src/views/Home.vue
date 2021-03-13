@@ -41,7 +41,7 @@
       </v-col>
     </v-row>
     <v-row>
-      <Canvas></Canvas>
+      <Canvas :image="image"></Canvas>
     </v-row>
     <v-row class="d-flex flex-col fill-height">
       <Calendar
@@ -66,7 +66,7 @@ import AppointmentForm from '@/components/AppointmentForm'
 import EmployeeService from '../services/employeeService'
 import Calendar from '@/components/Calendar'
 import Canvas from '@/components/Draw'
-
+import myImage from '../assets/radiografia.jpg'
 export default {
   name: 'Home',
   components: {
@@ -83,6 +83,7 @@ export default {
       createAppointmentBtnColor: 'teal darken-2 white--text',
       employees: null,
       all: true,
+      image: { title: 'Radiografía', src: myImage },
       cleaning: false,
       selectedEmployees: []
     }
