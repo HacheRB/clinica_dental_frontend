@@ -138,7 +138,10 @@ export default {
           if (response.data && response.data.token) {
             console.log(response.data)
             localStorage.setItem('token', response.data.token)
-            this.$router.push({ path: 'patients/list' })
+            localStorage.setItem('name', response.data.name)
+            localStorage.setItem('email', response.data.email)
+            localStorage.setItem('employeeId', response.data.employeeId)
+            this.$router.push({ path: 'home' })
           }
         })
         .catch(err => console.log(err))

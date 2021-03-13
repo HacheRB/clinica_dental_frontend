@@ -14,5 +14,12 @@ export default {
   },
   async updateEmployee(employeeId, employee) {
     return await api.put(`/employees/${employeeId}`, employee)
+  },
+  async getMe() {
+    return await api.get(`/employees/me/${localStorage.employeeId}`, {
+      headers: {
+        token: localStorage.token
+      }
+    })
   }
 }
