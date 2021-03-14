@@ -199,13 +199,13 @@ export default {
   },
   created() {
     if (Object.keys(this.employee).length) {
-      console.log('this.dialog')
       this.dialog = true
       this.changeDataProfile()
     }
   },
   watch: {
     employee: function(value) {
+      console.log(this.employee)
       if (Object.keys(value).length) {
         this.dialog = true
         this.changeDataProfile()
@@ -251,8 +251,8 @@ export default {
     },
     closeDialog: function() {
       this.dialog = false
-      this.$emit('closeDialog')
-      this.$emit('updateProfile')
+      this.$emit('closedialog')
+      this.$emit('updateprofile')
     },
     change() {
       this.somethingChanged = true

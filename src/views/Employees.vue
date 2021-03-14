@@ -16,8 +16,8 @@
         <CreateEmployee @createProfile="createProfile"></CreateEmployee>
         <EmployeeProfile
           :employee="employee"
-          @closeDialog="closeDialog"
-          @updateProfile="updateProfile"
+          @closedialog="closeDialog"
+          @updateprofile="updateProfile"
         ></EmployeeProfile>
       </v-col>
     </v-row>

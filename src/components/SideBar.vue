@@ -7,7 +7,7 @@
       :permanent="!isSm"
       class="teal darken-2 white--text rounded-0"
     >
-      <v-list-item class="px-2" :to="{ name: 'Employees', params: { me } }">
+      <v-list-item class="px-2" @click="sendMe">
         <v-list-item-avatar>
           <v-icon>mdi-account</v-icon>
         </v-list-item-avatar>
@@ -79,6 +79,11 @@ export default {
         this.me = me.data
       })
       .catch(err => console.log(err))
+  },
+  methods: {
+    sendMe: function() {
+      this.$emit('sendme', this.me)
+    }
   }
 }
 </script>
