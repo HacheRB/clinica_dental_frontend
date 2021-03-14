@@ -1,6 +1,6 @@
 <template>
   <v-container fluid pa-5>
-    <v-row>
+    <v-row class="ma-xs-0 ma-sm-0 ma-md-5">
       <v-col class="d-flex align-center">
         <ChooseDoctor
           @getemployees="getSelectedEmployees"
