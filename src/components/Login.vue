@@ -1,6 +1,10 @@
 <template>
   <v-col cols="auto">
-    <v-dialog transition="dialog-top-transition" max-width="600">
+    <v-dialog
+      v-model="dialog"
+      transition="dialog-top-transition"
+      max-width="600"
+    >
       <template v-slot:activator="{ on, attrs }">
         <v-btn
           v-if="!isLoggedIn"
@@ -36,24 +40,39 @@
           <!-- /Contenido de Login -->
           <!-- <v-tab-item> -->
           <v-card flat>
+            <v-card-title
+              class="headline teal darken-2 white--text rounded-0 mb-5"
+            >
+              Login
+              <v-spacer></v-spacer>
+              <v-btn icon color=" white" text @click="dialog = false"
+                ><v-icon>
+                  mdi-close
+                </v-icon>
+              </v-btn>
+            </v-card-title>
             <v-card-text>
               <v-form>
-                <v-text-field
-                  color="teal lighten-2"
-                  label="Email"
-                  prepend-icon="mdi-account-circle"
-                  v-model="email"
-                  :rules="emailRules"
-                />
-                <v-text-field
-                  color="teal lighten-2"
-                  label="Password"
-                  :type="showPassword ? 'text' : 'password'"
-                  prepend-icon="mdi-lock"
-                  :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-                  @click:append="showPassword = !showPassword"
-                  v-model="password"
-                />
+                <v-col cols="12">
+                  <v-text-field
+                    color="teal lighten-2"
+                    label="Email"
+                    prepend-icon="mdi-account-circle"
+                    v-model="email"
+                    :rules="emailRules"
+                  />
+                </v-col>
+                <v-col cols="12">
+                  <v-text-field
+                    color="teal lighten-2"
+                    label="Password"
+                    :type="showPassword ? 'text' : 'password'"
+                    prepend-icon="mdi-lock"
+                    :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                    @click:append="showPassword = !showPassword"
+                    v-model="password"
+                  />
+                </v-col>
               </v-form>
             </v-card-text>
             <v-divider></v-divider>
@@ -65,7 +84,9 @@
                 :value="rememberMe"
               ></v-checkbox>
               <v-spacer></v-spacer>
-              <v-btn dark color="teal lighten-2" @click="logIn">Login</v-btn>
+              <v-btn dark color="teal darken-2 ma-5" @click="logIn"
+                >Login</v-btn
+              >
             </v-card-actions>
           </v-card>
           <!-- </v-tab-item> -->
@@ -119,6 +140,7 @@ export default {
   name: 'Login',
   data() {
     return {
+      dialog: false,
       isLoggedIn: false,
       rememberMe: false,
       showPassword: false,

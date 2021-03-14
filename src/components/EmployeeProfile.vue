@@ -2,7 +2,7 @@
   <div>
     <v-dialog v-model="dialog" fullscreen width="500">
       <v-card>
-        <v-card-title class="headline teal darken-1 white--text rounded-0">
+        <v-card-title class="headline teal darken-2 white--text rounded-0">
           {{ firstName + ' ' + lastName }}
           <v-spacer></v-spacer>
           <v-btn icon color=" white" text @click="closeDialog"
