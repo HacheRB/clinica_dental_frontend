@@ -20,8 +20,8 @@
         class="d-flex order-first order-sm-0 justify-end align-center"
       >
         <v-btn
-          :to="{ name: 'Home', params: { toggleForm } }"
-          color="teal darken-2 white--text mb-2"
+          :to="{ path: '/home', params: { toggleForm } }"
+          color="teal darken-2 white--text"
           >Crear Cita</v-btn
         >
       </v-col>
