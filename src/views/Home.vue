@@ -1,13 +1,19 @@
 <template>
   <v-container fluid pa-5>
-    <v-row class="ma-xs-0 ma-sm-0 ma-md-5">
-      <v-col class="d-flex align-center">
+    <v-row
+      class="ma-xs-0 ma-md-5"
+      :class="{ 'justify-end': $vuetify.breakpoint.smAndDown }"
+    >
+      <v-col
+        class="d-flex align-center order-last order-sm-first"
+        v-if="$vuetify.breakpoint.mdAndUp"
+      >
         <ChooseDoctor
           @getemployees="getSelectedEmployees"
           :employees="employees"
         ></ChooseDoctor>
       </v-col>
-      <v-col>
+      <v-col cols="4" v-if="$vuetify.breakpoint.mdAndUp">
         <v-checkbox
           color="teal lighten-2"
           label="Limpiezas"
@@ -15,7 +21,7 @@
         ></v-checkbox>
       </v-col>
 
-      <v-col class="d-flex justify-end">
+      <v-col class="d-flex justify-end align-center" cols="8" sm="4">
         <v-btn
           @click="toggleAppointmentForm"
           :color="createAppointmentBtnColor"
@@ -24,18 +30,37 @@
         >
       </v-col>
     </v-row>
-    <v-row class="d-flex flex-col fill-height">
+    <v-row class="d-flex flex-col fill-height ma-xs-0 ma-md-5">
+      <v-col v-if="$vuetify.breakpoint.smAndDown" class="order-1" cols="8">
+        <ChooseDoctor
+          @getemployees="getSelectedEmployees"
+          :employees="employees"
+        ></ChooseDoctor>
+      </v-col>
+      <v-col
+        v-if="$vuetify.breakpoint.smAndDown"
+        class="d-flex justify-end order-2"
+        cols="4"
+      >
+        <v-checkbox
+          color="teal lighten-2"
+          label="Limpiezas"
+          v-model="cleaning"
+        ></v-checkbox>
+      </v-col>
       <Calendar
         :cols="calendarCols"
         :showThis="selectedEmployees"
         :cleaning="cleaning"
       />
-      <v-col fill-height v-if="this.$vuetify.breakpoint.lgAndUp">
-        <AppointmentForm
-          v-show="createAppointment"
-          :employees="employees"
-          :patientNext="patient"
-        />
+      <v-col
+        fill-height
+        class="order-0 order-md-1"
+        v-if="createAppointment"
+        cols="12"
+        md="5"
+      >
+        <AppointmentForm :employees="employees" :patientNext="patient" />
       </v-col>
     </v-row>
   </v-container>
@@ -74,7 +99,11 @@ export default {
       this.createAppointmentBtnText = this.createAppointment
         ? 'Cerrar formulario'
         : 'Crear Cita'
-      this.calendarCols = this.createAppointment ? 7 : 12
+      this.calendarCols = this.createAppointment
+        ? this.$vuetify.breakpoint.smAndDown
+          ? 12
+          : 7
+        : 12
       this.createAppointmentBtnColor = this.createAppointment
         ? 'red'
         : 'teal darken-2 white--text'
