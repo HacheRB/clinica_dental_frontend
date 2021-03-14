@@ -1,13 +1,13 @@
 <template>
   <v-container fluid pa-5>
-    <v-row>
-      <v-col class="d-flex align-center">
+    <v-row class="ma-xs-0 ma-sm-0 ma-md-5">
+      <v-col class="d-flex align-center order-last order-sm-first">
         <ChooseDoctor
           @getemployees="getSelectedEmployees"
           :employees="employees"
         ></ChooseDoctor>
       </v-col>
-      <v-col>
+      <v-col cols="6" sm="4">
         <v-checkbox
           color="teal lighten-2"
           label="Limpiezas"
@@ -15,7 +15,7 @@
         ></v-checkbox>
       </v-col>
 
-      <v-col class="d-flex justify-end">
+      <v-col class="d-flex justify-end" cols="6" sm="4">
         <v-btn
           @click="toggleAppointmentForm"
           :color="createAppointmentBtnColor"

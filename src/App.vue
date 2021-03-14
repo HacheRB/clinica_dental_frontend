@@ -36,6 +36,7 @@ export default {
   data: () => ({
     me: {}
   }),
+
   methods: {
     sendMe: function(me) {
       this.me = me
