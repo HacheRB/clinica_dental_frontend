@@ -6,15 +6,11 @@
       >
     </template>
     <v-card>
-      <v-card-title>
-        <span class="headline teal--text">Crear Paciente</span>
+      <v-card-title class="headline teal darken-2 white--text mb-5">
+        <span>Crear Paciente</span>
         <v-spacer></v-spacer>
-        <v-btn
-          class="pr-0"
-          color="teal darken-2 white--text mb-2"
-          text
-          @click="dialog = false"
-          ><v-icon dark right>
+        <v-btn icon color=" white" text @click="dialog = false"
+          ><v-icon>
             mdi-close
           </v-icon>
         </v-btn>
@@ -25,7 +21,7 @@
             <v-row>
               <v-col cols="12" sm="6">
                 <v-text-field
-                  :dense="this.$vuetify.breakpoint.smAndDown"
+                  :dense="$vuetify.breakpoint.smAndDown"
                   color="teal lighten-1"
                   v-model="firstName"
                   label="Nombre *"
@@ -113,6 +109,7 @@
           </v-container>
         </v-form>
       </v-card-text>
+      <v-divider></v-divider>
       <v-card-actions
         ><small class="ml-5 text--secondary">* indica campos requeridos</small>
         <!-- <v-btn
