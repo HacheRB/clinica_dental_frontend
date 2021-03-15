@@ -196,7 +196,6 @@ export default {
       this.$route.params.patientId
     )
 
-    console.log(patient)
     this.firstName = patient.data.firstName
     this.lastName = patient.data.lastName
     this.dni = patient.data.dni

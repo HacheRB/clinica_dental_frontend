@@ -73,24 +73,15 @@ export default {
       return this.$vuetify.breakpoint.name === 'xs'
     }
   },
-  created() {
-    firebaseService
-      .getFileList(this.$route.params.patientId)
-      .then(files => {
-        console.log('files', files)
-        firebaseService
-          .getFileUrls(files)
-          .then(urls => {
-            console.log('then 2', urls)
-          })
-          .catch(err => {
-            console.error(err)
-          })
-      })
-
-      .catch(err => {
-        console.error(err)
-      })
+  async created() {
+    try {
+      const files = await firebaseService.getFileList(
+        this.$route.params.patientId
+      )
+      this.filesUrl = await firebaseService.getFileUrls(files)
+    } catch (error) {
+      console.error(error)
+    }
   },
   methods: {
     onClick(url) {
