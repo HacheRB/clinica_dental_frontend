@@ -1,6 +1,10 @@
 <template>
   <div>
-    <v-dialog v-model="dialog" fullscreen width="500">
+    <v-dialog
+      v-model="dialog"
+      width="600px"
+      :fullscreen="$vuetify.breakpoint.mdAndDown"
+    >
       <v-card>
         <v-card-title class="headline teal darken-2 white--text rounded-0">
           {{ firstName + ' ' + lastName }}

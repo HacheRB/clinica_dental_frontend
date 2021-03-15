@@ -1,5 +1,9 @@
 <template>
-  <v-dialog v-model="dialog" persistent max-width="600px">
+  <v-dialog
+    v-model="dialog"
+    max-width="600px"
+    :fullscreen="$vuetify.breakpoint.mdAndDown"
+  >
     <template v-slot:activator="{ on, attrs }">
       <v-btn color="teal darken-2 white--text" v-bind="attrs" v-on="on"
         >Crear Empleado</v-btn
