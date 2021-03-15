@@ -6,8 +6,14 @@
       >
     </template>
     <v-card>
-      <v-card-title>
-        <span class="headline teal--text">Crear Empleado</span>
+      <v-card-title class="headline teal darken-2 white--text mb-5">
+        <span>Crear Empleado</span>
+        <v-spacer></v-spacer>
+        <v-btn icon color=" white" text @click="dialog = false"
+          ><v-icon>
+            mdi-close
+          </v-icon>
+        </v-btn>
       </v-card-title>
       <v-card-text>
         <v-form ref="form">
@@ -61,6 +67,9 @@
               </v-col>
               <v-col cols="12">
                 <v-select
+                  :dense="
+                    $vuetify.breakpoint.smAndDown || $vuetify.breakpoint.lgAndUp
+                  "
                   color="teal lighten-1"
                   :items="occupation"
                   v-model="occupationSelected"
@@ -69,6 +78,9 @@
               </v-col>
               <v-col cols="12" sm="6">
                 <v-text-field
+                  :dense="
+                    $vuetify.breakpoint.smAndDown || $vuetify.breakpoint.lgAndUp
+                  "
                   color="teal lighten-1"
                   v-model="firstName"
                   label="Nombre*"
@@ -80,6 +92,9 @@
               </v-col>
               <v-col cols="12" sm="6">
                 <v-text-field
+                  :dense="
+                    $vuetify.breakpoint.smAndDown || $vuetify.breakpoint.lgAndUp
+                  "
                   color="teal lighten-1"
                   v-model="lastName"
                   :rules="lastNameRules"
@@ -89,6 +104,9 @@
               </v-col>
               <v-col cols="12" sm="6">
                 <v-text-field
+                  :dense="
+                    $vuetify.breakpoint.smAndDown || $vuetify.breakpoint.lgAndUp
+                  "
                   color="teal lighten-1"
                   v-model="dni"
                   :rules="dniRules"
@@ -98,6 +116,9 @@
               </v-col>
               <v-col cols="12" sm="6">
                 <v-text-field
+                  :dense="
+                    $vuetify.breakpoint.smAndDown || $vuetify.breakpoint.lgAndUp
+                  "
                   color="teal lighten-1"
                   v-model="email"
                   :rules="emailRules"
@@ -107,6 +128,9 @@
               </v-col>
               <v-col cols="12" sm="6">
                 <v-text-field
+                  :dense="
+                    $vuetify.breakpoint.smAndDown || $vuetify.breakpoint.lgAndUp
+                  "
                   color="teal lighten-1"
                   v-model="mobilephone"
                   :rules="mobilephoneRules"
@@ -116,6 +140,9 @@
               </v-col>
               <v-col cols="12" sm="6">
                 <v-text-field
+                  :dense="
+                    $vuetify.breakpoint.smAndDown || $vuetify.breakpoint.lgAndUp
+                  "
                   color="teal lighten-1"
                   ref="telephone"
                   v-model="telephone"
@@ -152,19 +179,14 @@
             </v-row>
           </v-container>
         </v-form>
-        <small>*indica campos requeridos</small>
       </v-card-text>
-      <v-card-actions>
-        <v-btn
-          color="teal darken-2 white--text mb-2"
-          text
-          @click="dialog = false"
-        >
-          Cerrar
-        </v-btn>
+      <v-divider></v-divider>
+      <v-card-actions
+        ><small class="ml-5 text--secondary">* indica campos requeridos</small>
         <v-spacer></v-spacer>
         <v-btn
-          color="teal darken-2 white--text mb-2"
+          class="ma-5"
+          color="teal darken-2 white--text"
           @click.prevent="createEmployee"
         >
           Guardar

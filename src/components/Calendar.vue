@@ -1,5 +1,5 @@
 <template>
-  <v-col :cols="cols">
+  <v-col :cols="cols" class="order-last order-md-first">
     <v-sheet height="64">
       <v-toolbar flat>
         <v-btn outlined class="mr-4" color="teal lighten-2" @click="setToday">
@@ -256,29 +256,12 @@ export default {
         .catch(err => console.log(err))
     },
     filterPerSelectedEmployees() {
-      return this.events.filter(event => {
-        // if (this.cleaning) {
-        //   return (
-        return this.showThis.includes(event.employeeId)
-        //     || event.name === 'Limpiezas'
-        //   )
-        // } else {
-        //   return this.showThis.includes(event.employeeId)
-        // }
-      })
+      return this.events.filter(event =>
+        this.showThis.includes(event.employeeId)
+      )
     },
     filterCleaningEvents() {
       return this.events.filter(event => event.name === 'Limpiezas')
-      // return this.events.filter(event => {
-      //   if (this.showThis.length) {
-      //     return (
-      //       this.showThis.includes(event.employeeId) ||
-      //       event.name === 'Limpiezas'
-      //     )
-      //   } else {
-      //     return event.name === 'Limpiezas'
-      //   }
-      // })
     }
   }
 }
