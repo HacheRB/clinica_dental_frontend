@@ -47,7 +47,6 @@
 
 <script>
 import PatientService from '../services/patientService'
-//import PrimaryButton from '../components/PrimaryButton'
 import CreatePatient from '../components/CreatePatient'
 export default {
   name: 'Patients',

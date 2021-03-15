@@ -18,8 +18,5 @@ export default {
     return await api.get(
       `/patients/search?input=${input}&limit=${limit}&page=${page}`
     )
-  },
-  async getPatientTreatments(patientId) {
-    return await api.get(`/patients/${patientId}/treatments`)
   }
 }
