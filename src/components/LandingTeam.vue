@@ -56,25 +56,25 @@ export default {
         'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes',
       employees: [
         {
-          name: 'Pepita Grillo',
+          name: 'Maria Rivero',
           title: 'Dentista',
           img:
             'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1650&q=80'
         },
         {
-          name: 'Pepito Grillo',
+          name: 'Carmen Marrero',
           title: 'Dentista',
           img:
             'https://images.unsplash.com/photo-1567568443997-19f025355d52?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80'
         },
         {
-          name: 'Pepito Grillo',
+          name: 'Juan Betancourt',
           title: 'Auxiliar',
           img:
             'https://images.unsplash.com/photo-1588776813677-77aaf5595b83?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=934&q=80'
         },
         {
-          name: 'Pepita Grilla',
+          name: 'Isabel Lopez',
           title: 'Auxiliar',
           img:
             'https://images.unsplash.com/photo-1527613426441-4da17471b66d?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1935&q=80'

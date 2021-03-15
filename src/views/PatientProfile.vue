@@ -105,12 +105,12 @@
         <!-- Columna de la izquierda con las cards de citas, historial y pruebas -->
         <v-col cols="12" md="6">
           <v-row class="mb-16">
-            <Dates></Dates>
+            <PatientNextAppointments></PatientNextAppointments>
           </v-row>
           <v-row class="mb-16">
-            <Historical></Historical>
+            <PatientHistorical></PatientHistorical>
           </v-row>
-          <Images></Images>
+          <PatientImage></PatientImage>
         </v-col>
       </v-row>
     </v-container>
@@ -119,16 +119,16 @@
 
 <script>
 import PatientService from '../services/patientService'
-import Historical from '@/components/PatientHistorical'
-import Images from '@/components/PatientImage'
-import Dates from '@/components/PatientNextAppointments'
+import PatientHistorical from '@/components/PatientHistorical'
+import PatientImage from '@/components/PatientImage'
+import PatientNextAppointments from '@/components/PatientNextAppointments'
 import patientService from '../services/patientService'
 export default {
   name: 'PatientProfile',
   components: {
-    Historical,
-    Images,
-    Dates
+    PatientHistorical,
+    PatientImage,
+    PatientNextAppointments
   },
   data: () => ({
     dialog: false,
