@@ -118,7 +118,7 @@
                 :patientId="this.$route.params.patientId"
               >
               </Upload>
-              <Images></Images>
+              <Images :files="this.files"></Images>
             </v-col>
           </v-row>
           <v-row>
@@ -158,6 +158,7 @@ export default {
     bloodTypes: ['0-', '0+', 'A-', 'A+', 'B-', 'B+', 'AB-', 'AB+'],
     observations: '',
     email: '',
+    files: [],
     somethingChanged: false,
     firstNameRules: [
       v => !!v || 'First name is required',
@@ -187,26 +188,25 @@ export default {
     ],
     bloodTypeRules: [v => !!v || 'Select a blood type']
   }),
-  created() {
+  async created() {
     if (!localStorage.token) {
       this.$router.push('/')
     }
+    let patient = await PatientService.getPatientById(
+      this.$route.params.patientId
+    )
 
-    PatientService.getPatientById(this.$route.params.patientId)
-      .then(request => {
-        this.firstName = request.data.firstName
-        this.lastName = request.data.lastName
-        this.dni = request.data.dni
-        this.email = request.data.contact.email
-        this.mobilephone = request.data.contact.mobilephone
-        this.telephone = request.data.contact.telephone
-        this.bloodType = request.data.bloodType
-        this.observations = request.data.observations
-        this.patient = request.data
-      })
-      .catch(err => {
-        console.log(err)
-      })
+    console.log(patient)
+    this.firstName = patient.data.firstName
+    this.lastName = patient.data.lastName
+    this.dni = patient.data.dni
+    this.email = patient.data.contact.email
+    this.mobilephone = patient.data.contact.mobilephone
+    this.telephone = patient.data.contact.telephone
+    this.bloodType = patient.data.bloodType
+    this.observations = patient.data.observations
+    this.patient = patient.data
+    this.files = patient.data.files
   },
   methods: {
     change() {

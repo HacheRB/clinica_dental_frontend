@@ -1,34 +1,54 @@
 <template>
-  <v-row dense>
-    <v-col
-      v-for="card in cards"
-      :key="card.title"
-      :cols="isXsBreakpoint ? 12 : 6"
-    >
-      <v-card color="#B2DFDB">
+  <v-container>
+    <v-row>
+      {{ this.filesUrl }}
+      <v-col
+        v-for="(url, idx) in this.filesUrl"
+        :key="idx"
+        class="d-flex child-flex"
+        cols="6"
+        lg="3"
+      >
         <v-img
-          :src="card.src"
-          class="white--text align-end"
-          gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
-          height="200px"
+          :src="url"
+          :lazy-src="url"
+          aspect-ratio="1"
+          class="grey lighten-2"
+          @click.prevent="onClick(url)"
         >
-          <v-card-title v-text="card.title"></v-card-title>
+          <template v-slot:placeholder>
+            <v-row class="fill-height ma-0" align="center" justify="center">
+              <v-progress-circular
+                indeterminate
+                color="grey lighten-5"
+              ></v-progress-circular>
+            </v-row>
+          </template>
+          <v-overlay :z-index="zIndex" :value="overlay">
+            <v-img
+              :lazy-src="currentImage"
+              max-width="70vh"
+              :src="currentImage"
+            ></v-img>
+          </v-overlay>
         </v-img>
-      </v-card>
-    </v-col>
-    <v-col class="d-flex align-end flex-row justify-start">
-      <v-btn text color="teal accent-4">
-        Ver mas
-      </v-btn>
-    </v-col>
-  </v-row>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
+import firebaseService from '../services/firebaseService'
 export default {
   name: 'PatientImage',
+  props: ['files'],
   data() {
     return {
+      lastFiles: [],
+      filesUrl: [],
+      currentImage: '',
+      overlay: false,
+      zIndex: 0,
       cards: [
         {
           title: 'Pre-fab homes',
@@ -51,6 +71,31 @@ export default {
   computed: {
     isXsBreakpoint: function() {
       return this.$vuetify.breakpoint.name === 'xs'
+    }
+  },
+  created() {
+    firebaseService
+      .getFileList(this.$route.params.patientId)
+      .then(files => {
+        console.log('files', files)
+        firebaseService
+          .getFileUrls(files)
+          .then(urls => {
+            console.log('then 2', urls)
+          })
+          .catch(err => {
+            console.error(err)
+          })
+      })
+
+      .catch(err => {
+        console.error(err)
+      })
+  },
+  methods: {
+    onClick(url) {
+      this.currentImage = url
+      this.overlay = !this.overlay
     }
   }
 }

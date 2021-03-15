@@ -65,6 +65,7 @@
 
 <script>
 import firebase from 'firebase'
+// import firebaseService from '../services/firebaseService'
 
 export default {
   name: 'Upload',
@@ -77,7 +78,6 @@ export default {
       fileSelected: true,
       toggleFileUpload: true,
       fileName: 'Prueba',
-
       progress: 0,
       uploadURL: null,
       file: null,
@@ -93,8 +93,6 @@ export default {
   },
   methods: {
     onUpload() {
-      console.log('patientID onUpload', this.patientId)
-      console.log('upload comp file', this.file)
       if (this.file !== null) {
         this.fileSelected = false
         this.alert = false
@@ -107,11 +105,13 @@ export default {
           type = 'image'
         }
         console.log(type)
-
-        const storageRef = firebase
-          .storage()
+        var metadata = {
+          name: 'File'
+        }
+        var storage = firebase.storage()
+        var storageRef = storage
           .ref(`clinica/pacientes/${this.patientId}/${type}s/${this.file.name}`)
-          .put(this.file)
+          .put(this.file, metadata)
 
         storageRef.on(
           `state_changed`,
@@ -127,7 +127,6 @@ export default {
                 break
             }
           },
-
           // Handle unsuccessful uploads
           error => {
             switch (error.code) {
@@ -142,7 +141,6 @@ export default {
                 break
             }
           },
-
           //Handle succesfull Uploads
           () => {
             this.progress = 100
@@ -151,6 +149,7 @@ export default {
               this.fileSelected = true
               this.progress = 0
               this.file = null
+              console.log('storageref', storageRef._ref.fullPath)
               console.log('Upload complete', url, type)
               this.$emit('getfileurl', { url: url, type: type })
             })
