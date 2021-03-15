@@ -52,7 +52,8 @@ export default {
   name: 'Historical',
   data() {
     return {
-      finishedTreatments: []
+      finishedTreatments: [],
+      sorterTreatments: []
     }
   },
   created() {
@@ -70,7 +71,15 @@ export default {
           color: 'teal'
         })
       } else {
-        treatments.data.forEach(treatment => {
+        let reduceView = 3
+        this.sorterTreatments = treatments.data.sort(function(a, b) {
+          return (
+            new Date(b.appointments[0].start) -
+            new Date(a.appointments[0].start)
+          )
+        })
+        this.sorterTreatments.forEach(treatment => {
+          if (reduceView === 0) return
           let employees = ''
           if (treatment.appointments[0].employees.length > 1) {
             treatment.appointments[0].employees.forEach(employee => {
@@ -91,6 +100,8 @@ export default {
             from: employees,
             color: 'teal'
           })
+          console.log('reduceView', reduceView)
+          reduceView--
         })
       }
     })
