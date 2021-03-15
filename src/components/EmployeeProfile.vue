@@ -159,11 +159,22 @@
         </v-card-text>
         <v-divider></v-divider>
         <v-card-actions>
-          <small class="ml-5 text--secondary">* indica campos requeridos</small>
-          <v-spacer></v-spacer>
-          <v-btn color="teal darken-1 white--text ma-5" @click="updateProfile">
-            Actualizar
-          </v-btn>
+          <v-container>
+            <v-row>
+              <v-col class="d-flex align-center">
+                <small class="text--secondary"
+                  >* indica campos requeridos</small
+                >
+              </v-col>
+              <v-spacer></v-spacer>
+              <v-btn
+                color="teal darken-1 white--text ma-5"
+                @click="updateProfile"
+              >
+                Actualizar
+              </v-btn>
+            </v-row>
+          </v-container>
         </v-card-actions>
       </v-card>
     </v-dialog>
