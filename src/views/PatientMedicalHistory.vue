@@ -1,13 +1,21 @@
 <template>
   <v-container fluid class="patient-medical-history-container">
-    <v-row class="d-flex flex-column justify-center ma-5">
-      <v-col class="d-flex mx-10">
+    <v-row class="d-flex justify-center">
+      <v-col cols="5" class="d-flex align-center mt-5">
         <h2>
-          {{ patient }}
+          Historia Clínica de
+          {{ patient.firstName }}
+          {{ patient.lastName }}
         </h2>
       </v-col>
-      <v-col class="d-flex mx-10">
-        <h3>Historia Clínica</h3>
+      <v-col cols="5" class="d-flex align-center mt-5">
+        <v-text-field
+          append-icon="mdi-magnify"
+          label="Busca un tratamiento"
+          v-model="search"
+          @keyup="getPatientTreatmentsByQuery"
+        >
+        </v-text-field>
       </v-col>
     </v-row>
 
@@ -49,16 +57,18 @@
             </v-expansion-panel-header>
 
             <v-expansion-panel-content class="expansion-panel-content">
-              <v-row
-                class="d-flex flex-column"
-                v-for="(appointment, idx) in treatment.appointments"
-                :key="idx"
-              >
-                <v-col>
+              <v-row>
+                <v-col
+                  v-for="(appointment, idx) in treatment.appointments"
+                  :key="idx"
+                  cols="12"
+                  sm="6"
+                  md="4"
+                >
                   <v-card
-                    color="#b2dfdb"
-                    @click="showDetailedView(treatment, appointment)"
-                    class="d-flex flex-column pb-5"
+                    color="teal darken-2"
+                    @click="selectedAppointment = appointment"
+                    class="d-flex flex-column pb-5 white--text"
                   >
                     <v-row class="d-flex  align-baseline px-5 mt-2">
                       <v-col cols="12" sm="6">
@@ -115,19 +125,31 @@
         </v-expansion-panels>
       </v-col>
     </v-row>
+    <AppointmentInfo
+      :appointment="selectedAppointment"
+      @resetSelectedAppointment="selectedAppointment = null"
+    />
   </v-container>
 </template>
 
 <script>
 import PatientService from '../services/patientService'
+import TreatmentService from '../services/treatmentService'
+import AppointmentInfo from '../components/AppointmentInfo'
+
 export default {
   name: 'PatientMedicalHistory',
   props: { patientId: String },
+  components: {
+    AppointmentInfo
+  },
   data() {
     return {
       temp: 'hola',
-      patient: '',
-      medicalHistory: []
+      patient: {},
+      medicalHistory: [],
+      search: '',
+      selectedAppointment: null
     }
   },
   async created() {
@@ -135,23 +157,38 @@ export default {
       this.$router.push('/')
     }
 
-    let patient = await PatientService.getPatientTreatments(this.patientId)
-    this.patient = `${patient.data.firstName} ${patient.data.lastName}`
-    let treatments = patient.data.treatments
-    this.medicalHistory = treatments.sort(function(a, b) {
-      return (
-        new Date(b.appointments[0].start) - new Date(a.appointments[0].start)
-      )
-    })
+    this.getPatient()
+    this.getPatientTreatments()
   },
   methods: {
-    showDetailedView(treatment, appointment) {
-      console.log(
-        'Hay que darle funcionalidad al onclick de patientmedical history',
-        treatment,
-        appointment
-      )
-      appointment
+    getPatient() {
+      PatientService.getPatientById(this.patientId)
+        .then(patient => {
+          console.log(patient.data)
+          this.patient = patient.data
+        })
+        .catch(err => console.log(err))
+    },
+    getPatientTreatments() {
+      TreatmentService.getPatientTreatments(this.patientId)
+        .then(treatments => {
+          this.sortByDate(treatments.data)
+        })
+        .catch(err => console.log(err))
+    },
+    getPatientTreatmentsByQuery() {
+      TreatmentService.getPatientTreatmentsByQuery(this.patientId, this.search)
+        .then(treatments => {
+          this.sortByDate(treatments.data)
+        })
+        .catch(err => console.log(err))
+    },
+    sortByDate(treatments) {
+      this.medicalHistory = treatments.sort(function(a, b) {
+        return (
+          new Date(a.appointments[0].start) - new Date(b.appointments[0].start)
+        )
+      })
     }
   }
 }
@@ -159,6 +196,7 @@ export default {
 
 <style lang="scss" scoped>
 .history-row {
-  background-color: #b2dfdb;
+  background-color: #00796b;
 }
+// #b2dfdb
 </style>
