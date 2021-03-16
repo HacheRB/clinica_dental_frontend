@@ -96,7 +96,6 @@ import AppointmentForm from '@/components/AppointmentForm'
 import ChooseDoctor from '../components/ChooseDoctor'
 import Calendar from '@/components/Calendar'
 import AppointmentInfo from '../components/AppointmentInfo'
-import myImage from '../assets/radiografia.jpg'
 
 export default {
   name: 'Home',
@@ -112,7 +111,6 @@ export default {
       calendarCols: 12,
       createAppointment: false,
       employees: [],
-      image: { title: 'Radiografía', src: myImage },
       cleaning: false,
       isUpdating: false,
       autoUpdate: true,

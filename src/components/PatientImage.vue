@@ -24,7 +24,7 @@
               ></v-progress-circular>
             </v-row>
           </template>
-          <Canvas></Canvas>
+          <Canvas :image="currentImage"></Canvas>
           <v-overlay :z-index="zIndex" :value="overlay">
             <v-img
               :lazy-src="currentImage"
