@@ -4,6 +4,7 @@
       :mini-variant.sync="mini"
       fixed
       app
+      prominent
       :permanent="!isSm"
       class="teal darken-2 white--text rounded-0"
     >
@@ -28,7 +29,6 @@
           :key="item.title"
           link
           :to="item.path"
-          @click="menuActionClick(item.action)"
         >
           <v-list-item-icon>
             <v-icon class="white--text">{{ item.icon }}</v-icon>
@@ -42,9 +42,10 @@
         </v-list-item>
       </v-list>
       <template v-slot:append>
-        <div class="pa-2">
-          <v-btn dark block icon>
-            <v-icon>mdi-logout</v-icon><span v-if="!mini">Cerrar sesión</span>
+        <div class="pa-2 pl-0">
+          <v-btn plain class="white--text" @click="menuActionClick">
+            <v-icon class="ml-0 pr-2 mr-2">mdi-logout</v-icon
+            ><span v-if="!mini">Cerrar sesión</span>
           </v-btn>
         </div>
       </template>
@@ -74,8 +75,7 @@ export default {
         title: 'Empleados',
         icon: 'mdi-account-group',
         path: '/employees/list'
-      },
-      { title: 'Cerrar sesión', icon: 'mdi-logout', action: 'logout' }
+      }
     ],
     mini: true,
     me: {}
@@ -96,11 +96,9 @@ export default {
     sendMe: function() {
       this.$emit('sendme', this.me)
     },
-    menuActionClick(action) {
-      if (action === 'logout') {
-        localStorage.clear()
-        this.$router.push({ path: '/' })
-      }
+    menuActionClick() {
+      localStorage.clear()
+      this.$router.push({ name: 'LandingPage' })
     }
   }
 }

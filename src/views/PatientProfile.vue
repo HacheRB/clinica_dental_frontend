@@ -1,107 +1,102 @@
 <template>
   <v-form ref="form" lazy-validation>
-    <v-container fluid>
+    <v-container fluid px-16 pt-5>
       <v-row>
-        <!-- Columna de la derecha con los formularios -->
         <v-col cols="12" md="6">
-          <v-row>
-            <v-col cols="12" md="4">
-              <v-text-field
-                color="teal lighten-1"
-                v-model="firstName"
-                label="Nombre"
-                required
-                @change="change"
-                :rules="firstNameRules"
-              >
-              </v-text-field>
-            </v-col>
-
-            <v-col cols="12" md="4">
-              <v-text-field
-                color="teal lighten-1"
-                v-model="lastName"
-                label="Apellidos"
-                required
-                @change="change"
-                :rules="lastNameRules"
-              ></v-text-field>
-            </v-col>
-            <v-col cols="12" md="4">
-              <v-text-field
-                color="teal lighten-1"
-                v-model="dni"
-                label="Dni"
-                required
-                @change="change"
-                :rules="dniRules"
-              ></v-text-field>
-            </v-col>
+          <v-card color="#B2DFDB">
+            <v-card-title class="headline teal--text">
+              <strong>{{ patient.firstName }} {{ patient.lastName }}</strong>
+              <v-spacer></v-spacer>
+              <PatientForm
+                :patient="patient"
+                @updatePatient="updatePatient"
+              ></PatientForm>
+            </v-card-title>
             <v-divider></v-divider>
+            <v-card-text>
+              <v-row class="d-flex justify-center align-center flex-wrap">
+                <v-col cols="6" class="d-flex justify-start">
+                  <h3><strong>Nombre:</strong></h3>
+                  <h4 class="ml-3">
+                    <strong>{{ firstName }}</strong>
+                  </h4>
+                </v-col>
+                <v-col cols="6" class="d-flex justify-start">
+                  <h3><strong>Apellidos:</strong></h3>
+                  <h4 class="ml-3">
+                    <strong>{{ lastName }}</strong>
+                  </h4></v-col
+                >
+                <v-col cols="6" class="d-flex justify-start">
+                  <h3><strong>DNI:</strong></h3>
+                  <h4 class="ml-3">
+                    <strong>{{ dni }}</strong>
+                  </h4></v-col
+                >
+                <v-col cols="6" class="d-flex justify-start">
+                  <h3><strong>Grupo sanguíneo:</strong></h3>
+                  <h4 class="ml-3">
+                    <strong>{{ bloodType }}</strong>
+                  </h4></v-col
+                >
+                <v-col cols="12" class="d-flex justify-start">
+                  <h3><strong>Observaciones:</strong></h3>
+                  <h4 class="ml-3">
+                    <strong>
+                      {{ observations }}
+                    </strong>
+                  </h4></v-col
+                >
+              </v-row>
+              <v-list class="mt-3 rounded-t">
+                <v-list-item>
+                  <v-list-item-icon>
+                    <v-icon color="teal darken-2">
+                      mdi-email
+                    </v-icon>
+                  </v-list-item-icon>
 
-            <v-col cols="12" md="4">
-              <v-text-field
-                color="teal lighten-1"
-                v-model="email"
-                label="Email"
-                required
-                @change="change"
-                :rules="emailRules"
-              >
-              </v-text-field>
-            </v-col>
+                  <v-list-item-content>
+                    <v-list-item-title>Email</v-list-item-title>
+                    <v-list-item-subtitle>{{ email }}</v-list-item-subtitle>
+                  </v-list-item-content>
+                </v-list-item>
+              </v-list>
+              <v-list>
+                <v-list-item>
+                  <v-list-item-icon>
+                    <v-icon color="teal darken-2">
+                      mdi-cellphone
+                    </v-icon>
+                  </v-list-item-icon>
 
-            <v-col cols="12" md="4">
-              <v-text-field
-                color="teal lighten-1"
-                v-model="mobilephone"
-                label="Móvil"
-                required
-                @change="change"
-                :rules="mobilephoneRules"
-              ></v-text-field>
-            </v-col>
-            <v-col cols="12" md="4">
-              <v-text-field
-                color="teal lighten-1"
-                v-model="telephone"
-                label="Teléfono"
-                @change="change"
-                :rules="telephoneRules"
-              ></v-text-field>
-            </v-col>
-            <v-col cols="12" md="4">
-              <v-select
-                color="teal lighten-1"
-                v-model="bloodType"
-                :items="bloodTypes"
-                label="Grupo sanguíneo"
-                item-color="teal lighten-1"
-                required
-                @change="change"
-                :rules="bloodTypeRules"
-              >
-              </v-select>
-            </v-col>
-            <v-col cols="12">
-              <v-textarea
-                color="teal lighten-1"
-                name="Observaciones"
-                label="Observaciones"
-                outlined
-                filled
-                auto-grow
-                :value="observations"
-                @change="change"
-              ></v-textarea>
-            </v-col>
-          </v-row>
-          <v-row v-if="somethingChanged" class="d-flex justify-center">
-            <v-btn color="teal lighten-2 white--text" @click="updatePatient"
-              >Actualizar</v-btn
-            >
-          </v-row>
+                  <v-list-item-content>
+                    <v-list-item-title>Móvil</v-list-item-title>
+                    <v-list-item-subtitle>{{
+                      mobilephone
+                    }}</v-list-item-subtitle>
+                  </v-list-item-content>
+                </v-list-item>
+              </v-list>
+              <v-list class="rounded-b">
+                <v-list-item>
+                  <v-list-item-icon>
+                    <v-icon color="teal darken-2">
+                      mdi-cellphone-basic
+                    </v-icon>
+                  </v-list-item-icon>
+
+                  <v-list-item-content>
+                    <v-list-item-title>Teléfono</v-list-item-title>
+                    <v-list-item-subtitle>{{ telephone }}</v-list-item-subtitle>
+                  </v-list-item-content>
+                </v-list-item>
+              </v-list>
+            </v-card-text>
+          </v-card>
         </v-col>
+        <!-- Columna de la derecha con los formularios -->
+
         <!-- Columna de la izquierda con las cards de citas, historial y pruebas -->
         <v-col cols="12" md="6">
           <v-row class="mb-16">
@@ -118,16 +113,17 @@
 </template>
 
 <script>
+import PatientForm from '@/components/PatientForm'
 import PatientService from '../services/patientService'
 import PatientHistorical from '@/components/PatientHistorical'
 import PatientImage from '@/components/PatientImage'
 import PatientNextAppointments from '@/components/PatientNextAppointments'
-import patientService from '../services/patientService'
 export default {
   name: 'PatientProfile',
   components: {
     PatientHistorical,
     PatientImage,
+    PatientForm,
     PatientNextAppointments
   },
   data: () => ({
@@ -135,6 +131,7 @@ export default {
     patient: {},
     firstName: '',
     lastName: '',
+    active: false,
     dni: '',
     mobilephone: '',
     telephone: '',
@@ -175,47 +172,31 @@ export default {
     if (!localStorage.token) {
       this.$router.push('/')
     }
-
-    PatientService.getPatientById(this.$route.params.patientId)
-      .then(request => {
-        this.firstName = request.data.firstName
-        this.lastName = request.data.lastName
-        this.dni = request.data.dni
-        this.email = request.data.contact.email
-        this.mobilephone = request.data.contact.mobilephone
-        this.telephone = request.data.contact.telephone
-        this.bloodType = request.data.bloodType
-        this.observations = request.data.observations
-        this.patient = request.data
-      })
-      .catch(err => {
-        console.log(err)
-      })
+    this.loadPatient()
   },
   methods: {
-    change() {
-      this.somethingChanged = true
+    loadPatient() {
+      PatientService.getPatientById(this.$route.params.patientId)
+        .then(request => {
+          this.firstName = request.data.firstName
+          this.lastName = request.data.lastName
+          this.dni = request.data.dni
+          this.email = request.data.contact.email
+          this.mobilephone = request.data.contact.mobilephone
+          this.telephone = request.data.contact.telephone
+          this.bloodType = request.data.bloodType
+          this.observations = request.data.observations
+          this.patient = request.data
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    edit() {
+      this.active = true
     },
     updatePatient() {
-      patientService
-        .updatePatient(
-          {
-            firstName: this.firstName,
-            lastName: this.lastName,
-            dni: this.dni,
-            'contact.email': this.email,
-            'contact.mobilephone': this.mobilephone,
-            'contact.telephone': this.telephone,
-            firstname: this.firstName,
-            bloodType: this.bloodType,
-            observations: this.observations
-          },
-          this.$route.params.patientId
-        )
-        .then(response => {
-          console.log(response)
-        })
-        .catch(err => console.log(err))
+      this.loadPatient()
     }
   }
 }

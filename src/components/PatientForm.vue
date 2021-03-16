@@ -1,188 +1,215 @@
 <template>
-  <div></div>
-  <!-- <v-row class="d-flex justify-center">
-    <v-col cols="12" sm="12" md="12" lg="8" xl="6">
-      <v-form ref="form">
-        <v-container>
-          <v-row>
-            <v-col cols="12" sm="6" md="6" lg="6">
-              <v-text-field
-                color="purple darken-2"
-                v-model="firstName"
-                :rules="firstNameRules"
-                label="Nombre"
-                required
-              ></v-text-field>
-            </v-col>
+  <v-dialog
+    v-model="dialog"
+    max-width="600px"
+    :fullscreen="$vuetify.breakpoint.smAndDown"
+  >
+    <template v-slot:activator="{ on, attrs }">
+      <v-btn
+        color="teal darken-2 white--text ml-2 mb-2"
+        v-bind="attrs"
+        v-on="on"
+      >
+        <v-icon>mdi-pencil</v-icon>
+      </v-btn>
+    </template>
+    <v-card v-if="Object.keys(patient).length">
+      <v-card-title class="headline teal darken-2 white--text mb-5">
+        <span>Editar Paciente</span>
+        <v-spacer></v-spacer>
+        <v-btn icon color=" white" text @click="dialog = false"
+          ><v-icon>
+            mdi-close
+          </v-icon>
+        </v-btn>
+      </v-card-title>
+      <v-card-text>
+        <v-form ref="form" v-model="valid">
+          <v-container>
+            <v-row>
+              <v-col cols="12" md="4">
+                <v-text-field
+                  color="teal lighten-1"
+                  v-model="patient.firstName"
+                  label="Nombre"
+                  required
+                  @change="change"
+                  :rules="firstNameRules"
+                >
+                </v-text-field>
+              </v-col>
 
-            <v-col cols="12" sm="6" md="6" lg="6">
-              <v-text-field
-                color="teal lighten-1"
-                v-model="lastName"
-                :rules="lastNameRules"
-                label="Apellidos"
-                required
-              ></v-text-field>
-            </v-col>
-            <v-col cols="12" sm="6" md="6" lg="6">
-              <v-text-field
-                color="teal lighten-1"
-                v-model="dni"
-                :rules="dniRules"
-                label="Dni"
-                required
-              ></v-text-field>
-            </v-col>
-            <v-col cols="12" sm="6" md="6" lg="6">
-              <v-text-field
-                color="teal lighten-1"
-                v-model="email"
-                :rules="emailRules"
-                label="Email"
-                required
-              ></v-text-field>
-            </v-col>
-            <v-col cols="12" sm="6" md="6" lg="6">
-              <v-text-field
-                color="teal lighten-1"
-                v-model="mobilephone"
-                :rules="mobilephoneRules"
-                label="Móvil"
-                required
-              ></v-text-field>
-            </v-col>
-            <v-col cols="12" sm="6" md="6" lg="6">
-              <v-text-field
-                color="teal lighten-1"
-                ref="telephone"
-                v-model="telephone"
-                :rules="telephoneRules"
-                label="Teléfono"
-              ></v-text-field>
-            </v-col>
+              <v-col cols="12" md="4">
+                <v-text-field
+                  color="teal lighten-1"
+                  v-model="patient.lastName"
+                  label="Apellidos"
+                  required
+                  @change="change"
+                  :rules="lastNameRules"
+                ></v-text-field>
+              </v-col>
+              <v-col cols="12" md="4">
+                <v-text-field
+                  color="teal lighten-1"
+                  v-model="patient.dni"
+                  label="DNI"
+                  required
+                  @change="change"
+                  :rules="dniRules"
+                ></v-text-field>
+              </v-col>
+              <v-divider></v-divider>
 
-            <v-col cols="12" sm="6" md="6" lg="6">
-              <h4>Select patient's blood type</h4>
-              <v-select
-                color="teal lighten-1"
-                :items="bloodTypes"
-                label="Grupo Sanguíneo"
-                :rules="bloodTypeRules"
-                v-model="bloodType"
-                item-color="teal lighten-1"
-                solo
-              ></v-select>
-            </v-col>
-          </v-row>
+              <v-col cols="12" md="4">
+                <v-text-field
+                  color="teal lighten-1"
+                  v-model="patient.contact.email"
+                  label="Email"
+                  required
+                  @change="change"
+                  :rules="emailRules"
+                >
+                </v-text-field>
+              </v-col>
 
-          <v-row class="observations">
-            <v-textarea
-              color="teal lighten-1"
-              name="Observaciones"
-              label="Observaciones"
-              outlined
-              filled
-              auto-grow
-              v-model="observations"
-            ></v-textarea>
-          </v-row>
-
-          <v-row>
-            <v-spacer></v-spacer>
-            <v-btn
-              type="button"
-              color="teal lighten-2 white--text"
-              @click.prevent="createPatient"
-            >
-              Crear Paciente
-            </v-btn>
-          </v-row>
-        </v-container>
-      </v-form>
-    </v-col>
-  </v-row> -->
+              <v-col cols="12" md="4">
+                <v-text-field
+                  color="teal lighten-1"
+                  v-model="patient.contact.mobilephone"
+                  label="Móvil"
+                  required
+                  @change="change"
+                  :rules="mobilephoneRules"
+                ></v-text-field>
+              </v-col>
+              <v-col cols="12" md="4">
+                <v-text-field
+                  color="teal lighten-1"
+                  v-model="patient.contact.telephone"
+                  label="Teléfono"
+                  @change="change"
+                  :rules="telephoneRules"
+                ></v-text-field>
+              </v-col>
+              <v-col cols="12" md="4">
+                <v-select
+                  color="teal lighten-1"
+                  v-model="patient.bloodType"
+                  :items="bloodTypes"
+                  label="Grupo sanguíneo"
+                  item-color="teal lighten-1"
+                  required
+                  @change="change"
+                  :rules="bloodTypeRules"
+                >
+                </v-select>
+              </v-col>
+              <v-col cols="12">
+                <v-textarea
+                  color="teal lighten-1"
+                  name="Observaciones"
+                  label="Observaciones"
+                  outlined
+                  filled
+                  auto-grow
+                  :value="patient.observations"
+                  @change="change"
+                ></v-textarea>
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-form>
+      </v-card-text>
+      <v-divider></v-divider>
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn color="teal darken-2 white--text" @click="updatePatient"
+          >Actualizar</v-btn
+        >
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
 </template>
 
-//
 <script>
-// import patientService from '../services/patientService'
-// // import PrimaryButton from '../components/PrimaryButton'
+import patientService from '../services/patientService'
 
-// export default {
-//   name: 'PatientForm',
-//   // components: {PrimaryButton},
-//   data: () => ({
-//     firstName: '',
-//     lastName: '',
-//     dni: '',
-//     email: '',
-//     mobilephone: '',
-//     telephone: '',
-//     bloodType: '',
-//     observations: '',
-//     bloodTypes: ['0-', '0+', 'A-', 'A+', 'B-', 'B+', 'AB-', 'AB+'],
-//     firstNameRules: [
-//       v => !!v || 'First name is required',
-//       v => v.length <= 30 || 'First name must be less than 30 characters'
-//     ],
-//     lastNameRules: [
-//       v => !!v || 'Name is required',
-//       v => v.length <= 50 || 'Name must be less than 50 characters'
-//     ],
-//     dniRules: [
-//       v => !!v || 'DNI is required',
-//       v => /^[0-9]{8}[a-zA-Z]$/i.test(v) || 'DNI must be valid'
-//     ],
-//     emailRules: [
-//       v => !!v || 'E-mail is required',
-//       v =>
-//         /(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1, 3}\.[0-9]{1, 3}\.[0-9]{1, 3}\.[0-9]{1, 3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))/.test(
-//           v
-//         ) || 'E-mail must be valid'
-//     ],
-//     mobilephoneRules: [
-//       v => !!v || 'Mobilephone is required',
-//       v => /^[67][0-9]{8}$/.test(v) || 'Mobilephone must be valid'
-//     ],
-//     telephoneRules: [
-//       v => !v || /^[9][0-9]{8}$/.test(v) || 'Telephone must be valid'
-//     ],
-//     bloodTypeRules: [v => !!v || 'Select a blood type']
-//   }),
-//   watch: {
-//     observations: function() {
-//       this.resetValidation()
-//     }
-//   },
-//   methods: {
-//     resetValidation() {
-//       this.$refs.form.resetValidation()
-//     },
-//     async createPatient() {
-//       if (!this.$refs.form.validate()) {
-//         console.log('no pasa las validaciones')
-//         return
-//       }
-//       await patientService
-//         .createUser({
-//           firstName: this.firstName,
-//           lastName: this.lastName,
-//           dni: this.dni,
-//           email: this.email,
-//           mobilephone: this.mobilephone,
-//           telephone: this.telephone,
-//           bloodType: this.bloodType,
-//           observations: this.observations
-//         })
-//         .then(res => {
-//           console.log(res)
-//           this.$router.push(`${res.data._id}`)
-//         })
-//         .catch(err => console.log(err))
-//     }
-//   }
-// }
-//
+export default {
+  name: 'PatientForm',
+  props: { patient: Object },
+  data: () => ({
+    firstName: '',
+    valid: false,
+    lastName: '',
+    dialog: false,
+    show1: false,
+    dni: '',
+    email: '',
+    mobilephone: '',
+    somethingChanged: false,
+    telephone: '',
+    bloodType: '',
+    observations: '',
+    bloodTypes: ['0-', '0+', 'A-', 'A+', 'B-', 'B+', 'AB-', 'AB+'],
+    firstNameRules: [
+      v => !!v || 'First name is required',
+      v => v.length <= 30 || 'First name must be less than 30 characters'
+    ],
+    lastNameRules: [
+      v => !!v || 'Name is required',
+      v => v.length <= 50 || 'Name must be less than 50 characters'
+    ],
+    dniRules: [
+      v => !!v || 'DNI is required',
+      v => /^[0-9]{8}[a-zA-Z]$/i.test(v) || 'DNI must be valid'
+    ],
+    emailRules: [
+      v => !!v || 'E-mail is required',
+      v =>
+        /(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1, 3}\.[0-9]{1, 3}\.[0-9]{1, 3}\.[0-9]{1, 3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))/.test(
+          v
+        ) || 'E-mail must be valid'
+    ],
+    mobilephoneRules: [
+      v => !!v || 'Mobilephone is required',
+      v => /^[67][0-9]{8}$/.test(v) || 'Mobilephone must be valid'
+    ],
+    telephoneRules: [
+      v => !v || /^[9][0-9]{8}$/.test(v) || 'Telephone must be valid'
+    ],
+    bloodTypeRules: [v => !!v || 'Select a blood type']
+  }),
+  watch: {},
+  methods: {
+    change() {
+      this.somethingChanged = true
+    },
+    updatePatient() {
+      patientService
+        .updatePatient(
+          {
+            firstName: this.patient.firstName,
+            lastName: this.patient.lastName,
+            dni: this.patient.dni,
+            'contact.email': this.patient.contact.email,
+            'contact.mobilephone': this.patient.contact.mobilephone,
+            'contact.telephone': this.patient.contact.telephone,
+            firstname: this.patient.firstName,
+            bloodType: this.patient.bloodType,
+            observations: this.patient.observations
+          },
+          this.$route.params.patientId
+        )
+        .then(response => {
+          this.dialog = false
+          this.$emit('updatePatient')
+          console.log(response)
+        })
+        .catch(err => console.log(err))
+    }
+  }
+}
 </script>
 
 // <style lang="scss" scoped></style>

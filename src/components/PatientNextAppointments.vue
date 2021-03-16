@@ -11,6 +11,7 @@
           >Crear Cita
         </v-btn>
       </v-card-title>
+      <v-divider></v-divider>
       <v-card-text>
         <v-row
           class="mb-5"
