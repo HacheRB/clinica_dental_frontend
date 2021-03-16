@@ -42,6 +42,9 @@
             :options.sync="options"
             :server-items-length="totalEmployees"
             :search="search"
+            :footer-props="{
+              'items-per-page-text': 'Empleados por página'
+            }"
             @click:row="showEmployee"
           >
             <template v-slot:item.color="{ item }">

@@ -37,6 +37,9 @@
             :options.sync="options"
             :server-items-length="totalPatients"
             :search="search"
+            :footer-props="{
+              'items-per-page-text': 'Pacientes por página'
+            }"
             @click:row="showPatient"
           ></v-data-table>
         </v-card>

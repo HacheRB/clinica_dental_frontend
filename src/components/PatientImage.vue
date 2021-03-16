@@ -15,9 +15,11 @@
         <v-col
           v-for="(file, idx) in this.filesUrl"
           :key="idx"
-          class="d-flex child-flex image-grid"
+          class="d-flex child-flex image-grid justify-center"
           cols="6"
-          lg="3"
+          sm="4"
+          lg="4"
+          xl="4"
         >
           <v-img
             :src="file.download"
@@ -36,17 +38,17 @@
                 ></v-progress-circular>
               </v-row>
             </template>
+            <v-btn
+              color=" white"
+              text
+              icon
+              class="btn-grid d-flex"
+              @click.stop="deleteImage(file.url)"
+              ><v-icon>
+                mdi-delete
+              </v-icon>
+            </v-btn>
           </v-img>
-          <v-btn
-            color=" white"
-            text
-            icon
-            class="btn-grid d-flex justify-self-end"
-            @click="deleteImage(file.url)"
-            ><v-icon>
-              mdi-delete
-            </v-icon>
-          </v-btn>
         </v-col>
       </v-row>
       <!-- ^ img v-row ^ -->
@@ -170,6 +172,7 @@ export default {
 .btn-grid {
   z-index: 500;
   position: absolute;
-  right: 0px;
+  right: 10px;
+  top: 10px;
 }
 </style>

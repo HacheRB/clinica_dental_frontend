@@ -1,10 +1,10 @@
 <template>
-  <v-container fluid class="patient-medical-history-container">
+  <v-container fluid class="patient-medical-history-container" px-16>
     <v-row class="d-flex justify-center">
-      <v-col cols="5" class="d-flex align-center mt-5 pl-0">
+      <v-col cols="6" class="d-flex align-center mt-5 pl-0">
         <v-breadcrumbs large divider="/" :items="items" class="pl-0" />
       </v-col>
-      <v-col cols="5" class="d-flex align-center mt-5 pr-0">
+      <v-col cols="6" class="d-flex align-center mt-5 pr-0">
         <v-text-field
           append-icon="mdi-magnify"
           label="Busca un tratamiento"
@@ -16,7 +16,7 @@
     </v-row>
 
     <v-row class="d-flex justify-center">
-      <v-col class="history-row rounded" cols="10" md="10">
+      <v-col class="history-row rounded" cols="12">
         <v-expansion-panels>
           <v-expansion-panel
             class="ma-5"
@@ -114,7 +114,6 @@ export default {
   },
   computed: {
     name() {
-      console.log('patient', this.patient)
       return `${this.patient.firstName} ${this.patient.lastName}`
     }
   },
