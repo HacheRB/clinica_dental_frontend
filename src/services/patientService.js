@@ -19,13 +19,7 @@ export default {
       `/patients/search?input=${input}&limit=${limit}&page=${page}`
     )
   },
-  async getPatientTreatments(patientId) {
-    return await api.get(`/patients/${patientId}/treatments`)
-  },
   async addFiletoPatient(patientId, file) {
     return await api.post(`/patients/${patientId}/files`, file)
   }
-  // async deleteFileFromPatient(patientId) {
-  //   return await api.get(`/patients/${patientId}/files`)
-  // }
 }

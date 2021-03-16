@@ -1,7 +1,6 @@
 <template>
   <v-container>
     <v-row>
-      <h2>{{ patientId }}</h2>
       <v-spacer> </v-spacer>
       <v-col class="d-flex justify-end">
         <v-btn
@@ -104,7 +103,6 @@ export default {
         } else {
           type = 'image'
         }
-        console.log(type)
         var metadata = {
           name: 'File'
         }
@@ -149,9 +147,7 @@ export default {
               this.fileSelected = true
               this.progress = 0
               this.file = null
-              console.log('storageref', storageRef._ref.fullPath)
-              console.log('Upload complete', url, type)
-              this.$emit('getfileurl', { url: url, type: type })
+              this.$emit('forcererender')
             })
           }
         )

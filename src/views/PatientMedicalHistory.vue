@@ -105,14 +105,17 @@ export default {
     }
   },
   async created() {
-    let patient = await PatientService.getPatientTreatments(this.patientId)
-    this.patient = `${patient.data.firstName} ${patient.data.lastName}`
-    let treatments = patient.data.treatments
-    this.medicalHistory = treatments.sort(function(a, b) {
-      return (
-        new Date(b.appointments[0].start) - new Date(a.appointments[0].start)
-      )
-    })
+    if (!localStorage.token) {
+      this.$router.push('/')
+    }
+
+    await this.getPatient()
+    await this.getPatientTreatments()
+  },
+  computed: {
+    name() {
+      return `${this.patient.firstName} ${this.patient.lastName}`
+    }
   },
   methods: {
     getPatient() {
