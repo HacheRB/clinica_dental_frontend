@@ -165,7 +165,6 @@ export default {
   },
   async created() {
     if (!localStorage.token) {
-      this.$router.push('/')
       this.isLoggedIn = false
     } else {
       this.isLoggedIn = true
