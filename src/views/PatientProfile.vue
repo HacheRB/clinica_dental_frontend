@@ -111,12 +111,14 @@
             <PatientHistorical></PatientHistorical>
           </v-row>
           <v-row>
-            <PatientImage
-              :files="this.files"
-              :totalFilesShown="4"
-              :key="componentKey"
-              @forcererender="forceRerender"
-            ></PatientImage>
+            <v-col>
+              <PatientImage
+                :files="this.files"
+                :totalFilesShown="4"
+                :key="componentKey"
+                @forcererender="forceRerender"
+              ></PatientImage>
+            </v-col>
           </v-row>
         </v-col>
       </v-row>

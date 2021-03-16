@@ -1,79 +1,87 @@
 <template>
-  <v-container class="container rounded">
-    <!-- Header del componente -->
-    <v-row>
-      <v-col class="rounded">
-        <span>Images</span>
-        <v-spacer></v-spacer>
-        <Upload
-          :patientId="this.$route.params.patientId"
-          @forcererender="forceRerender"
-        >
-        </Upload>
-      </v-col>
-    </v-row>
-
-    <!--  Componente grid -->
-    <v-row :key="componentKey">
-      <v-col
-        v-for="(file, idx) in this.filesUrl"
-        :key="idx"
-        class="d-flex child-flex image-grid"
-        cols="6"
-        lg="3"
+  <!-- Header del componente -->
+  <v-card color="#B2DFDB">
+    <v-card-title class="headline teal--text">
+      <strong>Historial</strong>
+      <Upload
+        :patientId="this.$route.params.patientId"
+        @forcererender="forceRerender"
       >
-        <v-img
-          :src="file.download"
-          :lazy-src="file.download"
-          aspect-ratio="1"
-          max-width="203px"
-          max-height="203px"
-          class="grey lighten-2 justify-center"
-          @click="expandImage(file.download, idx)"
+      </Upload>
+    </v-card-title>
+    <v-card-text>
+      <!--  Componente grid -->
+      <v-row :key="componentKey">
+        <v-col
+          v-for="(file, idx) in this.filesUrl"
+          :key="idx"
+          class="d-flex child-flex image-grid"
+          cols="6"
+          lg="3"
         >
-          <template v-slot:placeholder>
-            <v-row class="fill-height ma-0" align="center" justify="center">
-              <v-progress-circular
-                indeterminate
-                color="grey lighten-5"
-              ></v-progress-circular>
-            </v-row>
-          </template>
-        </v-img>
+          <v-img
+            :src="file.download"
+            :lazy-src="file.download"
+            aspect-ratio="1"
+            max-width="203px"
+            max-height="203px"
+            class="grey lighten-2 justify-center"
+            @click="expandImage(file.download, idx)"
+          >
+            <template v-slot:placeholder>
+              <v-row class="fill-height ma-0" align="center" justify="center">
+                <v-progress-circular
+                  indeterminate
+                  color="grey lighten-5"
+                ></v-progress-circular>
+              </v-row>
+            </template>
+          </v-img>
+          <v-btn
+            color=" white"
+            text
+            icon
+            class="btn-grid d-flex justify-self-end"
+            @click="deleteImage(file.url)"
+            ><v-icon>
+              mdi-delete
+            </v-icon>
+          </v-btn>
+        </v-col>
+      </v-row>
+      <!-- ^ img v-row ^ -->
+      <v-row>
+        <v-spacer></v-spacer>
+      </v-row>
+      <v-overlay :z-index="zIndex" :value="overlay">
         <v-btn
           color=" white"
           text
           icon
+          dark
           class="btn-grid d-flex justify-self-end"
-          @click="deleteImage(file.url)"
+          @click="closeOverlay"
           ><v-icon>
-            mdi-delete
-          </v-icon>
-        </v-btn>
-      </v-col>
-    </v-row>
-    <v-row>
+            mdi-close
+          </v-icon> </v-btn
+        ><v-img
+          class="d-flex justify-center image-overlay"
+          :lazy-src="currentImage"
+          max-width="70vh"
+          :src="currentImage"
+        >
+        </v-img>
+      </v-overlay>
+    </v-card-text>
+    <v-card-actions>
+      <v-spacer></v-spacer>
       <v-col class="d-flex justify-end" cols="12">
         <v-btn @click.prevent="hola" plain>
           ver más
         </v-btn>
       </v-col>
-    </v-row>
-    <!-- ^ img v-row ^ -->
-    <v-row>
-      <v-spacer></v-spacer>
-    </v-row>
-    <v-overlay :z-index="zIndex" :value="overlay">
-      <v-img
-        class="d-flex justify-center image-overlay"
-        :lazy-src="currentImage"
-        max-width="70vh"
-        :src="currentImage"
-      >
-        <v-btn> hola</v-btn></v-img
-      >
-    </v-overlay>
-  </v-container>
+    </v-card-actions>
+  </v-card>
 </template>
 
 <script>
@@ -145,8 +153,8 @@ export default {
     forceRerender() {
       this.$emit('forcererender')
     },
-    hola() {
-      console.log('hola')
+    closeOverlay() {
+      this.overlay = false
     }
   }
 }
