@@ -11,11 +11,14 @@ export default {
 
   async getFileUrls(files) {
     try {
-      const storage = firebase.storage()
-      let downloads = files.map(url => storage.ref(url.fullPath))
-
+      const fb = firebase.storage()
       return await Promise.all(
-        downloads.map(async d => await d.getDownloadURL())
+        files.map(async file => {
+          return {
+            url: file.fullPath,
+            download: await fb.ref(file.fullPath).getDownloadURL()
+          }
+        })
       )
     } catch (error) {
       console.log(error)
@@ -33,6 +36,16 @@ export default {
           console.log('Unknown', error.code)
           break
       }
+    }
+  },
+
+  async deleteFile(url) {
+    try {
+      const fb = firebase.storage()
+      await fb.ref(url).delete()
+      return 'File deleted Succesfully'
+    } catch (error) {
+      console.log('error ocurred', error)
     }
   }
 }

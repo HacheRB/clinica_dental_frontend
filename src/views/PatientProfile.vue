@@ -111,18 +111,12 @@
             <PatientHistorical></PatientHistorical>
           </v-row>
           <v-row>
-            <v-col class="mb-16 rounded teal lighten-3">
-              <h1>{{ this.$route.params.patientId }}</h1>
-              <Upload
-                @getfileurl="addFileToPatient"
-                :patientId="this.$route.params.patientId"
-              >
-              </Upload>
-              <PatientImage :files="this.files"></PatientImage>
-            </v-col>
-          </v-row>
-          <v-row>
-            <v-col class="mb-16 rounded teal lighten-3"> </v-col>
+            <PatientImage
+              :files="this.files"
+              :totalFilesShown="4"
+              :key="componentKey"
+              @forcererender="forceRerender"
+            ></PatientImage>
           </v-row>
         </v-col>
       </v-row>
@@ -136,17 +130,16 @@ import PatientHistorical from '@/components/PatientHistorical'
 import PatientImage from '@/components/PatientImage'
 import PatientNextAppointments from '@/components/PatientNextAppointments'
 import patientService from '../services/patientService'
-import Upload from '@/components/Upload.vue'
 
 export default {
   name: 'PatientProfile',
   components: {
     PatientHistorical,
     PatientImage,
-    Upload,
     PatientNextAppointments
   },
   data: () => ({
+    componentKey: 0,
     dialog: false,
     patient: {},
     firstName: '',
@@ -211,15 +204,8 @@ export default {
     change() {
       this.somethingChanged = true
     },
-    addFileToPatient(file) {
-      console.log('entra en addfiletoPatient')
-      console.log(file)
-      patientService
-        .addFiletoPatient(this.$route.params.patientId, file)
-        .then(response => {
-          console.log('response de addFileToPatient', response)
-        })
-        .catch(err => console.log(err))
+    forceRerender() {
+      this.componentKey += 1
     },
     updatePatient() {
       patientService
