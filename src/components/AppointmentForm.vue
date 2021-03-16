@@ -134,10 +134,24 @@
           <v-col class="d-flex justify-end">
             <v-btn
               color="teal lighten-2 white--text"
-              @click="createAppointment()"
+              @click="createAppointment"
             >
               Continuar
             </v-btn>
+            <v-snackbar v-model="snackbar" :timeout="5000" top right>
+              La cita ha sido guardada correctamente
+
+              <template v-slot:action="{ attrs }">
+                <v-btn
+                  color="teal"
+                  text
+                  v-bind="attrs"
+                  @click="snackbar = false"
+                >
+                  Cerrar
+                </v-btn>
+              </template>
+            </v-snackbar>
           </v-col>
         </v-row>
       </v-stepper-content>
@@ -175,7 +189,8 @@ export default {
       dateEnd: null,
       details: {},
       newTreatment: false,
-      assignedEmployeesId: []
+      assignedEmployeesId: [],
+      snackbar: false
     }
   },
   props: { employees: Array, patientNext: Object },
@@ -243,6 +258,7 @@ export default {
       })
         .then(appointment => {
           console.log(appointment)
+          this.snackbar = true
         })
         .catch(err => {
           console.log(err)
@@ -263,7 +279,6 @@ export default {
             interventionSubtype: this.subIntervention
           })
             .then(treatment => {
-              console.log('********', treatment)
               this.createAppointmentMethod(
                 treatment.data._id,
                 this.intervention
