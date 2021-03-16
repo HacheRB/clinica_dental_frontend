@@ -23,7 +23,7 @@
           color="white"
           outlined
           @click.prevent="redirect"
-          >Home</v-btn
+          >Acceder</v-btn
         >
       </template>
       <template>

@@ -31,9 +31,6 @@
         >
       </v-col>
     </v-row>
-    <v-row>
-      <Canvas :image="image"></Canvas>
-    </v-row>
     <v-row class="d-flex flex-col fill-height ma-xs-0 ma-md-5">
       <v-col v-if="$vuetify.breakpoint.smAndDown" class="order-1" cols="8">
         <ChooseDoctor
@@ -99,7 +96,6 @@ import AppointmentForm from '@/components/AppointmentForm'
 import ChooseDoctor from '../components/ChooseDoctor'
 import Calendar from '@/components/Calendar'
 import AppointmentInfo from '../components/AppointmentInfo'
-import Canvas from '@/components/Draw'
 import myImage from '../assets/radiografia.jpg'
 
 export default {
@@ -108,7 +104,6 @@ export default {
     AppointmentForm,
     ChooseDoctor,
     Calendar,
-    Canvas,
     AppointmentInfo
   },
   props: { patient: Object, toggleForm: Boolean },

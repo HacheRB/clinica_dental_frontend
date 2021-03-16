@@ -6,6 +6,7 @@
       :cols="isXsBreakpoint ? 12 : 6"
     >
       <v-card color="#B2DFDB">
+        <Canvas :image="card.src"></Canvas>
         <v-img
           :src="card.src"
           class="white--text align-end"
@@ -25,8 +26,12 @@
 </template>
 
 <script>
+import Canvas from '@/components/Draw'
 export default {
   name: 'PatientImage',
+  components: {
+    Canvas
+  },
   data() {
     return {
       cards: [
