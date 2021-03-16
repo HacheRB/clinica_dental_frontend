@@ -22,7 +22,6 @@
       </v-list-item>
 
       <v-divider></v-divider>
-
       <v-list dense>
         <v-list-item
           v-for="item in items"
@@ -42,6 +41,13 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
+      <template v-slot:append>
+        <div class="pa-2">
+          <v-btn dark block icon>
+            <v-icon>mdi-logout</v-icon><span v-if="!mini">Cerrar sesión</span>
+          </v-btn>
+        </div>
+      </template>
     </v-navigation-drawer>
   </v-card>
 </template>

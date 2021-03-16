@@ -1,14 +1,10 @@
 <template>
   <v-container fluid class="patient-medical-history-container">
     <v-row class="d-flex justify-center">
-      <v-col cols="5" class="d-flex align-center mt-5">
-        <h2>
-          Historia Clínica de
-          {{ patient.firstName }}
-          {{ patient.lastName }}
-        </h2>
+      <v-col cols="5" class="d-flex align-center mt-5 pl-0">
+        <v-breadcrumbs large divider="/" :items="items" class="pl-0" />
       </v-col>
-      <v-col cols="5" class="d-flex align-center mt-5">
+      <v-col cols="5" class="d-flex align-center mt-5 pr-0">
         <v-text-field
           append-icon="mdi-magnify"
           label="Busca un tratamiento"
@@ -104,7 +100,8 @@ export default {
       patient: {},
       medicalHistory: [],
       search: '',
-      selectedAppointment: null
+      selectedAppointment: null,
+      items: null
     }
   },
   async created() {
@@ -112,8 +109,14 @@ export default {
       this.$router.push('/')
     }
 
-    this.getPatient()
-    this.getPatientTreatments()
+    await this.getPatient()
+    await this.getPatientTreatments()
+  },
+  computed: {
+    name() {
+      console.log('patient', this.patient)
+      return `${this.patient.firstName} ${this.patient.lastName}`
+    }
   },
   methods: {
     getPatient() {
@@ -121,6 +124,15 @@ export default {
         .then(patient => {
           console.log(patient.data)
           this.patient = patient.data
+          this.items = [
+            { text: 'Pacientes', disabled: false, href: '/patients/list' },
+            {
+              text: this.name,
+              disabled: false,
+              href: `/patients/${this.patientId}`
+            },
+            { text: 'Hitoria Clínica', disabled: true, href: '' }
+          ]
         })
         .catch(err => console.log(err))
     },
