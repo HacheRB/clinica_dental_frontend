@@ -1,41 +1,38 @@
 <template>
-  <v-row>
-    <v-autocomplete
-      v-model="selected"
-      :disabled="isUpdating"
-      :items="pieces"
-      filled
-      chips
-      color="teal lighten-1"
-      label="Seleccione piezas"
-      item-text="name"
-      item-value="name"
-      multiple
-    >
-      <template v-slot:selection="data">
-        <v-chip
-          color="teal lighten-1 white--text"
-          v-bind="data.attrs"
-          :input-value="data.selected"
-          close
-          @click="data.select"
-          @click:close="remove(data.item)"
-        >
-          {{ data.item }}
-        </v-chip>
+  <v-autocomplete
+    v-model="selected"
+    :disabled="isUpdating"
+    :items="pieces"
+    chips
+    color="teal lighten-1"
+    label="Seleccione piezas"
+    item-text="name"
+    item-value="name"
+    multiple
+  >
+    <template v-slot:selection="data">
+      <v-chip
+        color="teal lighten-1 white--text"
+        v-bind="data.attrs"
+        :input-value="data.selected"
+        close
+        @click="data.select"
+        @click:close="remove(data.item)"
+      >
+        {{ data.item }}
+      </v-chip>
+    </template>
+    <template v-slot:item="data">
+      <template v-if="typeof data.item !== 'object'">
+        <v-list-item-content v-text="data.item"></v-list-item-content>
       </template>
-      <template v-slot:item="data">
-        <template v-if="typeof data.item !== 'object'">
-          <v-list-item-content v-text="data.item"></v-list-item-content>
-        </template>
-        <template v-else>
-          <v-list-item-content>
-            <v-list-item-title v-html="data.item"></v-list-item-title>
-          </v-list-item-content>
-        </template>
+      <template v-else>
+        <v-list-item-content>
+          <v-list-item-title v-html="data.item"></v-list-item-title>
+        </v-list-item-content>
       </template>
-    </v-autocomplete>
-  </v-row>
+    </template>
+  </v-autocomplete>
 </template>
 
 <script>

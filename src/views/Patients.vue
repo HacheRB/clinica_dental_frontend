@@ -1,7 +1,7 @@
 <template>
   <v-container fluid pa-5>
-    <v-row>
-      <v-col cols="6" class="d-flex justify-start align-center">
+    <v-row class="ma-xs-0 ma-md-5">
+      <v-col cols="12" sm="6" lg="3" class="d-flex justify-start align-center">
         <v-text-field
           color="teal lighten-2"
           v-model="search"
@@ -12,12 +12,17 @@
           @keyup="doSearch"
         ></v-text-field>
       </v-col>
-      <v-col cols="6" class="d-flex justify-end align-center">
-        <!-- <PrimaryButton name="Create Patient" route="/patients/create" /> -->
+      <v-spacer></v-spacer>
+      <v-col
+        cols="12"
+        sm="6"
+        lg="3"
+        class="d-flex order-first order-sm-0 justify-end align-center"
+      >
         <CreatePatient></CreatePatient>
       </v-col>
     </v-row>
-    <v-row>
+    <v-row class="ma-xs-0 ma-md-5">
       <v-col>
         <v-card>
           <v-card-title class="teal--text">
@@ -32,6 +37,9 @@
             :options.sync="options"
             :server-items-length="totalPatients"
             :search="search"
+            :footer-props="{
+              'items-per-page-text': 'Pacientes por página'
+            }"
             @click:row="showPatient"
           ></v-data-table>
         </v-card>
@@ -42,7 +50,6 @@
 
 <script>
 import PatientService from '../services/patientService'
-//import PrimaryButton from '../components/PrimaryButton'
 import CreatePatient from '../components/CreatePatient'
 export default {
   name: 'Patients',
@@ -77,6 +84,10 @@ export default {
     ]
   }),
   created() {
+    if (!localStorage.token) {
+      this.$router.push('/')
+    }
+
     PatientService.getPatients()
       .then(response => {
         console.log('created', response.data.patients)

@@ -1,49 +1,48 @@
-<template
-  ><v-col>
-    <v-card color="#B2DFDB">
-      <v-card-title class="headline teal--text">
-        <strong>Historial</strong>
-      </v-card-title>
+<template>
+  <v-card color="#B2DFDB" height="500px">
+    <v-card-title class="headline teal--text">
+      <strong>Historial</strong>
+    </v-card-title>
+    <v-divider></v-divider>
+    <v-card-text>
+      <div class="font-weight-bold ml-8 mb-2">
+        Hoy
+      </div>
 
-      <v-card-text>
-        <div class="font-weight-bold ml-8 mb-2">
-          Hoy
-        </div>
-
-        <v-timeline align-top dense>
-          <v-timeline-item
-            v-for="treatment in finishedTreatments"
-            :key="treatment.time"
-            :color="treatment.color"
-            small
-          >
-            <div>
-              <div class="font-weight-medium">
-                {{ treatment.from }}
-              </div>
-              <div>{{ treatment.time }}</div>
-              <div>
-                <strong>{{ treatment.message }}</strong>
-              </div>
-            </div>
-          </v-timeline-item>
-        </v-timeline>
-      </v-card-text>
-
-      <v-card-actions>
-        <router-link
-          :to="{
-            name: 'MedicalHistory',
-            params: { patientId: this.$route.params.patientId }
-          }"
+      <v-timeline align-top dense>
+        <v-timeline-item
+          v-for="treatment in finishedTreatments"
+          :key="treatment.time"
+          :color="treatment.color"
+          small
         >
-          <v-btn color="teal darken-2 white--text mb-2">
-            Ver mas
-          </v-btn>
-        </router-link>
-      </v-card-actions>
-    </v-card>
-  </v-col>
+          <div>
+            <div class="font-weight-medium">
+              {{ treatment.from }}
+            </div>
+            <div>{{ treatment.time }}</div>
+            <div>
+              <strong>{{ treatment.message }}</strong>
+            </div>
+          </div>
+        </v-timeline-item>
+      </v-timeline>
+    </v-card-text>
+
+    <v-card-actions>
+      <v-spacer></v-spacer>
+      <router-link
+        :to="{
+          name: 'MedicalHistory',
+          params: { patientId: this.$route.params.patientId }
+        }"
+      >
+        <v-btn color="teal darken-2 white--text mb-2">
+          Ver mas
+        </v-btn>
+      </router-link>
+    </v-card-actions>
+  </v-card>
 </template>
 
 <script>
@@ -52,7 +51,8 @@ export default {
   name: 'Historical',
   data() {
     return {
-      finishedTreatments: []
+      finishedTreatments: [],
+      sorterTreatments: []
     }
   },
   created() {
@@ -70,7 +70,15 @@ export default {
           color: 'teal'
         })
       } else {
-        treatments.data.forEach(treatment => {
+        let reduceView = 3
+        this.sorterTreatments = treatments.data.sort(function(a, b) {
+          return (
+            new Date(b.appointments[0].start) -
+            new Date(a.appointments[0].start)
+          )
+        })
+        this.sorterTreatments.forEach(treatment => {
+          if (reduceView === 0) return
           let employees = ''
           if (treatment.appointments[0].employees.length > 1) {
             treatment.appointments[0].employees.forEach(employee => {
@@ -91,6 +99,7 @@ export default {
             from: employees,
             color: 'teal'
           })
+          reduceView--
         })
       }
     })

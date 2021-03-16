@@ -160,7 +160,11 @@ export default {
   },
   methods: {
     displayAppointment: function() {
-      AppointmentService.getAppointmentById(this.appointment._id)
+      AppointmentService.getAppointmentById(
+        typeof this.appointment === Object
+          ? this.appointment._id
+          : this.appointment
+      )
         .then(appointment => {
           console.log(appointment)
           this.selectedAppointment = appointment.data
@@ -210,6 +214,10 @@ export default {
       } else {
         this.showUpdateButton = false
       }
+    },
+    closeAppointment: function() {
+      this.drawer = false
+      this.$emit('resetSelectedAppointment')
     }
   }
 }

@@ -11,7 +11,7 @@
       item-text="dni"
       item-value="_id"
       color="teal lighten-1"
-      label="Search for a patient"
+      label="Buscar por paciente"
       :menu-props="{ closeOnContentClick: true }"
       solo
       return-object
@@ -20,7 +20,7 @@
       <template v-slot:no-data>
         <v-list-item>
           <v-list-item-title>
-            Search for a patient
+            Buscar por paciente
           </v-list-item-title>
         </v-list-item>
       </template>

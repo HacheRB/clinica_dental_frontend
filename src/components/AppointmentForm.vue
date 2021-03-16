@@ -287,4 +287,8 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.v-stepper {
+  border-radius: 0px 0px 4px 4px;
+}
+</style>

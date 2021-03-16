@@ -1,5 +1,5 @@
 <template>
-  <v-col :cols="cols">
+  <v-col :cols="cols" class="order-last order-md-first">
     <v-sheet height="64">
       <v-toolbar flat>
         <v-btn outlined class="mr-4" color="teal lighten-2" @click="setToday">
@@ -91,7 +91,7 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn text color="secondary" @click="selectedOpen = false">
+            <v-btn text color="secondary" @click="showAppointment">
               Ver más
             </v-btn>
           </v-card-actions>
@@ -143,10 +143,18 @@ export default {
   props: ['cols', 'showThis', 'all', 'cleaning'],
   watch: {
     showThis() {
-      this.filteredEvents = this.filterPerSelectedEmployees()
+      if (this.cleaning)
+        this.filteredEvents = this.filterCleaningEvents().concat(
+          this.filterPerSelectedEmployees()
+        )
+      else this.filteredEvents = this.filterPerSelectedEmployees()
     },
     cleaning() {
-      if (this.cleaning) this.filteredEvents = this.filterCleaningEvents()
+      if (this.cleaning)
+        this.filteredEvents = this.filterCleaningEvents().concat(
+          this.filterPerSelectedEmployees()
+        )
+      else this.filteredEvents = this.filterPerSelectedEmployees()
     }
   },
   mounted() {
@@ -185,6 +193,10 @@ export default {
       }
 
       nativeEvent.stopPropagation()
+    },
+    showAppointment() {
+      this.$emit('getappointment', this.selectedEvent.appointmentId)
+      this.selectedOpen = false
     },
     updateRange() {
       const events = []

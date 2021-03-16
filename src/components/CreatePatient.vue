@@ -6,8 +6,14 @@
       >
     </template>
     <v-card>
-      <v-card-title>
-        <span class="headline teal--text">Crear Paciente</span>
+      <v-card-title class="headline teal darken-2 white--text mb-5">
+        <span>Crear Paciente</span>
+        <v-spacer></v-spacer>
+        <v-btn icon color=" white" text @click="dialog = false"
+          ><v-icon>
+            mdi-close
+          </v-icon>
+        </v-btn>
       </v-card-title>
       <v-card-text>
         <v-form ref="form">
@@ -15,9 +21,10 @@
             <v-row>
               <v-col cols="12" sm="6">
                 <v-text-field
+                  :dense="$vuetify.breakpoint.smAndDown"
                   color="teal lighten-1"
                   v-model="firstName"
-                  label="Nombre*"
+                  label="Nombre *"
                   required
                   @change="change"
                   :rules="firstNameRules"
@@ -26,42 +33,47 @@
               </v-col>
               <v-col cols="12" sm="6">
                 <v-text-field
+                  :dense="this.$vuetify.breakpoint.smAndDown"
                   color="teal lighten-1"
                   v-model="lastName"
                   :rules="lastNameRules"
-                  label="Apellidos*"
+                  label="Apellidos *"
                   required
                 ></v-text-field>
               </v-col>
               <v-col cols="12" sm="6">
                 <v-text-field
+                  :dense="this.$vuetify.breakpoint.smAndDown"
                   color="teal lighten-1"
                   v-model="dni"
                   :rules="dniRules"
-                  label="Dni*"
+                  label="Dni *"
                   required
                 ></v-text-field>
               </v-col>
               <v-col cols="12" sm="6">
                 <v-text-field
+                  :dense="this.$vuetify.breakpoint.smAndDown"
                   color="teal lighten-1"
                   v-model="email"
                   :rules="emailRules"
-                  label="Email*"
+                  label="Email *"
                   required
                 ></v-text-field>
               </v-col>
               <v-col cols="12" sm="6">
                 <v-text-field
+                  :dense="this.$vuetify.breakpoint.smAndDown"
                   color="teal lighten-1"
                   v-model="mobilephone"
                   :rules="mobilephoneRules"
-                  label="Móvil*"
+                  label="Móvil *"
                   required
                 ></v-text-field>
               </v-col>
               <v-col cols="12" sm="6">
                 <v-text-field
+                  :dense="this.$vuetify.breakpoint.smAndDown"
                   color="teal lighten-1"
                   ref="telephone"
                   v-model="telephone"
@@ -72,6 +84,7 @@
               <v-col cols="12" sm="6">
                 <h4>Grupo sanguíneo</h4>
                 <v-select
+                  :dense="this.$vuetify.breakpoint.smAndDown"
                   color="teal lighten-1"
                   :items="bloodTypes"
                   label="Grupo sanguíneo"
@@ -95,19 +108,20 @@
             </v-row>
           </v-container>
         </v-form>
-        <small>*indica campos requeridos</small>
       </v-card-text>
-      <v-card-actions>
-        <v-btn
+      <v-divider></v-divider>
+      <v-card-actions
+        ><small class="ml-5 text--secondary">* indica campos requeridos</small>
+        <!-- <v-btn
           color="teal darken-2 white--text mb-2"
           text
           @click="dialog = false"
         >
           Cerrar
-        </v-btn>
+        </v-btn> -->
         <v-spacer></v-spacer>
         <v-btn
-          color="teal darken-2 white--text mb-2"
+          color="teal darken-2 white--text ma-5"
           @click.prevent="createPatient"
         >
           Guardar

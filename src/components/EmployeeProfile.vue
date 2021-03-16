@@ -1,9 +1,19 @@
 <template>
   <div>
-    <v-dialog v-model="dialog" fullscreen width="500">
+    <v-dialog
+      v-model="dialog"
+      width="600px"
+      :fullscreen="$vuetify.breakpoint.mdAndDown"
+    >
       <v-card>
-        <v-card-title class="headline teal darken-1 white--text">
+        <v-card-title class="headline teal darken-2 white--text rounded-0">
           {{ firstName + ' ' + lastName }}
+          <v-spacer></v-spacer>
+          <v-btn icon color=" white" text @click="closeDialog"
+            ><v-icon>
+              mdi-close
+            </v-icon>
+          </v-btn>
         </v-card-title>
 
         <v-card-text>
@@ -58,6 +68,7 @@
                 </v-col>
                 <v-col cols="12">
                   <v-select
+                    :dense="$vuetify.breakpoint.smAndDown"
                     color="teal lighten-1"
                     :items="occupation"
                     v-model="occupationSelected"
@@ -66,6 +77,7 @@
                 </v-col>
                 <v-col cols="12" sm="6">
                   <v-text-field
+                    :dense="$vuetify.breakpoint.smAndDown"
                     color="teal lighten-1"
                     v-model="firstName"
                     label="Nombre*"
@@ -76,6 +88,7 @@
                 </v-col>
                 <v-col cols="12" sm="6">
                   <v-text-field
+                    :dense="$vuetify.breakpoint.smAndDown"
                     color="teal lighten-1"
                     v-model="lastName"
                     label="Apellidos*"
@@ -84,6 +97,7 @@
                 </v-col>
                 <v-col cols="12" sm="6">
                   <v-text-field
+                    :dense="$vuetify.breakpoint.smAndDown"
                     color="teal lighten-1"
                     v-model="dni"
                     label="Dni*"
@@ -92,6 +106,7 @@
                 </v-col>
                 <v-col cols="12" sm="6">
                   <v-text-field
+                    :dense="$vuetify.breakpoint.smAndDown"
                     color="teal lighten-1"
                     v-model="email"
                     label="Email*"
@@ -100,6 +115,7 @@
                 </v-col>
                 <v-col cols="12" sm="6">
                   <v-text-field
+                    :dense="$vuetify.breakpoint.smAndDown"
                     color="teal lighten-1"
                     v-model="mobilephone"
                     label="Móvil*"
@@ -108,24 +124,17 @@
                 </v-col>
                 <v-col cols="12" sm="6">
                   <v-text-field
+                    :dense="$vuetify.breakpoint.smAndDown"
                     color="teal lighten-1"
                     ref="telephone"
                     v-model="telephone"
                     label="Teléfono"
                   ></v-text-field>
                 </v-col>
-                <v-col cols="12">
-                  <v-text-field
-                    v-model="password"
-                    :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-                    :type="show1 ? 'text' : 'password'"
-                    name="input-10-1"
-                    label="Contraseña"
-                    hint="Mínimo 8 caracteres"
-                    counter
-                    @click:append="show1 = !show1"
-                  ></v-text-field>
+                <v-col cols="12" sm="6">
+                  <Password :employee="employee"></Password>
                 </v-col>
+
                 <v-col cols="12">
                   <span class="teal--text">Asocie color al empleado:</span>
                   <v-color-picker
@@ -133,7 +142,7 @@
                     :hide-inputs="hide"
                     :hide-mode-switch="hide"
                     :hide-sliders="hide"
-                    class="ma-2 d-flex justify-start"
+                    class="d-flex justify-start px-0"
                     :swatches="swatches"
                     show-swatches
                     v-model="colorSelected"
@@ -142,19 +151,25 @@
               </v-row>
             </v-container>
           </v-form>
-          <small>*indica campos requeridos</small>
         </v-card-text>
-
         <v-divider></v-divider>
-
         <v-card-actions>
-          <v-btn color="teal darken-1" text @click="closeDialog">
-            Cerrar
-          </v-btn>
-          <v-spacer></v-spacer>
-          <v-btn color="teal darken-1 white--text" @click="updateProfile">
-            Actualizar
-          </v-btn>
+          <v-container>
+            <v-row>
+              <v-col class="d-flex align-center">
+                <small class="text--secondary"
+                  >* indica campos requeridos</small
+                >
+              </v-col>
+              <v-spacer></v-spacer>
+              <v-btn
+                color="teal darken-1 white--text ma-5"
+                @click="updateProfile"
+              >
+                Actualizar
+              </v-btn>
+            </v-row>
+          </v-container>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -163,11 +178,13 @@
 
 <script>
 import EmployeeService from '../services/employeeService'
+import Password from '../components/Password'
 export default {
   name: 'EmployeeProfile',
   props: {
     employee: { type: Object }
   },
+  components: { Password },
   data() {
     return {
       dialog: false,
@@ -180,7 +197,6 @@ export default {
       occupationValue: ['DOCTOR', 'ASSISTANT'],
       occupationSelected: '',
       show1: false,
-      password: 'Password',
       firstName: '',
       lastName: '',
       dni: '',
@@ -197,8 +213,15 @@ export default {
       ]
     }
   },
+  created() {
+    if (Object.keys(this.employee).length) {
+      this.dialog = true
+      this.changeDataProfile()
+    }
+  },
   watch: {
     employee: function(value) {
+      console.log(this.employee)
       if (Object.keys(value).length) {
         this.dialog = true
         this.changeDataProfile()
@@ -218,9 +241,11 @@ export default {
         this.date = this.employee.dateOfEmployment
         this.lastName = this.employee.lastName
         this.occupationSelected =
-          this.employee.occupation === 'DOCTOR' ? 'Dentista' : 'Auxiliar'
+          this.employee.occupation === 'DOCTOR' ||
+          this.employee.occupation === 'Dentista'
+            ? 'Dentista'
+            : 'Auxiliar'
         this.dni = this.employee.dni
-        this.password = this.employee.password
         this.email = this.employee.contact.email
         this.mobilephone = this.employee.contact.mobilephone
         this.telephone = this.employee.contact.telephone
@@ -244,13 +269,16 @@ export default {
     },
     closeDialog: function() {
       this.dialog = false
-      this.$emit('closeDialog')
-      this.$emit('updateProfile')
+      this.$emit('closedialog')
+      this.$emit('updateprofile')
     },
     change() {
       this.somethingChanged = true
     },
     updateProfile() {
+      console.log(
+        this.occupationSelected === 'Dentista' ? 'DOCTOR' : 'ASSISTANT'
+      )
       EmployeeService.updateEmployee(this.employee._id, {
         firstName: this.firstName,
         dateOfEmployment: this.date,
@@ -259,9 +287,9 @@ export default {
           this.occupationSelected === 'Dentista' ? 'DOCTOR' : 'ASSISTANT',
         dni: this.dni,
         password: this.password,
-        'contact.email': this.email,
-        'contact.mobilephone': this.mobilephone,
-        'contact.telephone': this.telephone,
+        email: this.email,
+        mobilephone: this.mobilephone,
+        telephone: this.telephone,
         color: this.colorSelected,
         employed: this.employed
       })

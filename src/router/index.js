@@ -46,7 +46,8 @@ const routes = [
   {
     path: '/employees/list',
     name: 'Employees',
-    component: Employees
+    component: Employees,
+    props: true
   }
 ]
 
