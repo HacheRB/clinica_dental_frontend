@@ -260,9 +260,14 @@ export default {
         .catch(err => console.log(err))
     },
     filterPerSelectedEmployees() {
-      return this.events.filter(event =>
-        this.showThis.includes(event.employeeId)
-      )
+      console.log('primer elemento del if', !Object.keys(this.showThis))
+      if (!Object.keys(this.showThis).length && !this.cleaning) {
+        return this.events
+      } else {
+        return this.events.filter(event =>
+          this.showThis.includes(event.employeeId)
+        )
+      }
     },
     filterCleaningEvents() {
       return this.events.filter(event => event.name === 'Limpiezas')
