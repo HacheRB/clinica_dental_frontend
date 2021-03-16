@@ -3,13 +3,15 @@
     <v-row>
       <v-col class="d-flex justify-end">
         <v-btn
-          @click=";(newTreatment = false), getTreatments"
+          small
+          @click=";(newTreatment = false), getTreatments()"
           :color="!newTreatment ? 'teal lighten-1 white--text' : 'white'"
           >Continuar Tratamiento</v-btn
         >
       </v-col>
       <v-col class="d-flex justify-start">
         <v-btn
+          small
           @click="newTreatment = true"
           :color="newTreatment ? 'teal lighten-1 white--text' : 'white'"
           >Nuevo Tratamiento</v-btn
@@ -40,11 +42,13 @@
 </template>
 
 <script>
-import PatientService from '../services/patientService'
+import TreatmentService from '../services/treatmentService'
 
 export default {
   name: 'name',
-  props: ['patientId'],
+  props: {
+    patientId: String
+  },
   data: () => ({
     newTreatment: null,
     allTreatments: {
@@ -135,9 +139,10 @@ export default {
   }),
   methods: {
     getTreatments: function() {
-      PatientService.getPatientTreatments()
+      TreatmentService.getPatientTreatments(this.patientId)
         .then(treatments => {
           this.activeTreatments = treatments.data
+          console.log(this.activeTreatments)
         })
         .catch(err => console.log(err))
     }
@@ -161,10 +166,12 @@ export default {
     }
   },
   async created() {
-    let patient = await PatientService.getPatientTreatments(this.patientId)
-    console.log('patient', patient)
-    this.activeTreatments = patient.data.treatments
-    console.log(this.activeTreatments)
+    if (this.patientId) {
+      let patientTreatments = await TreatmentService.getPatientTreatments(
+        this.patientId
+      )
+      this.activeTreatments = patientTreatments.data
+    }
   }
 }
 </script>
