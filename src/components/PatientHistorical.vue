@@ -4,7 +4,7 @@
       <v-card-title class="headline teal--text">
         <strong>Historial</strong>
       </v-card-title>
-
+      <v-divider></v-divider>
       <v-card-text>
         <div class="font-weight-bold ml-8 mb-2">
           Hoy
@@ -100,7 +100,6 @@ export default {
             from: employees,
             color: 'teal'
           })
-          console.log('reduceView', reduceView)
           reduceView--
         })
       }

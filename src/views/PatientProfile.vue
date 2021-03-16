@@ -1,9 +1,12 @@
 <template>
-  <v-form ref="form" lazy-validation>
-    <v-container fluid>
+  <v-container fluid px-16 pt-5>
+    <v-form ref="form" lazy-validation>
+      <v-row>
+        <v-breadcrumbs large divider="/" :items="items" />
+      </v-row>
       <v-row>
         <!-- Columna de la derecha con los formularios -->
-        <v-col cols="12" md="6">
+        <v-col cols="12" md="8">
           <v-row>
             <v-col cols="12" md="4">
               <v-text-field
@@ -103,7 +106,7 @@
           </v-row>
         </v-col>
         <!-- Columna de la izquierda con las cards de citas, historial y pruebas -->
-        <v-col cols="12" md="6">
+        <v-col cols="12" md="4">
           <v-row class="mb-16">
             <PatientNextAppointments></PatientNextAppointments>
           </v-row>
@@ -113,8 +116,8 @@
           <PatientImage></PatientImage>
         </v-col>
       </v-row>
-    </v-container>
-  </v-form>
+    </v-form>
+  </v-container>
 </template>
 
 <script>
@@ -143,6 +146,7 @@ export default {
     observations: '',
     email: '',
     somethingChanged: false,
+    items: [],
     firstNameRules: [
       v => !!v || 'First name is required',
       v => v.length <= 30 || 'First name must be less than 30 characters'
@@ -171,6 +175,12 @@ export default {
     ],
     bloodTypeRules: [v => !!v || 'Select a blood type']
   }),
+  computed: {
+    name() {
+      console.log('patient', this.patient)
+      return `${this.patient.firstName} ${this.patient.lastName}`
+    }
+  },
   created() {
     if (!localStorage.token) {
       this.$router.push('/')
@@ -187,6 +197,14 @@ export default {
         this.bloodType = request.data.bloodType
         this.observations = request.data.observations
         this.patient = request.data
+
+        this.items = this.items = [
+          { text: 'Pacientes', disabled: false, href: '/patients/list' },
+          {
+            text: this.name,
+            disabled: true
+          }
+        ]
       })
       .catch(err => {
         console.log(err)

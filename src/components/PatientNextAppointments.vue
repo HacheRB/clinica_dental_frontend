@@ -11,22 +11,32 @@
           >Crear Cita
         </v-btn>
       </v-card-title>
+      <v-divider></v-divider>
       <v-card-text>
-        <v-row
-          class="mb-5"
-          v-for="(appointment, idx) in appointments"
-          :key="idx"
-        >
-          <v-col cols="4" class="d-flex justify-start font-weight-medium">
-            {{ appointment.employees }}
-          </v-col>
-          <v-col cols="4" class="d-flex justify-center"
-            ><strong>{{ appointment.intervention }}</strong></v-col
+        <v-timeline align-top dense>
+          <v-timeline-item
+            v-for="(appointment, idx) in appointments"
+            :key="idx"
+            small
+            color="teal"
           >
-          <v-col cols="3" class="d-flex justify-end">{{
-            appointment.start
-          }}</v-col>
-        </v-row>
+            <div>
+              <div>
+                <strong>
+                  {{ appointment.intervention }}
+                </strong>
+              </div>
+              <div>
+                {{ appointment.start }}
+              </div>
+              <div>
+                <strong>
+                  {{ appointment.employees }}
+                </strong>
+              </div>
+            </div>
+          </v-timeline-item>
+        </v-timeline>
       </v-card-text>
     </v-card>
   </v-col>
@@ -45,31 +55,16 @@ export default {
     }
   },
   mounted() {
-    AppointmentService.getAppointmentsByPatient(
-      this.$route.params.patientId
-    ).then(appointments => {
-      appointments.data.forEach(appointment => {
-        let employees = ''
-        if (appointment.employees.length > 1) {
-          appointment.employees.forEach(employee => {
-            employees += `${employee.firstName} ${employee.lastName.slice(
-              0,
-              3
-            )}. - `
-          })
-          employees = employees.slice(0, employees.length - 2)
-        } else {
-          employees = `${
-            appointment.employees[0].firstName
-          } ${appointment.employees[0].lastName.slice(0, 3)}.`
+    AppointmentService.getAppointmentsByPatient(this.$route.params.patientId)
+      .then(appointments => {
+        this.sortByStart(appointments.data)
+
+        for (let i = 0; i < 3; i++) {
+          this.formatAppointments(appointments.data[i])
         }
-        this.appointments.push({
-          employees: employees,
-          start: appointment.start,
-          intervention: appointment.intervention
-        })
       })
-    })
+      .catch(err => console.log(err))
+
     PatientService.getPatientById(this.$route.params.patientId)
       .then(request => {
         this.patient = request.data
@@ -77,6 +72,26 @@ export default {
       .catch(err => {
         console.log(err)
       })
+  },
+  methods: {
+    sortByStart(appointments) {
+      appointments.sort(function(a, b) {
+        return new Date(a.start) - new Date(b.start)
+      })
+    },
+    formatAppointments(appointment) {
+      let employees = appointment.employees
+        .map(employee => {
+          return `${employee.firstName} ${employee.lastName.slice(0, 3)}`
+        })
+        .join('. -')
+      this.appointments.push({
+        employees: employees,
+        start: appointment.start,
+        intervention: appointment.intervention,
+        color: 'teal'
+      })
+    }
   }
 }
 </script>
