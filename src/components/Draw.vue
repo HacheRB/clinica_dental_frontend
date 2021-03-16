@@ -1,45 +1,29 @@
 <template>
-  <div>
-    <v-dialog v-model="dialog" width="600">
-      <template v-slot:activator="{ on, attrs }">
-        <v-btn color="teal darken-2" dark v-bind="attrs" v-on="on">
-          Click Me
-        </v-btn>
-      </template>
-      <v-card>
-        <v-card-title class="headline teal darken-2 white--text">
-          <strong>{{ image.title }}</strong>
-        </v-card-title>
+  <v-card>
+    <v-card-title class="headline teal darken-2 white--text">
+      <strong>Editar</strong>
+    </v-card-title>
 
-        <v-card-text class="d-flex justify-center">
-          <canvas
-            width="600"
-            height="400"
-            class="mt-5"
-            ref="canvas"
-            @mousedown="beginDrawing"
-            @mousemove="keepDrawing"
-            @mouseup="stopDrawing"
-          ></canvas>
-        </v-card-text>
+    <v-card-text class="d-flex justify-center white">
+      <canvas
+        width="500"
+        height="500"
+        class="mt-5"
+        ref="canvas"
+        @mousedown="beginDrawing"
+        @mousemove="keepDrawing"
+        @mouseup="stopDrawing"
+      ></canvas>
+    </v-card-text>
 
-        <v-divider></v-divider>
-
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="primary" text @click="dialog = false">
-            I accept
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-  </div>
+    <v-divider></v-divider>
+  </v-card>
 </template>
 
 <script>
 export default {
   name: 'Draw',
-  props: { image: Object },
+  props: { image: String },
   data: () => ({ dialog: false }),
   methods: {
     inicialize() {
@@ -47,7 +31,10 @@ export default {
       let ctx = cvn.getContext('2d')
       this.canvas = ctx
       let bg = new Image()
-      bg.src = this.image.src
+      console.log('this.image', this.image)
+      bg.src = this.image
+      bg.width = '600'
+      bg.height = '600'
       bg.id = 'imageClass'
       bg.onload = function() {
         ctx.drawImage(bg, 0, 0)
@@ -56,7 +43,7 @@ export default {
     drawLine(x1, y1, x2, y2) {
       let ctx = this.canvas
       ctx.beginPath()
-      ctx.strokeStyle = 'teal'
+      ctx.strokeStyle = '#96000E'
       ctx.lineWidth = 2
       ctx.moveTo(x1, y1)
       ctx.lineTo(x2, y2)
@@ -84,7 +71,7 @@ export default {
       }
     }
   },
-  updated() {
+  mounted() {
     this.inicialize()
   }
 }

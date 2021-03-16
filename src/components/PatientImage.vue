@@ -55,6 +55,7 @@
       <v-row>
         <v-spacer></v-spacer>
       </v-row>
+
       <v-overlay :z-index="zIndex" :value="overlay">
         <v-btn
           color=" white"
@@ -67,20 +68,20 @@
             mdi-close
           </v-icon>
         </v-btn>
-        <Canvas :image="currentImage"></Canvas>
-        <v-img
-          class="d-flex justify-center image-overlay"
-          :lazy-src="currentImage"
-          max-width="70vh"
-          :src="currentImage"
-        >
-        </v-img>
+        <Draw :image="currentImage"></Draw>
+        <!-- <v-img
+            class="d-flex justify-center image-overlay"
+            :lazy-src="currentImage"
+            max-width="70vh"
+            :src="currentImage"
+          >
+          </v-img> -->
       </v-overlay>
     </v-card-text>
     <v-card-actions>
       <v-spacer></v-spacer>
       <v-col class="d-flex justify-end" cols="12">
-        <v-btn @click.prevent="hola" plain>
+        <v-btn plain>
           ver más
         </v-btn>
       </v-col>
@@ -91,13 +92,13 @@
 <script>
 import firebaseService from '../services/firebaseService'
 import Upload from '@/components/Upload.vue'
-import Canvas from '@/components/Draw'
+import Draw from '@/components/Draw'
 export default {
   name: 'PatientImage',
   props: ['files', 'totalFilesShown'],
   components: {
     Upload,
-    Canvas
+    Draw
   },
   data() {
     return {
@@ -105,6 +106,10 @@ export default {
       lastFiles: [],
       filesUrl: [],
       currentImage: '',
+      x: 0,
+      y: 0,
+      isDrawing: false,
+      canvas: null,
       overlay: false,
       zIndex: 1000,
       cards: [
@@ -138,10 +143,15 @@ export default {
       )
       this.filesUrl = await firebaseService.getFileUrls(files)
       this.filesUrl = this.filesUrl.slice(0, this.totalFilesShown)
+      console.log(this.filesUrl)
     } catch (error) {
       console.error(error)
     }
   },
+  // mounted() {
+  //   this.inicialize()
+  //   console.log('this.$refs 2', this.$refs)
+  // },
   methods: {
     async deleteImage(url) {
       try {
@@ -162,6 +172,48 @@ export default {
     closeOverlay() {
       this.overlay = false
     }
+    // inicialize() {
+    //   let cvn = this.$refs.canvas
+    //   let ctx = cvn.getContext('2d')
+    //   this.canvas = ctx
+    //   let bg = new Image()
+    //   console.log('this.currentImage', this.currentImage)
+    //   bg.src = this.currentImage
+    //   bg.id = 'imageClass'
+    //   bg.onload = function() {
+    //     ctx.drawImage(bg, 0, 0)
+    //   }
+    // },
+    // drawLine(x1, y1, x2, y2) {
+    //   let ctx = this.canvas
+    //   ctx.beginPath()
+    //   ctx.strokeStyle = 'teal'
+    //   ctx.lineWidth = 2
+    //   ctx.moveTo(x1, y1)
+    //   ctx.lineTo(x2, y2)
+    //   ctx.stroke()
+    //   ctx.closePath()
+    // },
+    // beginDrawing(e) {
+    //   this.x = e.offsetX
+    //   this.y = e.offsetY
+    //   this.isDrawing = true
+    // },
+    // keepDrawing(e) {
+    //   if (this.isDrawing === true) {
+    //     this.drawLine(this.x, this.y, e.offsetX, e.offsetY)
+    //     this.x = e.offsetX
+    //     this.y = e.offsetY
+    //   }
+    // },
+    // stopDrawing(e) {
+    //   if (this.isDrawing === true) {
+    //     this.drawLine(this.x, this.y, e.offsetX, e.offsetY)
+    //     this.x = 0
+    //     this.y = 0
+    //     this.isDrawing = false
+    //   }
+    // }
   }
 }
 </script>
