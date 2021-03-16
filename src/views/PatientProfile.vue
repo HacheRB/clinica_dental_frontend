@@ -98,11 +98,27 @@
         <!-- Columna de la derecha con los formularios -->
 
         <!-- Columna de la izquierda con las cards de citas, historial y pruebas -->
-        <v-col cols="12" md="4">
-          <PatientNextAppointments></PatientNextAppointments>
-        </v-col>
-        <v-col cols="12" md="4">
-          <PatientHistorical></PatientHistorical>
+        <v-col cols="12" md="6">
+          <v-row class="mb-16">
+            <Dates></Dates>
+          </v-row>
+          <v-row class="mb-16">
+            <Historical></Historical>
+          </v-row>
+          <v-row>
+            <v-col class="mb-16 rounded teal lighten-3">
+              <h1>{{ this.$route.params.patientId }}</h1>
+              <Upload
+                @getfileurl="addFileToPatient"
+                :patientId="this.$route.params.patientId"
+              >
+              </Upload>
+              <Images :files="this.files"></Images>
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col class="mb-16 rounded teal lighten-3"> </v-col>
+          </v-row>
         </v-col>
         <PatientImage></PatientImage>
       </v-row>
@@ -113,16 +129,20 @@
 <script>
 import PatientForm from '@/components/PatientForm'
 import PatientService from '../services/patientService'
-import PatientHistorical from '@/components/PatientHistorical'
-import PatientImage from '@/components/PatientImage'
-import PatientNextAppointments from '@/components/PatientNextAppointments'
+import Historical from '@/components/PatientHistorical'
+import Images from '@/components/PatientImage'
+import Dates from '@/components/PatientNextAppointments'
+import patientService from '../services/patientService'
+import Upload from '@/components/Upload.vue'
+
 export default {
   name: 'PatientProfile',
   components: {
-    PatientHistorical,
-    PatientImage,
+    Historical,
+    Images,
+    Dates,
     PatientForm,
-    PatientNextAppointments
+    Upload
   },
   data: () => ({
     dialog: false,
@@ -137,6 +157,7 @@ export default {
     bloodTypes: ['0-', '0+', 'A-', 'A+', 'B-', 'B+', 'AB-', 'AB+'],
     observations: '',
     email: '',
+    files: [],
     somethingChanged: false,
     items: [],
     firstNameRules: [
@@ -199,6 +220,16 @@ export default {
     },
     edit() {
       this.active = true
+    },
+    addFileToPatient(file) {
+      console.log('entra en addfiletoPatient')
+      console.log(file)
+      patientService
+        .addFiletoPatient(this.$route.params.patientId, file)
+        .then(response => {
+          console.log('response de addFileToPatient', response)
+        })
+        .catch(err => console.log(err))
     },
     updatePatient() {
       this.loadPatient()
