@@ -15,16 +15,16 @@
           <v-card flat tile class="transparent white--text text-center">
             <p
               cols="12"
-              class="d-block text-left font-weight-bold text-body-2 text-sm-body-2 text-md-body-1 text-lg-body-1 text-xl-body-1"
+              class="d-block text-left font-weight-bold text-body-2 text-sm-body-2 text-md-body-1 text-lg-body-1 text-xl-body-1 text-uppercase"
             >
-              TELDE
+              Telde
             </p>
 
             <p
               cols="12"
               class="text-left text-body-2 text-sm-body-2 text-md-body-1 text-lg-body-1 text-xl-body-1"
             >
-              Calle Leon Y castillo, 200
+              Calle León y Castillo, 200
             </p>
 
             <p
@@ -62,14 +62,14 @@
         >
           <v-card flat tile class="transparent white--text text-center">
             <p
-              class="text-left font-weight-bold text-body-2 text-sm-body-2 text-md-body-1 text-lg-body-1 text-xl-body-1 mb-2"
+              class="text-left font-weight-bold text-body-2 text-sm-body-2 text-md-body-1 text-lg-body-1 text-xl-body-1 mb-2 text-uppercase"
             >
-              HORARIO
+              Horario
             </p>
             <p
               class="text-left text-body-2 text-sm-body-2 text-md-body-1 text-lg-body-1 text-xl-body-1 mb-2"
             >
-              Lunes a Jueves 9:30 -20:00h
+              Lunes a Jueves 9:30 - 20:00h
             </p>
             <p
               class="text-left text-body-2 text-sm-body-2 text-md-body-1 text-lg-body-1 text-xl-body-1 mb-2"
@@ -79,7 +79,7 @@
             <p
               class="text-left text-body-2 text-sm-body-2 text-md-body-1 text-lg-body-1 text-xl-body-1 mb-2"
             >
-              Sabado / Domingo Cerrados
+              Sábado / Domingo Cerrados
             </p>
           </v-card>
         </v-col>
@@ -93,9 +93,9 @@
         >
           <v-card flat tile class="transparent white--text text-center ">
             <p
-              class="text-left font-weight-bold text-body-2 text-sm-body-2 text-md-body-1 text-lg-body-1 text-xl-body-1 mb-2"
+              class="text-left font-weight-bold text-body-2 text-sm-body-2 text-md-body-1 text-lg-body-1 text-xl-body-1 mb-2 text-uppercase"
             >
-              TELEFONO
+              Teléfono
             </p>
             <p
               class="text-left text-body-2 text-sm-body-2 text-md-body-1 text-lg-body-1 text-xl-body-1 mb-2"
@@ -103,9 +103,9 @@
               928111111
             </p>
             <p
-              class="text-left font-weight-bold text-body-2 text-sm-body-2 text-md-body-1 text-lg-body-1 text-xl-body-1 mb-2"
+              class="text-left font-weight-bold text-body-2 text-sm-body-2 text-md-body-1 text-lg-body-1 text-xl-body-1 mb-2 text-uppercase"
             >
-              EMAIL
+              Email
             </p>
 
             <p

@@ -21,7 +21,6 @@
             <v-card-text>
               <v-row class="d-flex justify-center align-center flex-wrap">
                 <v-col cols="6" class="d-flex justify-start">
-                  <h3><strong>Nombre:</strong></h3>
                   <h4 class="ml-3">
                     <strong>{{ firstName }}</strong>
                   </h4>

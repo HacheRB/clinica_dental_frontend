@@ -5,11 +5,7 @@
     :fullscreen="$vuetify.breakpoint.smAndDown"
   >
     <template v-slot:activator="{ on, attrs }">
-      <v-btn
-        color="teal darken-2 white--text ml-2 mb-2"
-        v-bind="attrs"
-        v-on="on"
-      >
+      <v-btn color="teal darken-2 white--text" v-bind="attrs" v-on="on">
         <v-icon>mdi-pencil</v-icon>
       </v-btn>
     </template>

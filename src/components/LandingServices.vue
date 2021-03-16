@@ -32,14 +32,14 @@
               medium
               color="teal darken-2 "
             >
-              mdi-plus-circle
+              mdi-tooth-outline
             </v-icon>
             <v-icon
               v-if="$vuetify.breakpoint.smAndUp"
               x-large
               color="teal darken-2 "
             >
-              mdi-plus-circle
+              mdi-tooth-outline
             </v-icon>
           </v-col>
           <v-col class="d-flex flex-col justify-start" cols="7" sm="7" md="7">
