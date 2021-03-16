@@ -1,5 +1,9 @@
 <template>
-  <v-dialog v-model="dialog" persistent max-width="600px">
+  <v-dialog
+    v-model="dialog"
+    max-width="600px"
+    :fullscreen="$vuetify.breakpoint.mdAndDown"
+  >
     <template v-slot:activator="{ on, attrs }">
       <v-btn color="teal darken-2 white--text" v-bind="attrs" v-on="on"
         >Crear Empleado</v-btn
@@ -16,7 +20,7 @@
         </v-btn>
       </v-card-title>
       <v-card-text>
-        <v-form ref="form">
+        <v-form ref="form" v-model="valid">
           <v-container>
             <v-row>
               <v-col cols="6">
@@ -152,6 +156,7 @@
               </v-col>
               <v-col cols="12">
                 <v-text-field
+                  color="teal darken-2"
                   v-model="password"
                   :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
                   :rules="[rules.required, rules.min]"
@@ -160,6 +165,22 @@
                   label="Contraseña"
                   hint="Mínimo 8 caracteres"
                   counter
+                  @click:append="show1 = !show1"
+                ></v-text-field>
+              </v-col>
+              <v-col cols="12">
+                <v-text-field
+                  color="teal darken-2"
+                  :dense="$vuetify.breakpoint.smAndDown"
+                  v-model="confirmPassword"
+                  :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                  :type="show1 ? 'text' : 'confirmPassword'"
+                  name="input-10-1"
+                  label="Repetir Contraseña"
+                  hint="Mínimo 8 caracteres"
+                  counter
+                  required
+                  :rules="confirmPasswordRules.concat(passwordConfirmationRule)"
                   @click:append="show1 = !show1"
                 ></v-text-field>
               </v-col>
@@ -185,6 +206,7 @@
         ><small class="ml-5 text--secondary">* indica campos requeridos</small>
         <v-spacer></v-spacer>
         <v-btn
+          :disabled="!valid"
           class="ma-5"
           color="teal darken-2 white--text"
           @click.prevent="createEmployee"
@@ -202,6 +224,7 @@ export default {
   name: 'CreateEmployee',
   data: () => ({
     hide: true,
+    valid: false,
     date: new Date().toISOString().substr(0, 10),
     modal: false,
     employed: true,
@@ -209,7 +232,8 @@ export default {
     occupationValue: ['DOCTOR', 'ASSISTANT'],
     occupationSelected: '',
     show1: false,
-    password: 'Password',
+    password: '',
+    confirmPassword: '',
     dialog: false,
     firstName: '',
     lastName: '',
@@ -254,12 +278,35 @@ export default {
     ],
     telephoneRules: [
       v => !v || /^[9][0-9]{8}$/.test(v) || 'Telephone must be valid'
+    ],
+    passwordRules: [
+      v => !!v || 'Password es requerido',
+      v => v.length >= 8 || 'El password debe ser de 8 caracteres',
+      v =>
+        /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-_+]).{8,}$/i.test(
+          v
+        ) ||
+        'El password debe contener una mayuscula, una minuscula y un caracter especial'
+    ],
+    confirmPasswordRules: [
+      v => !!v || 'Repetir password es requerido',
+      v => v.length >= 8 || 'El password debe ser de 8 caracteres',
+      v =>
+        /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-_+]).{8,}$/i.test(
+          v
+        ) ||
+        'El password debe contener una mayuscula, una minuscula y un caracter especial'
     ]
   }),
   computed: {
     changeCheckActive() {
       if (this.employed) return 'Activo'
       else return 'No Activo'
+    },
+    passwordConfirmationRule() {
+      return () =>
+        this.password === this.confirmPassword ||
+        'Las contraseñas deben ser iguales'
     }
   },
   methods: {

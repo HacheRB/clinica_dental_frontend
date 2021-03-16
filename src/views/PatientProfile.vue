@@ -105,10 +105,10 @@
         <!-- Columna de la izquierda con las cards de citas, historial y pruebas -->
         <v-col cols="12" md="6">
           <v-row class="mb-16">
-            <Dates></Dates>
+            <PatientNextAppointments></PatientNextAppointments>
           </v-row>
           <v-row class="mb-16">
-            <Historical></Historical>
+            <PatientHistorical></PatientHistorical>
           </v-row>
           <v-row>
             <v-col class="mb-16 rounded teal lighten-3">
@@ -118,7 +118,7 @@
                 :patientId="this.$route.params.patientId"
               >
               </Upload>
-              <Images :files="this.files"></Images>
+              <PatientImage :files="this.files"></PatientImage>
             </v-col>
           </v-row>
           <v-row>
@@ -132,19 +132,19 @@
 
 <script>
 import PatientService from '../services/patientService'
-import Historical from '@/components/PatientHistorical'
-import Images from '@/components/PatientImage'
-import Dates from '@/components/PatientNextAppointments'
+import PatientHistorical from '@/components/PatientHistorical'
+import PatientImage from '@/components/PatientImage'
+import PatientNextAppointments from '@/components/PatientNextAppointments'
 import patientService from '../services/patientService'
 import Upload from '@/components/Upload.vue'
 
 export default {
   name: 'PatientProfile',
   components: {
-    Historical,
-    Images,
-    Dates,
-    Upload
+    PatientHistorical,
+    PatientImage,
+    Upload,
+    PatientNextAppointments
   },
   data: () => ({
     dialog: false,

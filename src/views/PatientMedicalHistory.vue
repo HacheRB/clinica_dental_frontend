@@ -1,13 +1,21 @@
 <template>
   <v-container fluid class="patient-medical-history-container">
-    <v-row class="d-flex flex-column justify-center ma-5">
-      <v-col class="d-flex mx-10">
+    <v-row class="d-flex justify-center">
+      <v-col cols="5" class="d-flex align-center mt-5">
         <h2>
-          {{ patient }}
+          Historia Clínica de
+          {{ patient.firstName }}
+          {{ patient.lastName }}
         </h2>
       </v-col>
-      <v-col class="d-flex mx-10">
-        <h3>Historia Clínica</h3>
+      <v-col cols="5" class="d-flex align-center mt-5">
+        <v-text-field
+          append-icon="mdi-magnify"
+          label="Busca un tratamiento"
+          v-model="search"
+          @keyup="getPatientTreatmentsByQuery"
+        >
+        </v-text-field>
       </v-col>
     </v-row>
 
@@ -25,7 +33,7 @@
             >
               <v-row no-gutters>
                 <v-col cols="6" md="4">
-                  {{ treatment.appointments[0].start }}
+                  Fecha de la última cita: {{ treatment.appointments[0].start }}
                 </v-col>
                 <v-col cols="6" class="text--secondary">
                   <v-fade-transition leave-absolute>
@@ -33,7 +41,7 @@
 
                     <v-row v-else no-gutters style="width: 100%">
                       <v-col cols="6" md="4">
-                        {{ treatment.appointments[0].intervention }}
+                        {{ treatment.intervention }}
                       </v-col>
                       <v-col v-if="$vuetify.breakpoint.mdAndUp" cols="6" md="4">
                         {{
@@ -49,63 +57,19 @@
             </v-expansion-panel-header>
 
             <v-expansion-panel-content class="expansion-panel-content">
-              <v-row
-                class="d-flex flex-column"
-                v-for="(appointment, idx) in treatment.appointments"
-                :key="idx"
-              >
-                <v-col>
-                  <v-card
-                    color="#b2dfdb"
-                    @click="showDetailedView(treatment, appointment)"
-                    class="d-flex flex-column pb-5"
-                  >
-                    <v-row class="d-flex align-baseline px-5 mt-2">
-                      <v-col cols="12" sm="6">
-                        <p class="title align-end">
-                          {{ treatment.interventionSubtype }}
-                        </p>
-                      </v-col>
-                      <v-col cols="12" sm="6" class="d-flex justify-end">
-                        <p class="title">
-                          {{
-                            appointment.start + '-' + appointment.end.slice(-5)
-                          }}
-                        </p>
-                      </v-col>
-                    </v-row>
-                    <v-row class="d-flex flex-column justify-center px-5 mt-5">
-                      <v-col>
-                        <span class="subtitle-1"> Pieces : </span>
-                        <span
-                          class="subtitle-1"
-                          v-for="(piece, idx) in appointment.pieces"
-                          :key="idx"
-                        >
-                          {{ piece }}
-                        </span>
-                      </v-col>
-                      <v-col>
-                        <span class="font-weight-medium pa-0">
-                          Empleados:
-                        </span>
-                        <span
-                          class="body-1 pa-0"
-                          v-for="(employee, idx) in appointment.employees"
-                          :key="idx"
-                        >
-                          {{
-                            idx !== appointment.employees.length - 1
-                              ? employee.firstName +
-                                ' ' +
-                                employee.lastName +
-                                ', '
-                              : employee.firstName + ' ' + employee.lastName
-                          }}</span
-                        >
-                      </v-col>
-                    </v-row>
-                  </v-card>
+              <v-row>
+                <v-col
+                  v-for="(appointment, idx) in treatment.appointments"
+                  :key="idx"
+                  cols="12"
+                  sm="6"
+                  :lg="selectedAppointment ? 6 : 4"
+                >
+                  <AppointmentCard
+                    :treatment="treatment"
+                    :appointment="appointment"
+                    @selectedAppointment="selectedAppointment = appointment"
+                  />
                 </v-col>
               </v-row>
             </v-expansion-panel-content>
@@ -113,40 +77,73 @@
         </v-expansion-panels>
       </v-col>
     </v-row>
+    <AppointmentInfo
+      :appointment="selectedAppointment"
+      @resetSelectedAppointment="selectedAppointment = null"
+    />
   </v-container>
 </template>
 
 <script>
 import PatientService from '../services/patientService'
+import TreatmentService from '../services/treatmentService'
+import AppointmentInfo from '../components/AppointmentInfo'
+import AppointmentCard from '../components/AppointmentCard'
+
 export default {
   name: 'PatientMedicalHistory',
 
   props: { patientId: String },
+  components: {
+    AppointmentInfo,
+    AppointmentCard
+  },
   data() {
     return {
       temp: 'hola',
-      patient: '',
-      medicalHistory: []
+      patient: {},
+      medicalHistory: [],
+      search: '',
+      selectedAppointment: null
     }
   },
   async created() {
-    let patient = await PatientService.getPatientTreatments(this.patientId)
-    this.patient = `${patient.data.firstName} ${patient.data.lastName}`
-    let treatments = patient.data.treatments
-    this.medicalHistory = treatments.sort(function(a, b) {
-      return (
-        new Date(b.appointments[0].start) - new Date(a.appointments[0].start)
-      )
-    })
+    if (!localStorage.token) {
+      this.$router.push('/')
+    }
+
+    this.getPatient()
+    this.getPatientTreatments()
   },
   methods: {
-    showDetailedView(treatment, appointment) {
-      console.log(
-        'Hay que darle funcionalidad al onclick de patientmedical history',
-        treatment,
-        appointment
-      )
-      appointment
+    getPatient() {
+      PatientService.getPatientById(this.patientId)
+        .then(patient => {
+          console.log(patient.data)
+          this.patient = patient.data
+        })
+        .catch(err => console.log(err))
+    },
+    getPatientTreatments() {
+      TreatmentService.getPatientTreatments(this.patientId)
+        .then(treatments => {
+          this.sortByDate(treatments.data)
+        })
+        .catch(err => console.log(err))
+    },
+    getPatientTreatmentsByQuery() {
+      TreatmentService.getPatientTreatmentsByQuery(this.patientId, this.search)
+        .then(treatments => {
+          this.sortByDate(treatments.data)
+        })
+        .catch(err => console.log(err))
+    },
+    sortByDate(treatments) {
+      this.medicalHistory = treatments.sort(function(a, b) {
+        return (
+          new Date(a.appointments[0].start) - new Date(b.appointments[0].start)
+        )
+      })
     }
   }
 }
@@ -154,6 +151,7 @@ export default {
 
 <style lang="scss" scoped>
 .history-row {
-  background-color: #b2dfdb;
+  background-color: #00796b;
 }
+// #b2dfdb
 </style>
