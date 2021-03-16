@@ -161,7 +161,7 @@ export default {
   methods: {
     displayAppointment: function() {
       AppointmentService.getAppointmentById(
-        typeof this.appointment === Object
+        typeof this.appointment === 'object'
           ? this.appointment._id
           : this.appointment
       )
