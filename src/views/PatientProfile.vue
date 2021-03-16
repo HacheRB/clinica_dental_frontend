@@ -6,7 +6,7 @@
       </v-col>
     </v-row>
     <v-form ref="form" lazy-validation>
-      <v-row>
+      <v-row class="ma-xs-0 ma-md-5">
         <v-col cols="12" md="12" lg="4" xl="6">
           <v-card color="#B2DFDB" height="500px">
             <v-card-title class="headline teal--text">
@@ -110,7 +110,7 @@
           <PatientHistorical></PatientHistorical>
         </v-col>
       </v-row>
-      <v-row>
+      <v-row class="ma-xs-0 ma-md-5">
         <v-col cols="12" md="6">
           <PatientImage
             :files="this.files"
