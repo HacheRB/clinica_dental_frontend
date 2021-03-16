@@ -24,9 +24,10 @@
       <v-col class="d-flex justify-end align-center" cols="8" sm="4">
         <v-btn
           @click="toggleAppointmentForm"
-          :color="createAppointmentBtnColor"
+          color="teal darken-2"
           dark
-          >{{ createAppointmentBtnText }}</v-btn
+          v-if="!createAppointment"
+          >Crear Cita</v-btn
         >
       </v-col>
     </v-row>
@@ -52,6 +53,7 @@
         :cols="calendarCols"
         :showThis="selectedEmployees"
         :cleaning="cleaning"
+        @getappointment="getSelectedAppointment"
       />
       <v-col
         fill-height
@@ -60,53 +62,70 @@
         cols="12"
         md="5"
       >
-        <AppointmentForm :employees="employees" :patientNext="patient" />
+        <v-row class="d-flex flex-column">
+          <v-col class="pb-0 pt-5">
+            <v-card color="teal" dark>
+              <v-row class="d-flex justify-space-between align-center px-5">
+                <v-col>
+                  <h1 class="nuevaCita">
+                    Nueva Cita
+                  </h1>
+                </v-col>
+                <v-btn icon @click="toggleAppointmentForm">
+                  <v-icon>mdi-close</v-icon></v-btn
+                >
+              </v-row>
+            </v-card>
+          </v-col>
+          <v-col class="pt-2">
+            <AppointmentForm :employees="employees" :patientNext="patient" />
+          </v-col>
+        </v-row>
       </v-col>
     </v-row>
+    <AppointmentInfo
+      :appointment="selectedAppointment"
+      @resetSelectedAppointment="selectedAppointment = null"
+    />
   </v-container>
 </template>
 
 <script>
-import ChooseDoctor from '../components/ChooseDoctor'
-import AppointmentForm from '@/components/AppointmentForm'
 import EmployeeService from '../services/employeeService'
+import AppointmentForm from '@/components/AppointmentForm'
+import ChooseDoctor from '../components/ChooseDoctor'
 import Calendar from '@/components/Calendar'
+import AppointmentInfo from '../components/AppointmentInfo'
 
 export default {
   name: 'Home',
   components: {
     AppointmentForm,
+    ChooseDoctor,
     Calendar,
-    ChooseDoctor
+    AppointmentInfo
   },
   props: { patient: Object, toggleForm: Boolean },
   data() {
     return {
       calendarCols: 12,
       createAppointment: false,
-      createAppointmentBtnText: 'Crear Cita',
-      createAppointmentBtnColor: 'teal darken-2 white--text',
       employees: [],
       cleaning: false,
       isUpdating: false,
       autoUpdate: true,
-      selectedEmployees: []
+      selectedEmployees: [],
+      selectedAppointment: null
     }
   },
   methods: {
     toggleAppointmentForm() {
       this.createAppointment = !this.createAppointment
-      this.createAppointmentBtnText = this.createAppointment
-        ? 'Cerrar formulario'
-        : 'Crear Cita'
       this.calendarCols = this.createAppointment
         ? this.$vuetify.breakpoint.smAndDown
           ? 12
           : 7
         : 12
-      this.createAppointmentBtnColor = this.createAppointment
-        ? 'red'
-        : 'teal darken-2 white--text'
     },
     remove(item) {
       this.chips.splice(this.chips.indexOf(item), 1)
@@ -115,6 +134,11 @@ export default {
     getSelectedEmployees(selectedEmployees) {
       this.selectedEmployees = selectedEmployees.map(employee => employee._id)
       console.log('selectedEmployees', this.selectedEmployees)
+    },
+    getSelectedAppointment(appointment) {
+      console.log('home appointmentID', appointment)
+      this.selectedAppointment = appointment
+      console.log('home selectedappointment', this.selectedAppointment)
     }
   },
   created() {
@@ -135,4 +159,8 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.nuevaCita {
+  color: white;
+}
+</style>

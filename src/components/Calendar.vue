@@ -91,7 +91,7 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn text color="secondary" @click="selectedOpen = false">
+            <v-btn text color="secondary" @click="showAppointment">
               Ver más
             </v-btn>
           </v-card-actions>
@@ -193,6 +193,10 @@ export default {
       }
 
       nativeEvent.stopPropagation()
+    },
+    showAppointment() {
+      this.$emit('getappointment', this.selectedEvent.appointmentId)
+      this.selectedOpen = false
     },
     updateRange() {
       const events = []
