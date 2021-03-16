@@ -2,8 +2,8 @@
   <v-container fluid px-16 pt-5>
     <v-form ref="form" lazy-validation>
       <v-row>
-        <v-col cols="12" md="6">
-          <v-card color="#B2DFDB">
+        <v-col cols="12" md="4">
+          <v-card color="#B2DFDB" height="500px">
             <v-card-title class="headline teal--text">
               <strong>{{ patient.firstName }} {{ patient.lastName }}</strong>
               <v-spacer></v-spacer>
@@ -99,14 +99,12 @@
 
         <!-- Columna de la izquierda con las cards de citas, historial y pruebas -->
         <v-col cols="12" md="4">
-          <v-row class="mb-16">
-            <PatientNextAppointments></PatientNextAppointments>
-          </v-row>
-          <v-row class="mb-16">
-            <PatientHistorical></PatientHistorical>
-          </v-row>
-          <PatientImage></PatientImage>
+          <PatientNextAppointments></PatientNextAppointments>
         </v-col>
+        <v-col cols="12" md="4">
+          <PatientHistorical></PatientHistorical>
+        </v-col>
+        <PatientImage></PatientImage>
       </v-row>
     </v-form>
   </v-container>

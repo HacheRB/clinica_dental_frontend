@@ -1,45 +1,43 @@
 <template>
-  <v-col>
-    <v-card color="#B2DFDB">
-      <v-card-title class="headline teal--text">
-        <strong>Citas</strong>
-        <v-spacer></v-spacer>
-        <v-btn
-          color="teal darken-2 white--text"
-          grow
-          :to="{ name: 'Home', params: { patient } }"
-          >Crear Cita
-        </v-btn>
-      </v-card-title>
-      <v-divider></v-divider>
-      <v-card-text>
-        <v-timeline align-top dense>
-          <v-timeline-item
-            v-for="(appointment, idx) in appointments"
-            :key="idx"
-            small
-            color="teal"
-          >
+  <v-card color="#B2DFDB" height="500px">
+    <v-card-title class="headline teal--text">
+      <strong>Citas</strong>
+      <v-spacer></v-spacer>
+      <v-btn
+        color="teal darken-2 white--text"
+        grow
+        :to="{ name: 'Home', params: { patient } }"
+        >Crear Cita
+      </v-btn>
+    </v-card-title>
+    <v-divider></v-divider>
+    <v-card-text>
+      <v-timeline align-top dense>
+        <v-timeline-item
+          v-for="(appointment, idx) in appointments"
+          :key="idx"
+          small
+          color="teal"
+        >
+          <div>
             <div>
-              <div>
-                <strong>
-                  {{ appointment.intervention }}
-                </strong>
-              </div>
-              <div>
-                {{ appointment.start }}
-              </div>
-              <div>
-                <strong>
-                  {{ appointment.employees }}
-                </strong>
-              </div>
+              <strong>
+                {{ appointment.intervention }}
+              </strong>
             </div>
-          </v-timeline-item>
-        </v-timeline>
-      </v-card-text>
-    </v-card>
-  </v-col>
+            <div>
+              {{ appointment.start }}
+            </div>
+            <div>
+              <strong>
+                {{ appointment.employees }}
+              </strong>
+            </div>
+          </div>
+        </v-timeline-item>
+      </v-timeline>
+    </v-card-text>
+  </v-card>
 </template>
 
 <script>
