@@ -22,7 +22,7 @@
       <v-select
         :items="newTreatment ? Object.keys(allTreatments) : activeTreatments"
         v-model="intervention"
-        item-text="Intervención"
+        item-text="intervention"
         return-object
         color="teal lighten-2"
         label="Elige una intervención"
