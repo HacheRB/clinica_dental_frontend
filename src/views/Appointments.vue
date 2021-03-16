@@ -41,6 +41,9 @@
             :options.sync="options"
             :server-items-length="totalAppointments"
             :search="search"
+            :footer-props="{
+              'items-per-page-text': 'Citas por página'
+            }"
             @click:row="sendAppointment"
           >
             <template v-slot:item.action="{ item }">

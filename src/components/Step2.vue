@@ -20,7 +20,7 @@
       <v-select
         :items="newTreatment ? Object.keys(allTreatments) : activeTreatments"
         v-model="intervention"
-        item-text="intervention"
+        item-text="Intervención"
         return-object
         color="teal lighten-2"
         label="Elige una intervención"
@@ -159,9 +159,6 @@ export default {
         this.newTreatment
       )
     }
-  },
-  mounted() {
-    console.log('hola, cargo el mounted')
   },
   async created() {
     let patient = await PatientService.getPatientTreatments(this.patientId)
