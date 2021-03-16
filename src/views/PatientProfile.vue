@@ -1,8 +1,13 @@
 <template>
-  <v-container fluid px-16 pt-5>
+  <v-container fluid pa-5>
+    <v-row class="ma-xs-0 ma-md-5">
+      <v-col cols="12" sm="6" lg="3" class="d-flex justify-start align-center">
+        <v-breadcrumbs large divider="/" :items="items" class="pl-0" />
+      </v-col>
+    </v-row>
     <v-form ref="form" lazy-validation>
-      <v-row>
-        <v-col cols="12" md="4">
+      <v-row class="ma-xs-0 ma-md-5">
+        <v-col cols="12" md="12" lg="4" xl="6">
           <v-card color="#B2DFDB" height="500px">
             <v-card-title class="headline teal--text">
               <strong>{{ patient.firstName }} {{ patient.lastName }}</strong>
@@ -98,14 +103,14 @@
         <!-- Columna de la derecha con los formularios -->
 
         <!-- Columna de la izquierda con las cards de citas, historial y pruebas -->
-        <v-col cols="12" md="4">
+        <v-col cols="12" sm="6" md="6" lg="4" xl="3">
           <PatientNextAppointments></PatientNextAppointments>
         </v-col>
-        <v-col cols="12" md="4">
+        <v-col cols="12" sm="6" md="6" lg="4" xl="3">
           <PatientHistorical></PatientHistorical>
         </v-col>
       </v-row>
-      <v-row>
+      <v-row class="ma-xs-0 ma-md-5">
         <v-col cols="12" md="6">
           <PatientImage
             :files="this.files"
@@ -203,6 +208,14 @@ export default {
           this.bloodType = request.data.bloodType
           this.observations = request.data.observations
           this.patient = request.data
+          this.items = [
+            { text: 'Pacientes', disabled: false, href: '/patients/list' },
+            {
+              text: `${this.firstName} ${this.lastName}`,
+              disabled: true,
+              href: `/patients/${this.patientId}`
+            }
+          ]
         })
         .catch(err => {
           console.log(err)

@@ -82,6 +82,7 @@
                 <v-textarea
                   v-model="changedAppointment.observations"
                   outlined
+                  color="teal lighten-1"
                   label="Motivos y Observaciones"
                   @change="changeAppointment"
                 >
@@ -95,6 +96,7 @@
                     <v-text-field
                       v-model="changedAppointment.intervention"
                       outlined
+                      color="teal lighten-1"
                       label="Tipo de intervención"
                       @change="changeAppointment"
                     >
@@ -104,6 +106,7 @@
                     <v-text-field
                       v-model="changedAppointment.treatment.interventionSubType"
                       outlined
+                      color="teal lighten-1"
                       label="Subtipo de intervención"
                       @change="changeAppointment"
                     >
@@ -118,6 +121,7 @@
                   v-model="changedAppointment.medicines"
                   label="Medicinas"
                   outlined
+                  color="teal lighten-1"
                   @change="changeAppointment"
                 >
                 </v-textarea>
