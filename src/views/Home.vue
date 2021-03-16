@@ -52,6 +52,7 @@
         :cols="calendarCols"
         :showThis="selectedEmployees"
         :cleaning="cleaning"
+        @getappointment="getSelectedAppointment"
       />
       <v-col
         fill-height
@@ -63,21 +64,27 @@
         <AppointmentForm :employees="employees" :patientNext="patient" />
       </v-col>
     </v-row>
+    <AppointmentInfo
+      :appointment="selectedAppointment"
+      @resetSelectedAppointment="selectedAppointment = null"
+    />
   </v-container>
 </template>
 
 <script>
-import ChooseDoctor from '../components/ChooseDoctor'
-import AppointmentForm from '@/components/AppointmentForm'
 import EmployeeService from '../services/employeeService'
+import AppointmentForm from '@/components/AppointmentForm'
+import ChooseDoctor from '../components/ChooseDoctor'
 import Calendar from '@/components/Calendar'
+import AppointmentInfo from '../components/AppointmentInfo'
 
 export default {
   name: 'Home',
   components: {
     AppointmentForm,
+    ChooseDoctor,
     Calendar,
-    ChooseDoctor
+    AppointmentInfo
   },
   props: { patient: Object, toggleForm: Boolean },
   data() {
@@ -90,7 +97,8 @@ export default {
       cleaning: false,
       isUpdating: false,
       autoUpdate: true,
-      selectedEmployees: []
+      selectedEmployees: [],
+      selectedAppointment: null
     }
   },
   methods: {
@@ -115,6 +123,11 @@ export default {
     getSelectedEmployees(selectedEmployees) {
       this.selectedEmployees = selectedEmployees.map(employee => employee._id)
       console.log('selectedEmployees', this.selectedEmployees)
+    },
+    getSelectedAppointment(appointment) {
+      console.log('home appointmentID', appointment)
+      this.selectedAppointment = appointment
+      console.log('home selectedappointment', this.selectedAppointment)
     }
   },
   created() {
