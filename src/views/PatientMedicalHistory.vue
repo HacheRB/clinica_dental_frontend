@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid class="patient-medical-history-container" px-16>
+  <v-container fluid class="patient-medical-history-container" pa-5>
     <v-row class="d-flex justify-center">
       <v-col cols="6" class="d-flex align-center mt-5 pl-0">
         <v-breadcrumbs large divider="/" :items="items" class="pl-0" />
