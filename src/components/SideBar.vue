@@ -9,8 +9,14 @@
       class="teal darken-2 white--text rounded-0"
     >
       <v-list-item class="px-2">
-        <v-list-item-avatar color="white">
+        <v-list-item-avatar color="white" v-if="me.avatar.downloadurl === ''">
           <v-icon color="teal">mdi-account</v-icon>
+        </v-list-item-avatar>
+
+        <v-list-item-avatar v-if="me.avatar.downloadurl !== ''">
+          <v-avatar>
+            <img :src="me.avatar.downloadurl" :alt="me.firstName" />
+          </v-avatar>
         </v-list-item-avatar>
 
         <v-list-item-title class="white--text" @click="sendMe"
@@ -78,19 +84,16 @@ export default {
       }
     ],
     mini: true,
-    me: {}
+    me: { avatar: {} }
   }),
   computed: {
     isSm() {
       return this.$vuetify.breakpoint.smAndDown
     }
   },
-  created() {
-    EmployeeService.getMe()
-      .then(me => {
-        this.me = me.data
-      })
-      .catch(err => console.log(err))
+  async created() {
+    let me = await EmployeeService.getMe()
+    this.me = me.data
   },
   methods: {
     sendMe: function() {
