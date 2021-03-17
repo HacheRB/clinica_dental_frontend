@@ -6,9 +6,9 @@
 
     <v-card-text class="d-flex justify-center white">
       <canvas
-        width="500"
-        height="500"
         class="mt-5"
+        :width="height"
+        :height="height"
         ref="canvas"
         @mousedown="beginDrawing"
         @mousemove="keepDrawing"
@@ -24,26 +24,43 @@
 export default {
   name: 'Draw',
   props: { image: String },
-  data: () => ({ dialog: false }),
+  data: () => ({}),
+  computed: {
+    height() {
+      let height = ''
+      switch (this.$vuetify.breakpoint.name) {
+        case 'xs':
+          height = '300'
+          break
+        case 'sm':
+        case 'md':
+        case 'lg':
+        case 'xl':
+          height = '600'
+          break
+      }
+      console.log(height)
+      return height
+    }
+  },
   methods: {
     inicialize() {
       let cvn = this.$refs.canvas
       let ctx = cvn.getContext('2d')
       this.canvas = ctx
       let bg = new Image()
-      console.log('this.image', this.image)
       bg.src = this.image
-      bg.width = '600'
-      bg.height = '600'
+      bg.style.backgroundColor = '#000000'
       bg.id = 'imageClass'
+      console.log(bg)
       bg.onload = function() {
-        ctx.drawImage(bg, 0, 0)
+        ctx.drawImage(bg, 0, 0, 600, 600, 0, 0, 600, 600)
       }
     },
     drawLine(x1, y1, x2, y2) {
       let ctx = this.canvas
       ctx.beginPath()
-      ctx.strokeStyle = '#96000E'
+      ctx.strokeStyle = '#F44336'
       ctx.lineWidth = 2
       ctx.moveTo(x1, y1)
       ctx.lineTo(x2, y2)
