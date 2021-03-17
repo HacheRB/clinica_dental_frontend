@@ -60,7 +60,9 @@ export default {
         this.sortByStart(appointments.data)
 
         for (let i = 0; i < 3; i++) {
-          this.formatAppointments(appointments.data[i])
+          if (appointments.data[i]) {
+            this.formatAppointments(appointments.data[i])
+          }
         }
       })
       .catch(err => console.log(err))

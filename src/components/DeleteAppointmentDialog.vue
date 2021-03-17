@@ -6,16 +6,26 @@
       </v-btn>
     </template>
     <v-card>
-      <v-card-title>
-        Esta segur@ de que quiere eliminar la cita de la base de datos?
+      <v-card-title
+        class="teal darken-2 white--text headline mb-5"
+        color="teal darken-2"
+        >Borrar Cita
+        <v-spacer></v-spacer>
+        <v-btn icon color=" white" text @click="dialog = false"
+          ><v-icon>
+            mdi-close
+          </v-icon>
+        </v-btn>
       </v-card-title>
+      <v-card-text class="text-center body-1">
+        Esta segur@ de que quiere eliminar la cita de la base de datos?
+      </v-card-text>
       <v-card-actions class="d-flex justify-center">
-        <v-btn @click="dialog = false" text color="teal darken-2">No</v-btn>
         <v-btn
           @click="deleteAppointment(item), (dialog = false)"
           color="teal"
           dark
-          >Sí</v-btn
+          >Confirmar</v-btn
         >
       </v-card-actions>
     </v-card>
@@ -33,7 +43,6 @@ export default {
   }),
   methods: {
     deleteAppointment: function(appointment) {
-      console.log(appointment)
       AppointmentService.deleteAppointment(appointment)
         .then(response => {
           console.log(response.data)
