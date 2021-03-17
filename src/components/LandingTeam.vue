@@ -1,5 +1,5 @@
 <template>
-  <v-container id="team" fluid class="text-center team px-0 ">
+  <v-container id="team" fluid class="text-center team px-0">
     <div class="mt-3 py-15 team"></div>
 
     <h2 class="display-2 text-uppercase font-weight-bold mb-2">Equipo</h2>
@@ -35,9 +35,7 @@
           <v-card-subtitle>{{ employee.title }}</v-card-subtitle>
           <v-card-text>
             <p class="no-overflow">
-              Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean
-              commodo ligula eget dolor. Aenean massa. Cum sociis natoque
-              penatibus et magnis dis parturient montes
+              {{ employee.description }}
             </p>
           </v-card-text>
         </v-card>
@@ -52,32 +50,36 @@ export default {
   name: 'LandingTeam',
   data() {
     return {
-      employeeDescription:
-        'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes',
       employees: [
         {
           name: 'Maria Rivero',
-          title: 'Dentista',
+          title: 'Odontóloga',
           img:
-            'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1650&q=80'
+            'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1650&q=80',
+          description:
+            'Licenciada en odontología por la universidad de Las Palmas de Gran Canaria y con más de 15 años de experiencia. Especialista en ortodoncias.'
         },
         {
-          name: 'Carmen Marrero',
-          title: 'Dentista',
+          name: 'Juan Marrero',
+          title: 'Odontólogo',
           img:
-            'https://images.unsplash.com/photo-1567568443997-19f025355d52?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80'
+            'https://images.unsplash.com/photo-1567568443997-19f025355d52?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80',
+          description:
+            'Licenciado en odontología por la universidad de La Laguna, Canaria y con más de 20 años de experiencia. Especialista en prótesis.'
         },
         {
           name: 'Juan Betancourt',
           title: 'Auxiliar',
           img:
-            'https://images.unsplash.com/photo-1588776813677-77aaf5595b83?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=934&q=80'
+            'https://images.unsplash.com/photo-1588776813677-77aaf5595b83?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=934&q=80',
+          description: 'Técnico superior en higiene bucodental'
         },
         {
           name: 'Isabel Lopez',
           title: 'Auxiliar',
           img:
-            'https://images.unsplash.com/photo-1527613426441-4da17471b66d?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1935&q=80'
+            'https://images.unsplash.com/photo-1527613426441-4da17471b66d?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1935&q=80',
+          description: 'Técnico superior en higiene bucodental'
         }
       ]
     }

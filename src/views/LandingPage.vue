@@ -1,5 +1,9 @@
 <template>
-  <v-container class="landing-container px-0 pt-9" fluid>
+  <!-- el container tenía pt-9 -->
+  <v-container
+    :class="$vuetify.breakpoint.smAndDown ? 'phone' : 'desktop'"
+    fluid
+  >
     <LandingHero />
     <LandingTeam />
     <LandingServices />
@@ -19,8 +23,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.landing-container {
+.phone {
   margin: 0;
   padding: 0;
+  padding-top: 56px;
+}
+.desktop {
+  margin: 0;
+  padding: 0;
+  padding-top: 64px;
 }
 </style>

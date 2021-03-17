@@ -109,7 +109,7 @@
                   outlined
                   filled
                   auto-grow
-                  :value="patient.observations"
+                  v-model="patient.observations"
                   @change="change"
                 ></v-textarea>
               </v-col>
@@ -182,25 +182,25 @@ export default {
       this.somethingChanged = true
     },
     updatePatient() {
+      console.log('observations', this.patient.observations)
       patientService
         .updatePatient(
           {
             firstName: this.patient.firstName,
             lastName: this.patient.lastName,
             dni: this.patient.dni,
+            observations: this.patient.observations,
             'contact.email': this.patient.contact.email,
             'contact.mobilephone': this.patient.contact.mobilephone,
             'contact.telephone': this.patient.contact.telephone,
-            firstname: this.patient.firstName,
-            bloodType: this.patient.bloodType,
-            observations: this.patient.observations
+            bloodType: this.patient.bloodType
           },
           this.$route.params.patientId
         )
         .then(response => {
+          console.log('response', response)
           this.dialog = false
           this.$emit('updatePatient')
-          console.log(response)
         })
         .catch(err => console.log(err))
     }

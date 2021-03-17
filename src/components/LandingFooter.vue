@@ -17,7 +17,7 @@
               cols="12"
               class="d-block text-left font-weight-bold text-body-2 text-sm-body-2 text-md-body-1 text-lg-body-1 text-xl-body-1 text-uppercase"
             >
-              Telde
+              Las Palmas
             </p>
 
             <p

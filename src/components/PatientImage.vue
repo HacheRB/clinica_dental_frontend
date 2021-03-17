@@ -2,13 +2,13 @@
   <!-- Header del componente -->
   <v-card color="#B2DFDB">
     <v-card-title class="headline teal--text">
-      <strong>Historial</strong>
       <Upload
         :patientId="this.$route.params.patientId"
         @forcererender="forceRerender"
       >
       </Upload>
     </v-card-title>
+    <v-divider></v-divider>
     <v-card-text>
       <!--  Componente grid -->
       <v-row :key="componentKey">
@@ -22,6 +22,7 @@
           xl="4"
         >
           <v-img
+            :elevation="24"
             :src="file.download"
             :lazy-src="file.download"
             aspect-ratio="1"
@@ -81,9 +82,9 @@
     <v-card-actions>
       <v-spacer></v-spacer>
       <v-col class="d-flex justify-end" cols="12">
-        <v-btn plain>
+        <!-- <v-btn plain>
           ver más
-        </v-btn>
+        </v-btn> -->
       </v-col>
     </v-card-actions>
   </v-card>
