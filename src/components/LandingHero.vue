@@ -1,5 +1,5 @@
 <template>
-  <v-row id="hero">
+  <v-container fluid id="hero" ma-0 pa-0>
     <v-img
       :min-height="'calc(100vh - ' + $vuetify.application.top + 'px)'"
       :aspect-ratio="16 / 9"
@@ -29,7 +29,6 @@
             class="d-flex flex-row justify-center align-center white--text text-center"
             cols="12"
             sm="8"
-            md="8"
             lg="6"
             xl="4"
           >
@@ -45,13 +44,7 @@
               imperdiet a
             </p>
           </v-col>
-          <v-col
-            class="white--text text-center"
-            cols="12"
-            md="6"
-            lg="6"
-            xl="12"
-          >
+          <v-col class="white--text text-center" cols="12" md="6" xl="12">
             <v-btn color="white" fab outlined @click="$vuetify.goTo('#team')">
               <v-icon>mdi-chevron-double-down</v-icon>
             </v-btn>
@@ -59,7 +52,7 @@
         </v-row>
       </v-container>
     </v-img>
-  </v-row>
+  </v-container>
 </template>
 
 <script>

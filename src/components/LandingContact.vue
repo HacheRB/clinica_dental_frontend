@@ -20,7 +20,13 @@
         </p>
       </v-col>
     </v-row>
-    <v-row class="d-flex justify-center" cols="12" lg="8" xl="6">
+    <v-row
+      class="d-flex justify-center"
+      cols="12"
+      lg="8"
+      xl="6"
+      :key="componentKey"
+    >
       <v-col text-left cols="12" lg="8" xl="6">
         <v-card
           outlined
@@ -92,7 +98,7 @@
           <v-card-actions class="d-flex justify-center">
             <v-btn
               color="teal darken-2 white--text mb-2"
-              @click.prevent="sendForm"
+              @click.stop="sendForm"
             >
               Solicitar información
             </v-btn>
@@ -100,21 +106,38 @@
         </v-card>
       </v-col>
     </v-row>
+    <v-snackbar
+      v-model="snackbar"
+      :timeout="5000"
+      top
+      right
+      transition="scroll-x-reverse-transition"
+    >
+      La cita ha sido guardada correctamente
 
+      <template v-slot:action="{ attrs }">
+        <v-btn color="teal" text v-bind="attrs" @click="snackbar = false">
+          Cerrar
+        </v-btn>
+      </template>
+    </v-snackbar>
     <v-row class="d-flex flex-col pt-5"> </v-row>
     <div class="py-15 contact"></div>
   </v-container>
 </template>
 <script>
+import contactFormService from '../services/contactFormService.js'
 export default {
   name: 'LandingContact',
   data() {
     return {
+      componentKey: 0,
       fullName: '',
       description: '',
       email: '',
       phone: '',
       motivo: '',
+      snackbar: false,
       opciones: [
         'Solicitar Información',
         'Solicitar Presupuesto',
@@ -135,16 +158,35 @@ export default {
         v => !!v || 'Introduzca un teléfono de contacto',
         v =>
           /^[679][0-9]{8}$/.test(v) || 'Introduzca un número de teléfono válido'
-      ],
-      methods: {
-        sendForm() {
-          if (!this.$refs.form.validate()) {
-            console.log('no pasa las validaciones')
-            return
-          }
-          console.log('Se envía el formulario')
-        }
+      ]
+    }
+  },
+  methods: {
+    async sendForm() {
+      if (!this.$refs.form.validate()) {
+        console.log('no pasa las validaciones')
+        return
       }
+      await contactFormService.askForInformation({
+        fullName: this.fullName,
+        phone: this.email,
+        email: this.phone,
+        motivo: this.motivo,
+        description: this.description
+      })
+      this.resetForm()
+      this.forceRerender()
+      this.snackbar = true
+    },
+    forceRerender() {
+      this.componentKey++
+    },
+    resetForm() {
+      this.fullName = ''
+      this.description = ''
+      this.email = ''
+      this.phone = ''
+      this.motivo = ''
     }
   }
 }

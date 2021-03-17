@@ -1,5 +1,5 @@
 <template>
-  <v-container id="team" fluid class="text-center team px-0 ">
+  <v-container id="team" fluid class="text-center team px-0">
     <div class="mt-3 py-15 team"></div>
 
     <h2 class="display-2 text-uppercase font-weight-bold mb-2">Equipo</h2>

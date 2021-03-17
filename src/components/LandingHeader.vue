@@ -1,36 +1,36 @@
 <template>
-  <v-container class="header-container" fill-height fluid>
+  <v-container id="header-container" fluid>
     <v-app-bar color="teal darken-2" app dark fixed>
       <v-app-bar-nav-icon
         class="d-flex d-md-none"
         @click.stop="drawer = !drawer"
       ></v-app-bar-nav-icon>
-      <a id="title-anchor" href="#hero"
+      <a id="title-anchor" href="#header-container"
         ><v-toolbar-title class="title">Clínica Dental</v-toolbar-title></a
       >
 
       <v-spacer></v-spacer>
       <a href="#team">
-        <v-btn plain class="d-none d-md-flex">
+        <v-btn
+          text
+          class="d-none d-md-flex text--white"
+          @click="$vuetify.goTo('#team')"
+        >
           Equipo
         </v-btn></a
       >
       <v-spacer></v-spacer>
 
-      <a href="#services">
-        <v-btn plain class="d-none d-md-flex">
-          Servicios
-        </v-btn></a
-      >
+      <v-btn text class="d-none d-md-flex" @click="$vuetify.goTo('#services')">
+        Servicios
+      </v-btn>
       <v-spacer></v-spacer>
 
-      <a href="#contact">
-        <v-btn plain class="d-none d-md-flex">
-          Solicitar Información
-        </v-btn>
-      </a>
+      <v-btn text class="d-none d-md-flex" @click="$vuetify.goTo('#contact')">
+        Solicitar Información
+      </v-btn>
       <v-spacer></v-spacer>
-      <v-btn plain class="d-flex">
+      <v-btn text class="d-flex">
         928111111
       </v-btn>
 
@@ -93,6 +93,9 @@ export default {
 #title-anchor {
   color: white;
   text-decoration: none;
+}
+.header-container {
+  height: 64px;
 }
 .title {
   font-size: 1.25rem;

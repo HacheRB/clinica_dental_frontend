@@ -1,6 +1,7 @@
 <template>
   <v-app class="app">
-    <LandingHeader class="pb-8 pb-md-10" v-if="this.$route.path === '/'" />
+    <!-- landing header tenia class="pb-8 pb-md-10" -->
+    <LandingHeader v-if="this.$route.path === '/'" />
     <v-main class="pt-0">
       <SideBar v-if="!(this.$route.path === '/')" @sendme="sendMe" />
       <v-container fluid class="app-container px-0">
