@@ -9,6 +9,7 @@
     label="Seleccione personal"
     item-text="firstName"
     item-value="item"
+    item-color="teal lighten-2"
     multiple
     return-object
   >
