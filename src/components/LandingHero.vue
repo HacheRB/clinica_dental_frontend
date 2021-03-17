@@ -20,7 +20,7 @@
             xl="4"
           >
             <h1>
-              Clinica Dental
+              Clinica Dental Marrero
             </h1>
 
             <br />
@@ -35,15 +35,13 @@
             <p
               class="text-left text-body-2 text-sm-body-2 text-md-body-1 text-lg-body-1 text-xl-body-1 mb-2"
             >
-              Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean
-              commodo ligula eget dolor. Aenean massa. Cum sociis natoque
-              penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-              Donec quam felis, ultricies nec, pellentesque eu, pretium quis,
-              sem. Nulla consequat massa quis enim. Donec pede justo, fringilla
-              vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut,
-              imperdiet a
-            </p>
-          </v-col>
+              La clínica dental Marrero fue creada en Las Palmas de Gran Canaria
+              en el año 1997 por el Dr. Juan Marrero. Contamos con los últimos
+              avances tecnológicos, entre los que se incluyen invisalign,
+              radiografías 3D...
+            </p></v-col
+          >
+
           <v-col class="white--text text-center" cols="12" md="6" xl="12">
             <v-btn color="white" fab outlined @click="$vuetify.goTo('#team')">
               <v-icon>mdi-chevron-double-down</v-icon>

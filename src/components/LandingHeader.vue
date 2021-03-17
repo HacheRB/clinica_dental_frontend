@@ -66,7 +66,9 @@
           </a>
         </v-list-item-group>
       </v-list>
-      <Login class="d-flex d-sm-none px-0" />
+      <div class="ml-4">
+        <Login class="d-flex d-sm-none px-0" />
+      </div>
     </v-navigation-drawer>
   </v-container>
 </template>
