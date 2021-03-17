@@ -2,34 +2,6 @@
   <v-card color="#B2DFDB" height="500px">
     <v-card-title class="headline teal--text">
       <strong>Historial</strong>
-    </v-card-title>
-    <v-divider></v-divider>
-    <v-card-text>
-      <div class="font-weight-bold ml-8 mb-2">
-        Hoy
-      </div>
-
-      <v-timeline align-top dense>
-        <v-timeline-item
-          v-for="treatment in finishedTreatments"
-          :key="treatment.time"
-          :color="treatment.color"
-          small
-        >
-          <div>
-            <div class="font-weight-medium">
-              {{ treatment.from }}
-            </div>
-            <div>{{ treatment.time }}</div>
-            <div>
-              <strong>{{ treatment.message }}</strong>
-            </div>
-          </div>
-        </v-timeline-item>
-      </v-timeline>
-    </v-card-text>
-
-    <v-card-actions>
       <v-spacer></v-spacer>
       <router-link
         :to="{
@@ -37,10 +9,39 @@
           params: { patientId: this.$route.params.patientId }
         }"
       >
-        <v-btn color="teal darken-2 white--text mb-2">
-          Ver mas
+        <v-btn color="teal darken-2 white--text">
+          Ver más
         </v-btn>
       </router-link>
+    </v-card-title>
+    <v-divider></v-divider>
+    <v-card-text>
+      <v-col class="d-flex justify-center">
+        <v-timeline align-top dense reverse>
+          <v-timeline-item
+            v-for="treatment in finishedTreatments"
+            :key="treatment.time"
+            :color="treatment.color"
+            small
+          >
+            <div>
+              <div class="font-weight-medium">
+                <strong>{{ treatment.message }}</strong>
+              </div>
+              <div>{{ treatment.time }}</div>
+              <div>
+                <strong>
+                  {{ treatment.from }}
+                </strong>
+              </div>
+            </div>
+          </v-timeline-item>
+        </v-timeline>
+      </v-col>
+    </v-card-text>
+
+    <v-card-actions>
+      <v-spacer></v-spacer>
     </v-card-actions>
   </v-card>
 </template>

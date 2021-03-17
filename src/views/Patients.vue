@@ -1,6 +1,6 @@
 <template>
   <v-container fluid pa-5>
-    <v-row class="ma-xs-0 ma-md-5">
+    <v-row class="ma-xs-0 ma-sm-0 ma-md-5">
       <v-col cols="12" sm="6" lg="3" class="d-flex justify-start align-center">
         <v-text-field
           color="teal lighten-2"
@@ -22,7 +22,7 @@
         <CreatePatient></CreatePatient>
       </v-col>
     </v-row>
-    <v-row class="ma-xs-0 ma-md-5">
+    <v-row class="ma-xs-0 ma-sm-0 ma-md-5">
       <v-col>
         <v-card>
           <v-card-title class="teal--text">

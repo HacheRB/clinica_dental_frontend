@@ -1,13 +1,14 @@
 <template>
-  <v-container fluid class="patient-medical-history-container" px-16>
-    <v-row class="d-flex justify-center">
-      <v-col cols="6" class="d-flex align-center mt-5 pl-0">
+  <v-container fluid class="patient-medical-history-container" pa-5>
+    <v-row class="ma-xs-0 ma-sm-0 ma-md-5">
+      <v-col cols="12" md="6" class="d-flex align-center mt-5 pl-0">
         <v-breadcrumbs large divider="/" :items="items" class="pl-0" />
       </v-col>
-      <v-col cols="6" class="d-flex align-center mt-5 pr-0">
+      <v-col cols="12" md="6" class="d-flex align-center mt-5 pr-0">
         <v-text-field
           append-icon="mdi-magnify"
           label="Busca un tratamiento"
+          color="teal lighten-1"
           v-model="search"
           @keyup="getPatientTreatmentsByQuery"
         >
@@ -15,7 +16,7 @@
       </v-col>
     </v-row>
 
-    <v-row class="d-flex justify-center">
+    <v-row class="d-flex justify-center ma-xs-0 ma-sm-0 ma-md-5">
       <v-col class="history-row rounded" cols="12">
         <v-expansion-panels>
           <v-expansion-panel
@@ -101,7 +102,7 @@ export default {
       medicalHistory: [],
       search: '',
       selectedAppointment: null,
-      items: null
+      items: []
     }
   },
   async created() {
@@ -130,7 +131,7 @@ export default {
               disabled: false,
               href: `/patients/${this.patientId}`
             },
-            { text: 'Hitoria Clínica', disabled: true, href: '' }
+            { text: 'Historia Clínica', disabled: true, href: '' }
           ]
         })
         .catch(err => console.log(err))

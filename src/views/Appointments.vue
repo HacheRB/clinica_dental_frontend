@@ -47,9 +47,10 @@
             @click:row="sendAppointment"
           >
             <template v-slot:item.action="{ item }">
-              <v-btn @click.stop="deleteAppointment(item)" icon>
-                <v-icon>mdi-delete</v-icon>
-              </v-btn>
+              <DeleteAppointmentDialog
+                :item="item"
+                @deleteappointment="getAppointments"
+              />
             </template>
           </v-data-table>
         </v-card>
@@ -65,11 +66,13 @@
 <script>
 import AppointmentService from '../services/appointmentService'
 import AppointmentInfo from '../components/AppointmentInfo'
+import DeleteAppointmentDialog from '../components/DeleteAppointmentDialog'
 
 export default {
   name: 'Appointments',
   components: {
-    AppointmentInfo
+    AppointmentInfo,
+    DeleteAppointmentDialog
   },
   data: () => ({
     appointments: [],
@@ -134,15 +137,6 @@ export default {
     sendAppointment: function(appointment) {
       this.selectedAppointment = appointment
       console.log(this.selectedAppointment)
-    },
-    deleteAppointment: function(appointment) {
-      console.log(appointment)
-      AppointmentService.deleteAppointment(appointment)
-        .then(response => {
-          console.log(response.data)
-          this.getAppointments()
-        })
-        .catch(err => console.log(err))
     },
     doSearch: function() {
       console.log(

@@ -85,7 +85,9 @@
                 </v-row>
               </v-container>
             </v-form>
-            <small>*indica campos requeridos</small>
+            <small class="ml-5 text--secondary"
+              >* indica campos requeridos</small
+            >
           </v-card-text>
           <v-card-actions class="d-flex justify-center">
             <v-btn
@@ -119,19 +121,20 @@ export default {
         'Pedir Cita'
       ],
       fullNameRules: [
-        v => !!v || 'First name is required',
-        v => v.length <= 30 || 'First name must be less than 30 characters'
+        v => !!v || 'Introduzca su nombre',
+        v => v.length <= 30 || 'Máximo 30 caracteres'
       ],
       emailRules: [
-        v => !!v || 'E-mail is required',
+        v => !!v || 'Introduzca su email',
         v =>
           /(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1, 3}\.[0-9]{1, 3}\.[0-9]{1, 3}\.[0-9]{1, 3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))/.test(
             v
-          ) || 'E-mail must be valid'
+          ) || 'Introduzca un email válido'
       ],
       phoneRules: [
-        v => !!v || 'Mobilephone is required',
-        v => /^[679][0-9]{8}$/.test(v) || 'Mobilephone must be valid'
+        v => !!v || 'Introduzca un teléfono de contacto',
+        v =>
+          /^[679][0-9]{8}$/.test(v) || 'Introduzca un número de teléfono válido'
       ],
       methods: {
         sendForm() {
@@ -139,7 +142,7 @@ export default {
             console.log('no pasa las validaciones')
             return
           }
-          console.log('Se envia el formulario')
+          console.log('Se envía el formulario')
         }
       }
     }
