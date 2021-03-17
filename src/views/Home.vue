@@ -49,10 +49,20 @@
           v-model="cleaning"
         ></v-checkbox>
       </v-col>
+      <v-snackbar v-model="snackbar" :timeout="5000" top right>
+        La cita ha sido guardada correctamente
+
+        <template v-slot:action="{ attrs }">
+          <v-btn color="teal" text v-bind="attrs" @click="snackbar = false">
+            Cerrar
+          </v-btn>
+        </template>
+      </v-snackbar>
       <Calendar
         :cols="calendarCols"
         :showThis="selectedEmployees"
         :cleaning="cleaning"
+        :autoUpdate="autoUpdate"
         @getappointment="getSelectedAppointment"
       />
       <v-col
@@ -115,8 +125,16 @@ export default {
       isUpdating: false,
       autoUpdate: true,
       selectedEmployees: [],
-      selectedAppointment: null
+      selectedAppointment: null,
+      snackbar: false
     }
+  },
+
+  mounted() {
+    this.$root.$on('updateCalendar', () => {
+      this.snackbar = true
+      this.toggleAppointmentForm()
+    })
   },
   methods: {
     toggleAppointmentForm() {

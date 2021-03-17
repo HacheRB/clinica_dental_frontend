@@ -138,20 +138,6 @@
             >
               Continuar
             </v-btn>
-            <v-snackbar v-model="snackbar" :timeout="5000" top right>
-              La cita ha sido guardada correctamente
-
-              <template v-slot:action="{ attrs }">
-                <v-btn
-                  color="teal"
-                  text
-                  v-bind="attrs"
-                  @click="snackbar = false"
-                >
-                  Cerrar
-                </v-btn>
-              </template>
-            </v-snackbar>
           </v-col>
         </v-row>
       </v-stepper-content>
@@ -189,8 +175,7 @@ export default {
       dateEnd: null,
       details: {},
       newTreatment: false,
-      assignedEmployeesId: [],
-      snackbar: false
+      assignedEmployeesId: []
     }
   },
   props: { employees: Array, patientNext: Object },
@@ -205,8 +190,6 @@ export default {
       this.dateEnd = dateEnd
     },
     updateTreatment(intervention, subIntervention, newTreatment) {
-      console.log('treatment', intervention)
-      console.log('newTreatment', newTreatment)
       this.intervention = intervention
       this.subIntervention = subIntervention
       this.newTreatment = newTreatment
@@ -256,9 +239,8 @@ export default {
         intervention: intervention,
         treatmentId: treatmentId
       })
-        .then(appointment => {
-          console.log(appointment)
-          this.snackbar = true
+        .then(() => {
+          this.$root.$emit('updateCalendar')
         })
         .catch(err => {
           console.log(err)

@@ -174,7 +174,7 @@
                   :dense="$vuetify.breakpoint.smAndDown"
                   v-model="confirmPassword"
                   :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-                  :type="show1 ? 'text' : 'confirmPassword'"
+                  :type="show1 ? 'text' : 'password'"
                   name="input-10-1"
                   label="Repetir Contraseña"
                   hint="Mínimo 8 caracteres"
@@ -329,7 +329,8 @@ export default {
         mobilephone: this.mobilephone,
         telephone: this.telephone,
         password: this.password,
-        color: this.colorSelected
+        color: this.colorSelected,
+        dateOfEmployment: this.date
       })
         .then(res => {
           console.log(res)

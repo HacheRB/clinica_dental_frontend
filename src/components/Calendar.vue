@@ -159,6 +159,9 @@ export default {
   },
   mounted() {
     this.$refs.calendar.checkChange()
+    this.$root.$on('updateCalendar', () => {
+      this.updateRange()
+    })
   },
   methods: {
     viewDay({ date }) {
