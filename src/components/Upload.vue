@@ -1,15 +1,21 @@
 <template>
   <v-container>
     <v-row>
-      <v-spacer> </v-spacer>
-      <v-col class="d-flex justify-end">
-        <v-btn
-          dark
-          @click="toggleFileUpload = !toggleFileUpload"
-          :color="toggleFileUpload ? 'teal darken-2' : 'secondary'"
-        >
-          {{ addFileBtn }}
-        </v-btn>
+      <v-col>
+        <v-row>
+          <v-col cols="6">
+            <strong>Imágenes</strong>
+          </v-col>
+          <v-col cols="6" class="d-flex justify-end">
+            <v-btn
+              dark
+              @click="toggleFileUpload = !toggleFileUpload"
+              :color="toggleFileUpload ? 'teal darken-2' : 'secondary'"
+            >
+              {{ addFileBtn }}
+            </v-btn>
+          </v-col>
+        </v-row>
       </v-col>
     </v-row>
 

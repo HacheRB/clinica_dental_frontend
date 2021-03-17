@@ -10,7 +10,7 @@
         <v-col cols="12" md="12" lg="4" xl="6">
           <v-card color="#B2DFDB" height="500px">
             <v-card-title class="headline teal--text">
-              <strong>{{ patient.firstName }} {{ patient.lastName }}</strong>
+              <strong>{{ firstName }} {{ lastName }}</strong>
               <v-spacer></v-spacer>
               <PatientForm
                 :patient="patient"
@@ -21,6 +21,7 @@
             <v-card-text>
               <v-row class="d-flex justify-center align-center flex-wrap">
                 <v-col cols="6" class="d-flex justify-start">
+                  <h3><strong>Nombre:</strong></h3>
                   <h4 class="ml-3">
                     <strong>{{ firstName }}</strong>
                   </h4>
@@ -205,6 +206,10 @@ export default {
           this.mobilephone = request.data.contact.mobilephone
           this.telephone = request.data.contact.telephone
           this.bloodType = request.data.bloodType
+          console.log(
+            'request.data.observations profile',
+            request.data.observations
+          )
           this.observations = request.data.observations
           this.patient = request.data
           this.items = [
