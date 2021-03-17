@@ -1,2 +1,2 @@
 /*
-  Access-Control-Allow-Origin: "https://dentalgestion.netlify.app/"
+  Access-Control-Allow-Origin: "*"
