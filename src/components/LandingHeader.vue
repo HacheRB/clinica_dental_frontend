@@ -1,12 +1,18 @@
 <template>
   <v-container id="header-container" fluid>
-    <v-app-bar color="teal darken-2" app dark fixed>
+    <v-app-bar color="teal darken-2" app dark fixed px-0>
       <v-app-bar-nav-icon
         class="d-flex d-md-none"
         @click.stop="drawer = !drawer"
       ></v-app-bar-nav-icon>
-      <a id="title-anchor" href="#header-container"
-        ><v-toolbar-title class="title">Clínica Dental</v-toolbar-title></a
+      <v-toolbar-title class="title">
+        <v-btn
+          text
+          class="d-none d-md-flex text--white"
+          @click="$vuetify.goTo('#header-container')"
+        >
+          Clínica Dental
+        </v-btn></v-toolbar-title
       >
 
       <v-spacer></v-spacer>
