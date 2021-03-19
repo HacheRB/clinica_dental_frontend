@@ -57,11 +57,22 @@ export default {
   mounted() {
     AppointmentService.getAppointmentsByPatient(this.$route.params.patientId)
       .then(appointments => {
-        this.sortByStart(appointments.data)
-
-        for (let i = 0; i < 3; i++) {
-          if (appointments.data[i]) {
-            this.formatAppointments(appointments.data[i])
+        this.appointments = []
+        if (appointments.data.length < 1) {
+          let today = new Date(Date.now())
+          this.appointments.push({
+            employees: '',
+            start: `Fecha: ${today.getFullYear()}-${today.getMonth() +
+              1}-${today.getDate()} ${today.getHours()}:${today.getMinutes()}`,
+            intervention: 'No hay proximas citas',
+            color: 'teal'
+          })
+        } else {
+          this.sortByStart(appointments.data)
+          for (let i = 0; i < 3; i++) {
+            if (appointments.data[i]) {
+              this.formatAppointments(appointments.data[i])
+            }
           }
         }
       })

@@ -26,7 +26,7 @@
         <v-file-input
           show-size
           counter
-          label="File input"
+          label="Seleccionar archivo"
           :accept="acceptedFiles"
           v-model="file"
         ></v-file-input>
@@ -61,7 +61,7 @@
           v-if="this.file !== null"
           @click="onUpload"
         >
-          Upload
+          Subir archivo
         </v-btn>
       </v-col>
     </v-row>
@@ -93,7 +93,7 @@ export default {
   },
   computed: {
     addFileBtn: function() {
-      return this.toggleFileUpload ? 'Add File' : 'Close'
+      return this.toggleFileUpload ? 'Subir archivo' : 'Cerrar'
     }
   },
   methods: {

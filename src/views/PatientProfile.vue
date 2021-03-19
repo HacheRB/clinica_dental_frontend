@@ -111,7 +111,7 @@
         </v-col>
       </v-row>
       <v-row class="ma-xs-0 ma-md-5">
-        <v-col cols="12" md="6">
+        <v-col cols="12" lg="6">
           <PatientImage
             :files="this.files"
             :totalFilesShown="4"

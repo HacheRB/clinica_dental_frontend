@@ -59,12 +59,12 @@ export default {
     },
     drawLine(x1, y1, x2, y2) {
       let ctx = this.canvas
-      ctx.beginPath()
-      ctx.strokeStyle = '#F44336'
-      ctx.lineWidth = 2
-      ctx.moveTo(x1, y1)
-      ctx.lineTo(x2, y2)
-      ctx.stroke()
+      ctx.beginPath() //inicializa la ruta de dibujo del ratón
+      ctx.strokeStyle = '#F44336' //color de la linea a dibujar
+      ctx.lineWidth = 2 //ancho de la linea a dibujar
+      ctx.moveTo(x1, y1) //especifica la ruta en el canvas(donde comieza a pintar) sin crear la linea
+      ctx.lineTo(x2, y2) // especifica hasta donde se pinta la linea a mostrar
+      ctx.stroke() //hace que se dibuje la linea definida por los metodos moveto y lineto
       ctx.closePath()
     },
     beginDrawing(e) {

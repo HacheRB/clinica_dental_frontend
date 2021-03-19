@@ -16,15 +16,13 @@
       >
 
       <v-spacer></v-spacer>
-      <a href="#team">
-        <v-btn
-          text
-          class="d-none d-md-flex text--white"
-          @click="$vuetify.goTo('#team')"
-        >
-          Equipo
-        </v-btn></a
+      <v-btn
+        text
+        class="d-none d-md-flex text--white"
+        @click="$vuetify.goTo('#team')"
       >
+        Equipo
+      </v-btn>
       <v-spacer></v-spacer>
 
       <v-btn text class="d-none d-md-flex" @click="$vuetify.goTo('#services')">

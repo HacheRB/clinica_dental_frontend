@@ -215,8 +215,8 @@ export default {
   },
   created() {
     if (Object.keys(this.employee).length) {
-      this.dialog = true
       this.changeDataProfile()
+      this.dialog = true
     }
   },
   watch: {
@@ -236,6 +236,7 @@ export default {
   },
   methods: {
     changeDataProfile() {
+      console.log('this.employee', this.employee)
       if (Object.keys(this.employee).length) {
         this.firstName = this.employee.firstName
         this.date = this.employee.dateOfEmployment

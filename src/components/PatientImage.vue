@@ -18,6 +18,7 @@
           class="d-flex child-flex image-grid justify-center"
           cols="6"
           sm="4"
+          md="3"
           lg="4"
           xl="4"
         >
