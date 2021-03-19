@@ -16,7 +16,7 @@
         cols="12"
         sm="6"
         md="6"
-        lg="6"
+        lg="3"
         min-height="100vh"
       >
         <v-card
@@ -52,20 +52,18 @@ export default {
     return {
       employees: [
         {
-          name: 'Maria Rivero',
+          name: 'Ana Marrero',
           title: 'Odontóloga',
           img:
             'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1650&q=80',
-          description:
-            'Licenciada en odontología por la universidad de Las Palmas de Gran Canaria y con más de 15 años de experiencia. Especialista en ortodoncias.'
+          description: 'Licenciada en odontología por la ULPGC.'
         },
         {
           name: 'Juan Marrero',
           title: 'Odontólogo',
           img:
             'https://images.unsplash.com/photo-1567568443997-19f025355d52?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80',
-          description:
-            'Licenciado en odontología por la universidad de La Laguna, Canaria y con más de 20 años de experiencia. Especialista en prótesis.'
+          description: 'Licenciado en odontología por la ULL.'
         },
         {
           name: 'Juan Betancourt',
