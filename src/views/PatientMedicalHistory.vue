@@ -153,7 +153,7 @@ export default {
     sortByDate(treatments) {
       this.medicalHistory = treatments.sort(function(a, b) {
         return (
-          new Date(a.appointments[0].start) - new Date(b.appointments[0].start)
+          new Date(b.appointments[0].start) - new Date(a.appointments[0].start)
         )
       })
     }

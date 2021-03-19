@@ -16,7 +16,7 @@
         cols="12"
         sm="6"
         md="6"
-        lg="3"
+        lg="6"
         min-height="100vh"
       >
         <v-card
@@ -26,8 +26,8 @@
         >
           <v-img
             class="rounded-circle"
-            height="200px"
-            width="200px"
+            height="200"
+            width="200"
             hover
             :src="employee.img"
           ></v-img>
