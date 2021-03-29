@@ -1,56 +1,67 @@
 <template>
-  <v-app>
-    <v-app-bar app color="primary" dark>
-      <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
+  <v-app class="app">
+    <v-container fluid>
+      <!-- landing header tenia class="pb-8 pb-md-10" -->
+      <LandingHeader v-if="this.$route.path === '/'" />
+      <v-main class="pt-0">
+        <SideBar v-if="!(this.$route.path === '/')" @sendme="sendMe" />
+        <v-container fluid class="app-container px-0">
+          <router-view />
+        </v-container>
+        <BottomBar
+          v-if="
+            this.$vuetify.breakpoint.smAndDown && !(this.$route.path === '/')
+          "
         />
-
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
-      </div>
-
-      <v-spacer></v-spacer>
-
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
-    </v-app-bar>
-
-    <v-main>
-      <HelloWorld />
-    </v-main>
+      </v-main>
+      <LandingFooter v-if="this.$route.path === '/'" />
+      <EmployeeProfile :employee="me" @closedialog="resetMe" />
+    </v-container>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld";
+import SideBar from './components/SideBar'
+import BottomBar from './components/BottomBar'
+import EmployeeProfile from './components/EmployeeProfile'
+
+import LandingHeader from './components/LandingHeader'
+import LandingFooter from './components/LandingFooter'
 
 export default {
-  name: "App",
-
+  name: 'App',
   components: {
-    HelloWorld
+    SideBar,
+    BottomBar,
+    EmployeeProfile,
+    LandingHeader,
+    LandingFooter
   },
 
   data: () => ({
-    //
-  })
-};
+    me: {}
+  }),
+
+  methods: {
+    sendMe: function(me) {
+      this.me = me
+    },
+    resetMe: function() {
+      this.me = {}
+    }
+  }
+}
 </script>
+
+<style lang="scss" scoped>
+* {
+  padding: 0;
+  margin: 0;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+</style>
